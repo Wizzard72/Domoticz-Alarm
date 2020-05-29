@@ -22,6 +22,7 @@
                 <option label="6" value="6"/>
                 <option label="7" value="7"/>
             </options>
+        </param>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="None" value="0"  default="true" />
@@ -32,6 +33,7 @@
                 <option label="Connections+Queue" value="144"/>
                 <option label="All" value="-1"/>
             </options>
+        </param>
     </params>
 </plugin>
 """
