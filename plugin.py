@@ -3,7 +3,7 @@
 # Author: Wizzard72
 #
 """
-<plugin key="UnifiPresence" name="Unifi Presence" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Unifi-Presence">
+<plugin key="Alarm" name="Alarm" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Unifi Presence Detection plugin</h2><br/>
         This plugin reads the Unifi Controller information such as the sensors on the Unifi Gateway. 
@@ -12,6 +12,26 @@
 
     </description>
     <params>
+        <param field="Mode1" label="Total amount of PIR zones:" width="75px">
+            <options>
+                <option label="1" value="1"  default="true" />
+                <option label="2" value="2"/>
+                <option label="3" value="3"/>
+                <option label="4" value="4"/>
+                <option label="5" value="5"/>
+                <option label="6" value="6"/>
+                <option label="7" value="7"/>
+            </options>
+        <param field="Mode6" label="Debug" width="75px">
+            <options>
+                <option label="None" value="0"  default="true" />
+                <option label="Python Only" value="2"/>
+                <option label="Basic Debugging" value="62"/>
+                <option label="Basic+Messages" value="126"/>
+                <option label="Connections Only" value="16"/>
+                <option label="Connections+Queue" value="144"/>
+                <option label="All" value="-1"/>
+            </options>
     </params>
 </plugin>
 """
@@ -23,6 +43,41 @@ import time
 
 
 class BasePlugin:
+    ALARM_MAIN_UNIT = 0
+    ALARM_ARMING_MODE_UNIT = 5
+    ALARM_ARMING_STATUS_UNIT - 10
+    ALARM_PIR_Zone_UNIT = 20
+    
+    # create devices
+    if (self.ALARM_MAIN_UNIT not in Devices):
+        Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch").Create()
+        UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+    
+    if (self.ALARM_ARMING_MODE_UNIT not in Devices):
+        Options = {"LevelActions": "||||",
+                   "LevelNames": "Off|1 hour|2 hours|3 hours|On",
+                   "LevelOffHidden": "false",
+                   "SelectorStyle": "0"}
+        Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=Images['UnifiPresenceOverride'].ID).Create()
+        Domoticz.Device(Name="Arming Mode",  Unit=self.ALARM_ARMING_MODE_UNIT, Used=1, TypeName="Switch").Create()
+        UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "Off")
+    
+    if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
+        Options = {"LevelActions": "||||",
+                   "LevelNames": "Disarmed|Armed Home|Armed Away",
+                   "LevelOffHidden": "false",
+                   "SelectorStyle": "0"}
+        Domoticz.Device(Name="Arming Status",  Unit=self.ALARM_ARMING_STATUS_UNIT, Used=1, TypeName="Switch").Create()
+        UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "Off")
+    
+    
+    if (self.ALARM_PIR_Zone_UNIT not in Devices):
+        Options = {"LevelActions": "||||",
+                   "LevelNames": "Off|1 hour|2 hours|3 hours|On",
+                   "LevelOffHidden": "false",
+                   "SelectorStyle": "0"}
+        Domoticz.Device(Name="OverRide", Unit=self.UNIFI_OVERRIDE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=Images['UnifiPresenceOverride'].ID).Create()
+        UpdateDevice(self.UNIFI_OVERRIDE_UNIT, 0, "0")
 
     
     def __init__(self):
