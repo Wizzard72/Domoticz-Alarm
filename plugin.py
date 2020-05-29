@@ -155,14 +155,15 @@ class BasePlugin:
             node = APIjson["result"]
         except:
             node = []
-        if int(node["secstatus"]) == 0:
-            Domoticz.Log("Security State = Disarmed")
-        elif int(node["secstatus"]) == 1:
-            Domoticz.Log("Security State = Arm Home")
-        elif int(node["secstatus"]) == 2:
-            Domoticz.Log("Security State = Arm Away")
-        elif int(node["secstatus"]) == 3:
-            Domoticz.Log("Security State = Unknown")
+        Domoticz.Log("APIjson = "+node)
+        #if int(node["secstatus"]) == 0:
+        #    Domoticz.Log("Security State = Disarmed")
+        #elif int(node["secstatus"]) == 1:
+        #    Domoticz.Log("Security State = Arm Home")
+        #elif int(node["secstatus"]) == 2:
+        #    Domoticz.Log("Security State = Arm Away")
+        #elif int(node["secstatus"]) == 3:
+        #    Domoticz.Log("Security State = Unknown")
 
         
 def DomoticzAPI(APICall):
