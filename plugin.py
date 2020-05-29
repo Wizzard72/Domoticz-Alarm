@@ -145,7 +145,7 @@ class BasePlugin:
         except:
             nodes = []
             
-    def getSecurityState(self)
+    def getSecurityState(self):
         APIjson = self.DomoticzAPI("type=command&param=getsecstatus")
         #/json.htm?type=command&param=getsecstatus
         if node["secstatus"] == 0:
