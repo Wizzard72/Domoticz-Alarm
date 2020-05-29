@@ -172,7 +172,7 @@ def DomoticzAPI(APICall):
     resultJson = None
     url = "http://{}:{}/json.htm?{}".format(Parameters["Address"], Parameters["Port"], parse.quote(APICall, safe="&="))
     Domoticz.Log("Calling domoticz API: {}".format(url))
-    try:
+    #try:
         req = request.Request(url)
         if Parameters["Username"] != "":
             Domoticz.Log("Add authentification for user {}".format(Parameters["Username"]))
@@ -189,8 +189,8 @@ def DomoticzAPI(APICall):
                 resultJson = None
         else:
             Domoticz.Error("Domoticz API: http error = {}".format(response.status))
-    except:
-        Domoticz.Error("Error calling '{}'".format(url))
+    #except:
+    #    Domoticz.Error("Error calling '{}'".format(url))
     return resultJson
 
         
