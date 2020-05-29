@@ -151,6 +151,10 @@ class BasePlugin:
     def getSecurityState(self):
         APIjson = DomoticzAPI("type=command&param=getsecstatus".format(4))
         #/json.htm?type=command&param=getsecstatus
+        try:
+            node = APIjson["result"]
+        except:
+            node = []
         if node["secstatus"] == 0:
             Domoticz.Log("Security State = Disarmed")
         elif node["secstatus"] == 1:
