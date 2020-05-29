@@ -191,12 +191,12 @@ def DomoticzAPI(APICall):
         if response.status == 200:
             resultJson = json.loads(response.read().decode('utf-8'))
             if resultJson["status"] != "OK":
-                Domoticz.Error("Domoticz API returned an error: status = {}".format(resultJson["status"]))
+                Domoticz.Error("1Domoticz API returned an error: status = {}".format(resultJson["status"]))
                 resultJson = None
         else:
-            Domoticz.Error("Domoticz API: http error = {}".format(response.status))
+            Domoticz.Error("2Domoticz API: http error = {}".format(response.status))
     except:
-        Domoticz.Error("Error calling '{}'".format(url))
+        Domoticz.Error("3Error calling '{}'".format(url))
     return resultJson
 
         
