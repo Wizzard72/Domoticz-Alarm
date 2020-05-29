@@ -146,7 +146,7 @@ class BasePlugin:
         Domoticz.Debug(strName+"called")
         
     def pollZoneDevices(self):
-        /json.htm?type=devices&rid=IDX
+        #/json.htm?type=devices&rid=IDX
         APIjson = DomoticzAPI("type=devices&rid=20")
         try:
             nodes = APIjson["result"]
