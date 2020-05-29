@@ -70,7 +70,7 @@ class BasePlugin:
         # create devices
         if (self.ALARM_MAIN_UNIT not in Devices):
             Domoticz.Log("TESTTTT")
-            Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=8).Create()
+            Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=9).Create()
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
     
         if (self.ALARM_ARMING_MODE_UNIT not in Devices):
@@ -86,7 +86,7 @@ class BasePlugin:
                        "LevelNames": "Normal|Arming|Tripped|Timed Out|Alert|Error",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
-            Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options).Create()
+            Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
             UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
 
 
