@@ -70,7 +70,7 @@ class BasePlugin:
         # create devices
         if (self.ALARM_MAIN_UNIT not in Devices):
             Domoticz.Log("TESTTTT")
-            Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=3).Create()
+            Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=4).Create()
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
     
         if (self.ALARM_ARMING_MODE_UNIT not in Devices):
