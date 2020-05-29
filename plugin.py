@@ -146,7 +146,7 @@ class BasePlugin:
             nodes = []
             
     def getSecurityState(self):
-        APIjson = DomoticzAPI("type=command&param=getsecstatus")
+        APIjson = DomoticzAPI("type=command&param=getsecstatus".format(Parameters["Mode5"]))
         #/json.htm?type=command&param=getsecstatus
         if node["secstatus"] == 0:
             Domoticz.Log("Security State = Disarmed")
@@ -165,7 +165,7 @@ class BasePlugin:
         try:
             req = request.Request(url)
             if Parameters["Username"] != "":
-                Domoticz.Log("Add authentification for user {}".format(Parameters["Username"]))
+                Domoticz.Log("Add authentification for user {}".format(4)
                 credentials = ('%s:%s' % (Parameters["Username"], Parameters["Password"]))
                 encoded_credentials = base64.b64encode(credentials.encode('ascii'))
                 req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
