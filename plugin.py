@@ -181,6 +181,7 @@ def DomoticzAPI(APICall):
             req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
 
         response = request.urlopen(req)
+        Domoticz.Log("Response status = "+response.status)
         if response.status == 200:
             resultJson = json.loads(response.read().decode('utf-8'))
             if resultJson["status"] != "OK":
