@@ -98,16 +98,7 @@ class BasePlugin:
         # table:
         # ZONE_Name | State | Changed | Time | Refresh
         # Matrix[0][0] = 1
-        
-        for zones in int(Parameters["Mode1"]):
-            zone_name = "ALARM Zone" + zones
-            
-            
-            
-            if (self.ALARM_PIR_Zone_UNIT not in Devices):
-                Domoticz.Log("TESTTTT")
-                Domoticz.Device(Name="ALARM PIR Zone "+zones,  Unit=self.ALARM_PIR_Zone_UNIT, Used=1, TypeName="Dimmer", Image=13).Create()
-                UpdateDevice(self.ALARM_PIR_Zone_UNIT, 0, "Off")
+
 
     def onStop(self):
         strName = "onStop: "
