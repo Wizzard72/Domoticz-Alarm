@@ -22,6 +22,7 @@
                 <option label="7" value="7"/>
             </options>
         </param>
+        <param field="Mode2" label="Zone devices" width="600px" required="true" default="Zone1=idx,idc,idc;Zone2=idx,idx,idx"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="None" value="0"  default="true" />
@@ -89,10 +90,24 @@ class BasePlugin:
             Domoticz.Device(Name="Arming Status", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
             UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
 
-        if (self.ALARM_PIR_Zone_UNIT not in Devices):
-            Domoticz.Log("TESTTTT")
-            Domoticz.Device(Name="ALARM PIR Zone",  Unit=self.ALARM_PIR_Zone_UNIT, Used=1, TypeName="Group", Image=13).Create()
-            UpdateDevice(self.ALARM_PIR_Zone_UNIT, 0, "Off")
+        # Create table
+        device_mac=Parameters["Mode2"].split(",")
+        device_extra=Parameters["Mode3"].split(",")
+        w, h = 5, int(Parameters["Mode1"]);
+        self.Matrix = [[0 for x in range(w)] for y in range(h)] 
+        # table:
+        # ZONE_Name | State | Changed | Time | Refresh
+        # Matrix[0][0] = 1
+        
+        for zones in int(Parameters["Mode1"]):
+            zone_name = "ALARM Zone" + zones
+            
+            
+            
+            if (self.ALARM_PIR_Zone_UNIT not in Devices):
+                Domoticz.Log("TESTTTT")
+                Domoticz.Device(Name="ALARM PIR Zone "+zones,  Unit=self.ALARM_PIR_Zone_UNIT, Used=1, TypeName="Dimmer", Image=13).Create()
+                UpdateDevice(self.ALARM_PIR_Zone_UNIT, 0, "Off")
 
     def onStop(self):
         strName = "onStop: "
@@ -221,3 +236,9 @@ def DumpConfigToLog():
         Domoticz.Debug(strName+"Device sValue:   '" + Devices[x].sValue + "'")
         Domoticz.Debug(strName+"Device LastLevel: " + str(Devices[x].LastLevel))
     return
+
+def find_available_unit():
+    for num in range(51,200):
+        if num not in Devices:
+            return num
+    return None
