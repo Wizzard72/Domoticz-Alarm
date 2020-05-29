@@ -175,7 +175,7 @@ def DomoticzAPI(APICall):
     try:
         req = request.Request(url)
         if Parameters["Username"] != "":
-            Domoticz.Debug("Add authentification for user {}".format(Parameters["Username"]))
+            Domoticz.Log("Add authentification for user {}".format(Parameters["Username"]))
             credentials = ('%s:%s' % (Parameters["Username"], Parameters["Password"]))
             encoded_credentials = base64.b64encode(credentials.encode('ascii'))
             req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
