@@ -155,7 +155,9 @@ class BasePlugin:
             node = APIjson["result"]
         except:
             node = []
-        Domoticz.Log("APIjson = "+node)
+        
+        for i in node:
+            Domoticz.Log("APIjson = "+node[i])
         #if int(node["secstatus"]) == 0:
         #    Domoticz.Log("Security State = Disarmed")
         #elif int(node["secstatus"]) == 1:
