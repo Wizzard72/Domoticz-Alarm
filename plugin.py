@@ -89,6 +89,10 @@ class BasePlugin:
             Domoticz.Device(Name="Arming Status", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
             UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
 
+        if (self.ALARM_PIR_Zone_UNIT not in Devices):
+            Domoticz.Log("TESTTTT")
+            Domoticz.Device(Name="ALARM",  Unit=self.ALARM_PIR_Zone_UNIT, Used=1, TypeName="Group", Image=13).Create()
+            UpdateDevice(self.ALARM_PIR_Zone_UNIT, 0, "Off")
 
     def onStop(self):
         strName = "onStop: "
