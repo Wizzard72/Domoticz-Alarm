@@ -50,6 +50,7 @@ import urllib
 from datetime import datetime
 import time
 import urllib.parse as parse
+import base64
 
 
 class BasePlugin:
