@@ -39,6 +39,9 @@
 import Domoticz
 import socket
 import json
+import re
+import requests
+import urllib
 from datetime import datetime
 import time
 
