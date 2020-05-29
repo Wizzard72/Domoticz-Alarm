@@ -36,7 +36,7 @@
     </params>
 </plugin>
 """
-import Domoticz
+#import Domoticz
 #import socket
 #import json
 #from datetime import datetime
