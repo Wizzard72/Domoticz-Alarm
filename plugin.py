@@ -5,9 +5,8 @@
 """
 <plugin key="Alarm" name="Alarm" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
-        <h2>Unifi Presence Detection plugin</h2><br/>
-        This plugin reads the Unifi Controller information such as the sensors on the Unifi Gateway. 
-        Beside this it checks the presence of phone(s) and it is possible to add extra devices for example Geo Fencing.
+        <h2>Alarm plugin</h2><br/>
+        
         
 
     </description>
@@ -38,10 +37,10 @@
 </plugin>
 """
 import Domoticz
-import socket
-import json
-from datetime import datetime
-import time
+#import socket
+#import json
+#from datetime import datetime
+#import time
 
 
 class BasePlugin:
