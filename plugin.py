@@ -135,6 +135,7 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
+        pollZoneDevices()
         
     def pollZoneDevices(self):
         #/json.htm?type=devices&rid=IDX
