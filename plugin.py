@@ -36,11 +36,11 @@
     </params>
 </plugin>
 """
-#import Domoticz
-#import socket
-#import json
-#from datetime import datetime
-#import time
+import Domoticz
+import socket
+import json
+from datetime import datetime
+import time
 
 
 class BasePlugin:
