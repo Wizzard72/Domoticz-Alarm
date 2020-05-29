@@ -53,9 +53,9 @@ class BasePlugin:
     ALARM_PIR_Zone_UNIT = 20
     
     # create devices
-    #if (self.ALARM_MAIN_UNIT not in Devices):
-    #    Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch").Create()
-    #    UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+    if (self.ALARM_MAIN_UNIT not in Devices):
+        Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch").Create()
+        UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
     
     #if (self.ALARM_ARMING_MODE_UNIT not in Devices):
     #    Options = {"LevelActions": "||||",
