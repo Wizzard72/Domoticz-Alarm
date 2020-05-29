@@ -135,7 +135,7 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
-        self.pollZoneDevices()
+        self.getSecurityState()
         
     def pollZoneDevices(self):
         #/json.htm?type=devices&rid=IDX
@@ -144,6 +144,19 @@ class BasePlugin:
             nodes = APIjson["result"]
         except:
             nodes = []
+            
+    def getSecurityState(self)
+        APIjson = self.DomoticzAPI("type=command&param=getsecstatus")
+        #/json.htm?type=command&param=getsecstatus
+        if node["secstatus"] == 0:
+            Domoticz.Log("Security State = Disarmed")
+        elif node["secstatus"] == 1:
+            Domoticz.Log("Security State = Arm Home")
+        elif node["secstatus"] == 2:
+            Domoticz.Log("Security State = Arm Away")
+        elif node["secstatus"] == 3:
+            Domoticz.Log("Security State = Unknown")
+
         
     def DomoticzAPI(APICall):
         resultJson = None
