@@ -52,27 +52,7 @@ class BasePlugin:
     ALARM_ARMING_STATUS_UNIT = 10
     ALARM_PIR_Zone_UNIT = 20
     
-    # create devices
-    if (self.ALARM_MAIN_UNIT not in Devices):
-        Domoticz.Log("TESTTTT")
-        #Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch").Create()
-        #UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
     
-    #if (self.ALARM_ARMING_MODE_UNIT not in Devices):
-    #    Options = {"LevelActions": "||||",
-    #               "LevelNames": "Disarmed|Armed Home|Armed Away",
-    #               "LevelOffHidden": "false",
-    #               "SelectorStyle": "0"}
-    #    Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options).Create()
-    #    UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
-    
-    #if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
-    #    Options = {"LevelActions": "||||",
-    #               "LevelNames": "Normal|Arming|Tripped|Timed Out|Alert|Error",
-    #               "LevelOffHidden": "false",
-    #               "SelectorStyle": "0"}
-    #    Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options).Create()
-    #    UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
     
     
     def __init__(self):
@@ -85,7 +65,29 @@ class BasePlugin:
         if (Parameters["Mode6"] != "0"):
             Domoticz.Debugging(int(Parameters["Mode6"]))
         else:
-            Domoticz.Debugging(0)       
+            Domoticz.Debugging(0)
+        
+        # create devices
+        if (self.ALARM_MAIN_UNIT not in Devices):
+            Domoticz.Log("TESTTTT")
+            Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch").Create()
+            UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+    
+        if (self.ALARM_ARMING_MODE_UNIT not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "Disarmed|Armed Home|Armed Away",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "0"}
+            Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options).Create()
+            UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
+    
+        if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "Normal|Arming|Tripped|Timed Out|Alert|Error",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "0"}
+            Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options).Create()
+            UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
 
 
     def onStop(self):
