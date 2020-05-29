@@ -161,11 +161,11 @@ class BasePlugin:
     def DomoticzAPI(APICall):
         resultJson = None
         url = "http://{}:{}/json.htm?{}".format(Parameters["Address"], Parameters["Port"], parse.quote(APICall, safe="&="))
-        Domoticz.Debug("Calling domoticz API: {}".format(url))
+        Domoticz.Log("Calling domoticz API: {}".format(url))
         try:
             req = request.Request(url)
             if Parameters["Username"] != "":
-                Domoticz.Debug("Add authentification for user {}".format(Parameters["Username"]))
+                Domoticz.Log("Add authentification for user {}".format(Parameters["Username"]))
                 credentials = ('%s:%s' % (Parameters["Username"], Parameters["Password"]))
                 encoded_credentials = base64.b64encode(credentials.encode('ascii'))
                 req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
