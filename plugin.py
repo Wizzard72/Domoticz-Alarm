@@ -155,7 +155,7 @@ class BasePlugin:
             nodes = []
             
     def getSecurityState(self):
-        APIjson = DomoticzAPI("type=command&param=getsecstatus".format(4))
+        APIjson = DomoticzAPI("type=command&param=getsecstatus")
         #/json.htm?type=command&param=getsecstatus
         try:
             node = APIjson["result"]
