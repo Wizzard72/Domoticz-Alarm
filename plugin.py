@@ -91,7 +91,7 @@ class BasePlugin:
 
         if (self.ALARM_PIR_Zone_UNIT not in Devices):
             Domoticz.Log("TESTTTT")
-            Domoticz.Device(Name="ALARM",  Unit=self.ALARM_PIR_Zone_UNIT, Used=1, TypeName="Group", Image=13).Create()
+            Domoticz.Device(Name="ALARM PIR Zone",  Unit=self.ALARM_PIR_Zone_UNIT, Used=1, TypeName="Group", Image=13).Create()
             UpdateDevice(self.ALARM_PIR_Zone_UNIT, 0, "Off")
 
     def onStop(self):
