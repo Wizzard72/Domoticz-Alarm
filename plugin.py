@@ -46,7 +46,7 @@ import Domoticz
 class BasePlugin:
     ALARM_MAIN_UNIT = 0
     ALARM_ARMING_MODE_UNIT = 5
-    ALARM_ARMING_STATUS_UNIT - 10
+    ALARM_ARMING_STATUS_UNIT = 10
     ALARM_PIR_Zone_UNIT = 20
     
     # create devices
