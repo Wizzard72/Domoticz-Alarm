@@ -139,7 +139,7 @@ class BasePlugin:
         
     def pollZoneDevices(self):
         #/json.htm?type=devices&rid=IDX
-        APIjson = DomoticzAPI("type=devices&rid=20")
+        APIjson = self.DomoticzAPI("type=devices&rid=20")
         try:
             nodes = APIjson["result"]
         except:
