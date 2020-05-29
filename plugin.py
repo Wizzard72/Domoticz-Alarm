@@ -11,6 +11,8 @@
 
     </description>
     <params>
+        <param field="Address" label="Domoticz IP Address" width="200px" required="true" default="localhost"/>
+        <param field="Port" label="Port" width="40px" required="true" default="8080"/>
         <param field="Username" label="Username" width="200px" required="false" default=""/>
         <param field="Password" label="Password" width="200px" required="false" default=""/>
         <param field="Mode1" label="Total amount of PIR zones:" width="75px">
