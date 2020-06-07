@@ -157,7 +157,7 @@ class BasePlugin:
         
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         for node in nodes:
-            Domoticz.Log(strName+"node = "+node)
+            Domoticz.Log(strName+"node = "+str(node))
             if node["Status"] == "On":
                 Domoticz.Log(strName+node["Name"]+" is Activated (On)")
             elif node["Status"] == "Off":
