@@ -156,7 +156,7 @@ class BasePlugin:
             nodes = []
         
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        i = 1
+        i = 0
         for node in nodes:
             self.Matrix[i][0] = node["Name"]
             Domoticz.Log(strName+"node = "+str(node))
