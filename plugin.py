@@ -167,10 +167,14 @@ class BasePlugin:
                 Domoticz.Log(strName+node["Name"]+" is Deactivated (Off)")
                 zoneStatus = "Off"
             self.Matrix[i][1] = node["Name"]
+            self.Matrix[i][2] = ""
+            self.Matrix[i][3] = ""
+            self.Matrix[i][4] = ""
             i = i + 1
         
         for count in range(int(Parameters["Mode1"])):
-            Domoticz.Log(strName+"Alarm = "+self.Matrix[count][0]+" | "+str(self.Matrix[count][1])+" | "+str(self.Matrix[count][2])+" | "+self.Matrix[count][3]+" | "+self.Matrix[count][4])
+            Domoticz.Log("strName+"Count = "+count)
+            #Domoticz.Log(strName+"Alarm = "+self.Matrix[count][0]+" | "+str(self.Matrix[count][1])+" | "+str(self.Matrix[count][2])+" | "+self.Matrix[count][3]+" | "+self.Matrix[count][4])
         
         #for i in nodes:
         #    Domoticz.Log("APIjson = "+nodes[i])
