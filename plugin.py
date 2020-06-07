@@ -169,6 +169,7 @@ class BasePlugin:
             self.Matrix[i][1] = node["Name"]
             i = i + 1
         
+        for count in Parameters["Mode1"]
         Domoticz.Log(strName+"Alarm = "+self.Matrix[count][0]+" | "+str(self.Matrix[count][1])+" | "+str(self.Matrix[count][2])+" | "+self.Matrix[count][3]+" | "+self.Matrix[count][4])
         
         #for i in nodes:
