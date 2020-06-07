@@ -170,20 +170,18 @@ class BasePlugin:
         APIjson = DomoticzAPI("type=command&param=getsecstatus")
         #/json.htm?type=command&param=getsecstatus
         #try:
-        nodes = APIjson["result"]
+        nodes = APIjson
         #except:
         #    nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        #for i in nodes:
-        #    Domoticz.Log("APIjson = "+nodes[i])
-        #if int(node["secstatus"]) == 0:
-        #    Domoticz.Log("Security State = Disarmed")
-        #elif int(node["secstatus"]) == 1:
-        #    Domoticz.Log("Security State = Arm Home")
-        #elif int(node["secstatus"]) == 2:
-        #    Domoticz.Log("Security State = Arm Away")
-        #elif int(node["secstatus"]) == 3:
-        #    Domoticz.Log("Security State = Unknown")
+        if nodes["secstatus"] == 0:
+            Domoticz.Log("Security State = Disarmed")
+        elif nodes["secstatus"] == 1:
+            Domoticz.Log("Security State = Arm Home")
+        elif nodes["secstatus"] == 2:
+            Domoticz.Log("Security State = Arm Away")
+        elif nodes["secstatus"] == 3:
+            Domoticz.Log("Security State = Unknown")
 
         
 def DomoticzAPI(APICall):
