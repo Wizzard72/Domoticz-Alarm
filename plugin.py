@@ -145,36 +145,37 @@ class BasePlugin:
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
         self.pollZoneDevices()
+        self.getSecurityState()
         
     def pollZoneDevices(self):
-        #/json.htm?type=devices&rid=IDX
+        strName = "pollZoneDevices - "
         APIjson = DomoticzAPI("type=scenes")
         try:
             nodes = APIjson["result"]
         except:
             nodes = []
         
-        Domoticz.Debug("APIjson = "+str(nodes))
+        Domoticz.Debug(strName+"APIjson = "+str(nodes))
         for node in nodes:
-            Domoticz.Log("Node Naam = "+node["Name"])
             if node["Status"] == "On":
-                Domoticz.Log(node["Name"]+"is Activated (On)")
+                Domoticz.Log(strName+node["Name"]+" is Activated (On)")
             elif node["Status"] == "Off":
-                Domoticz.Log(node["Name"]+"is Deactivated (Off)")
+                Domoticz.Log(strName+node["Name"]+" is Deactivated (Off)")
         
         #for i in nodes:
         #    Domoticz.Log("APIjson = "+nodes[i])
             
     def getSecurityState(self):
+        strName = "getSecurityState - "
         APIjson = DomoticzAPI("type=command&param=getsecstatus")
         #/json.htm?type=command&param=getsecstatus
         #try:
-        node = APIjson["result"]
+        nodes = APIjson["result"]
         #except:
-        #    node = []
-        
-        for i in node:
-            Domoticz.Log("APIjson = "+node[i])
+        #    nodes = []
+        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        #for i in nodes:
+        #    Domoticz.Log("APIjson = "+nodes[i])
         #if int(node["secstatus"]) == 0:
         #    Domoticz.Log("Security State = Disarmed")
         #elif int(node["secstatus"]) == 1:
