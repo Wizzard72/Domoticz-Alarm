@@ -174,7 +174,7 @@ class BasePlugin:
         
         for count in range(int(Parameters["Mode1"])):
             Domoticz.Log(strName+"Count = "+str(count))
-            #Domoticz.Log(strName+"Alarm = "+self.Matrix[count][0]+" | "+str(self.Matrix[count][1])+" | "+str(self.Matrix[count][2])+" | "+self.Matrix[count][3]+" | "+self.Matrix[count][4])
+            Domoticz.Log(strName+"Alarm = "+self.Matrix[count][0]+" | "+str(self.Matrix[count][1])+" | "+str(self.Matrix[count][2])+" | "+self.Matrix[count][3]+" | "+self.Matrix[count][4])
         
         #for i in nodes:
         #    Domoticz.Log("APIjson = "+nodes[i])
