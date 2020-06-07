@@ -212,7 +212,7 @@ class BasePlugin:
         APIjson = DomoticzAPI("type=settings")
         #type=command&param=getlightswitches
         try:
-            nodes = APIjson["result"]
+            nodes = APIjson
         except:
             nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
