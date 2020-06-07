@@ -111,7 +111,7 @@ class BasePlugin:
         # ZONE_Name | State | Changed | Time | Refresh
         # Matrix[0][0] = 1
         
-        Domoticz.Heartbeat(int(Parameters["Mode5]))
+        Domoticz.Heartbeat(int(Parameters["Mode5"]))
 
 
     def onStop(self):
