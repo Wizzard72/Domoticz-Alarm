@@ -63,7 +63,7 @@ class BasePlugin:
     ALARM_ARMING_MODE_UNIT = 5
     ALARM_ARMING_STATUS_UNIT = 10
     ALARM_PIR_Zone_UNIT = 20
-    
+    SecurityPanel = ""
     
     
     
@@ -157,6 +157,7 @@ class BasePlugin:
         
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         for node in nodes:
+            Domoticz.Log(strName+"node = "+node)
             if node["Status"] == "On":
                 Domoticz.Log(strName+node["Name"]+" is Activated (On)")
             elif node["Status"] == "Off":
@@ -169,19 +170,23 @@ class BasePlugin:
         strName = "getSecurityState - "
         APIjson = DomoticzAPI("type=command&param=getsecstatus")
         #/json.htm?type=command&param=getsecstatus
-        #try:
-        nodes = APIjson
-        #except:
-        #    nodes = []
+        try:
+            nodes = APIjson
+        except:
+            nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         if nodes["secstatus"] == 0:
             Domoticz.Log("Security State = Disarmed")
+            self.SecurityPanel = "Disarmed"
         elif nodes["secstatus"] == 1:
             Domoticz.Log("Security State = Arm Home")
+            self.SecurityPanel = "Arm Home"
         elif nodes["secstatus"] == 2:
             Domoticz.Log("Security State = Arm Away")
+            self.SecurityPanel = "Arm Away"
         elif nodes["secstatus"] == 3:
             Domoticz.Log("Security State = Unknown")
+            self.SecurityPanel = "Unknown"
 
         
 def DomoticzAPI(APICall):
