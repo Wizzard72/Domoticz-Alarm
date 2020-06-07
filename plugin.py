@@ -209,7 +209,8 @@ class BasePlugin:
     def alarmEnable(self):
         strName = "alarmEnable - "
         strName = "getSecurityState - "
-        APIjson = DomoticzAPI("type=command&param=getlightswitches")
+        APIjson = DomoticzAPI("type=devices&filter=light&used=true&order=Name")
+        #type=command&param=getlightswitches
         try:
             nodes = APIjson
         except:
