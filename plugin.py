@@ -144,7 +144,7 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
-        self.getSecurityState()
+        self.pollZoneDevices()
         
     def pollZoneDevices(self):
         #/json.htm?type=devices&rid=IDX
