@@ -67,6 +67,7 @@ class BasePlugin:
     ALARM_PIR_Zone_UNIT = 20
     SecurityPanel = ""
     anybodyHome = ""
+    secpassword = ""
     
     
     
@@ -206,9 +207,22 @@ class BasePlugin:
             Domoticz.Log("Security State = Unknown")
             self.SecurityPanel = "Unknown"
         
+    def getsecpasspword(self):
+        strName = "getsecpasspword - "
+        APIjson = DomoticzAPI("type=settings")
+        #type=command&param=getlightswitches
+        try:
+            nodes = APIjson["result"]
+        except:
+            nodes = []
+        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        if nodes["SecPassword"] != "":
+            secpassword = nodes["SecPassword"]
+        return secpassword
+        
+    
     def alarmEnable(self):
         strName = "alarmEnable - "
-        strName = "getSecurityState - "
         APIjson = DomoticzAPI("type=devices&filter=light&used=true&order=Name")
         #type=command&param=getlightswitches
         try:
@@ -222,10 +236,11 @@ class BasePlugin:
                     self.anybodyHome = "On"
                 elif node["Status"] == "Off":
                     self.anybodyHome = "Off"
+        secpassword = self.getsecpasspword()
         if self.anybodyHome == "On":
-            DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode=bfa2bea3x")
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode="+secpassword)
         elif self.anybodyHome == "Off":
-            DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode=bfa2bea3x")
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+secpassword)
 
         
 def DomoticzAPI(APICall):
