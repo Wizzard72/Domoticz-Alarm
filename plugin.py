@@ -27,6 +27,8 @@
             </options>
         </param>
         <param field="Mode2" label="Zone devices" width="600px" required="true" default="Zone1=idx,idc,idc;Zone2=idx,idx,idx"/>
+        <param field="Mode4" label="Anybody Home Device" width="200px" required="true" default="Anybody Home Device"/>
+        <param field="Mode5" label="Interval in seconds" width="200px" required="true" default="15"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="None" value="0"  default="true" />
@@ -64,6 +66,7 @@ class BasePlugin:
     ALARM_ARMING_STATUS_UNIT = 10
     ALARM_PIR_Zone_UNIT = 20
     SecurityPanel = ""
+    anybodyHome = ""
     
     
     
@@ -107,6 +110,8 @@ class BasePlugin:
         # table:
         # ZONE_Name | State | Changed | Time | Refresh
         # Matrix[0][0] = 1
+        
+        Domoticz.Heartbeat(int(Parameters["Mode5]))
 
 
     def onStop(self):
@@ -199,6 +204,26 @@ class BasePlugin:
         elif nodes["secstatus"] == 3:
             Domoticz.Log("Security State = Unknown")
             self.SecurityPanel = "Unknown"
+        
+    def alarmEnable(self):
+        strName = "alarmEnable - "
+        strName = "getSecurityState - "
+        APIjson = DomoticzAPI("type=command&param=getlightswitches")
+        try:
+            nodes = APIjson
+        except:
+            nodes = []
+        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        for node in nodes:
+            if node["Name"] == str(Parameters["Mode4"]):
+                if node["Status"] == "On":
+                    self.anybodyHome = "On"
+                elif node["Status"] == "Off":
+                    self.anybodyHome = "Off"
+        if self.anybodyHome == "On":
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode=bfa2bea3x")
+        elif self.anybodyHome == "Off":
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode=bfa2bea3x")
 
         
 def DomoticzAPI(APICall):
