@@ -154,10 +154,13 @@ class BasePlugin:
         except:
             nodes = []
         
-        Domoticz.Log("APIjson = "+str(nodes))
+        Domoticz.Debug("APIjson = "+str(nodes))
         for node in nodes:
             Domoticz.Log("Node Naam = "+node["Name"])
-        
+            if node["Status"] == "On":
+                Domoticz.Log(node["Name"]+"is Activated (On)")
+            elif node["Status"] == "Off":
+                Domoticz.Log(node["Name"]+"is Deactivated (Off)")
         
         #for i in nodes:
         #    Domoticz.Log("APIjson = "+nodes[i])
