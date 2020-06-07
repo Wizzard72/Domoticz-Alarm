@@ -155,6 +155,10 @@ class BasePlugin:
             nodes = []
         
         Domoticz.Log("APIjson = "+str(nodes))
+        for node in nodes:
+            Domoticz.Log("Node Naam = "+node["Name"])
+        
+        
         #for i in nodes:
         #    Domoticz.Log("APIjson = "+nodes[i])
             
