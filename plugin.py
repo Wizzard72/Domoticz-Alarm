@@ -154,7 +154,7 @@ class BasePlugin:
         except:
             nodes = []
         
-        Domoticz.Log("APIjson = "+nodes)
+        Domoticz.Log("APIjson = "+str(nodes))
         #for i in nodes:
         #    Domoticz.Log("APIjson = "+nodes[i])
             
