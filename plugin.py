@@ -186,25 +186,25 @@ def DomoticzAPI(APICall):
     resultJson = None
     url = "http://{}:{}/json.htm?{}".format(Parameters["Address"], Parameters["Port"], parse.quote(APICall, safe="&="))
     Domoticz.Log("Calling domoticz API: {}".format(url))
-    #try:
-    req = request.Request(url)
-    if Parameters["Username"] != "":
-        Domoticz.Log("Add authentification for user {}".format(Parameters["Username"]))
-        credentials = ('%s:%s' % (Parameters["Username"], Parameters["Password"]))
-        encoded_credentials = base64.b64encode(credentials.encode('ascii'))
-        req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
+    try:
+        req = request.Request(url)
+        if Parameters["Username"] != "":
+            Domoticz.Log("Add authentification for user {}".format(Parameters["Username"]))
+            credentials = ('%s:%s' % (Parameters["Username"], Parameters["Password"]))
+            encoded_credentials = base64.b64encode(credentials.encode('ascii'))
+            req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
 
-    response = request.urlopen(req)
-    Domoticz.Log("Response status = "+str(response.status))
-    if response.status == 200:
-        resultJson = json.loads(response.read().decode('utf-8'))
-        if resultJson["status"] != "OK":
-            Domoticz.Error("1Domoticz API returned an error: status = {}".format(resultJson["status"]))
-            resultJson = None
-    else:
-        Domoticz.Error("2Domoticz API: http error = {}".format(response.status))
-    #except:
-    #    Domoticz.Error("3Error calling '{}'".format(url))
+        response = request.urlopen(req)
+        Domoticz.Log("Response status = "+str(response.status))
+        if response.status == 200:
+            resultJson = json.loads(response.read().decode('utf-8'))
+            if resultJson["status"] != "OK":
+                Domoticz.Error("1Domoticz API returned an error: status = {}".format(resultJson["status"]))
+                resultJson = None
+        else:
+            Domoticz.Error("2Domoticz API: http error = {}".format(response.status))
+    except:
+        Domoticz.Error("3Error calling '{}'".format(url))
     return resultJson
 
         
