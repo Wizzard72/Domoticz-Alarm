@@ -153,9 +153,10 @@ class BasePlugin:
             nodes = APIjson["result"]
         except:
             nodes = []
-            
-        for i in nodes:
-            Domoticz.Log("APIjson = "+nodes[i])
+        
+        Domoticz.Log("APIjson = "+nodes)
+        #for i in nodes:
+        #    Domoticz.Log("APIjson = "+nodes[i])
             
     def getSecurityState(self):
         APIjson = DomoticzAPI("type=command&param=getsecstatus")
