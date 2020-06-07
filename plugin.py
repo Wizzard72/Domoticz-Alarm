@@ -151,6 +151,7 @@ class BasePlugin:
         Domoticz.Debug(strName+"called")
         self.pollZoneDevices()
         self.getSecurityState()
+        self.alarmEnable()
         
     def pollZoneDevices(self):
         strName = "pollZoneDevices - "
