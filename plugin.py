@@ -117,12 +117,12 @@ class BasePlugin:
         found_device = False
         for count in range(int(Parameters["Mode1"])):
             for item in Devices:
-                if Devices[item].Name[8:] == "Arming Mode (Z"+count+")":
-                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+count+")")
+                if Devices[item].Name[8:] == "Arming Mode (Z"+str(count)+")":
+                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+str(count)+")")
                         found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
-                    Domoticz.Device(Name="Arming Mode (Z"+count+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+                    Domoticz.Device(Name="Arming Mode (Z"+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
                     #if (self.ALARM_ARMING_MODE_UNIT not in Devices):
                     #    Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
                     #    UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
@@ -135,12 +135,12 @@ class BasePlugin:
         found_device = False
         for count in range(int(Parameters["Mode1"])):
             for item in Devices:
-                if Devices[item].Name[8:] == "Arming Status (Z"+count+")":
-                    Domoticz.Log(strName+"Found device = "+"Arming Status (Z"+count+")")
+                if Devices[item].Name[8:] == "Arming Status (Z"+str(count)+")":
+                    Domoticz.Log(strName+"Found device = "+"Arming Status (Z"+str(count)+")")
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
-                    Domoticz.Device(Name="Arming Mode (Z"+count+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
+                    Domoticz.Device(Name="Arming Status (Z"+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
                 
         #if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
         #    Domoticz.Device(Name="Arming Status", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
