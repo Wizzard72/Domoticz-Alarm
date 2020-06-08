@@ -122,7 +122,7 @@ class BasePlugin:
                         found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
-                    Domoticz.Device(Name="Arming Mode (Z"+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+                    Domoticz.Device(Name="Arming Mode (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
                     #if (self.ALARM_ARMING_MODE_UNIT not in Devices):
                     #    Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
                     #    UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
@@ -140,7 +140,7 @@ class BasePlugin:
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
-                    Domoticz.Device(Name="Arming Status (Z"+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
+                    Domoticz.Device(Name="Arming Status (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
                 
         #if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
         #    Domoticz.Device(Name="Arming Status", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
