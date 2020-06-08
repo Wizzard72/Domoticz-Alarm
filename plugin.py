@@ -96,7 +96,7 @@ class BasePlugin:
                        "LevelNames": "0|10|20|30|40|50|60|70|80|90",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
-            Domoticz.Device(Name="Entry Delay (seconds)", Unit=self.ALARM_ENTRY_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            Domoticz.Device(Name="Entry Delay (s)", Unit=self.ALARM_ENTRY_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
             UpdateDevice(self.ALARM_ENTRY_DELAY, 0, "0")
             
         if (self.ALARM_EXIT_DELAY not in Devices):
@@ -104,7 +104,7 @@ class BasePlugin:
                        "LevelNames": "0|10|20|30|40|50|60|70|80|90",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
-            Domoticz.Device(Name="Exit Delay (seconds)", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            Domoticz.Device(Name="Exit Delay (s)", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
             UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
     
         if (self.ALARM_ARMING_MODE_UNIT not in Devices):
