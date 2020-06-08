@@ -519,7 +519,7 @@ def find_available_unit():
 
 
 def find_available_unit_Arming_Mode():
-    for num in range(self.ALARM_ARMING_MODE_UNIT,19):
+    for num in range(10,19):
         if num not in Devices:
             return num
     return None
