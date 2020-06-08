@@ -71,6 +71,7 @@ class BasePlugin:
     anybodyHome = ""
     entryDelay = 0
     exitDelay = 0
+    secpassword = ""
     
     
     
@@ -133,7 +134,7 @@ class BasePlugin:
         # Matrix[0][0] = 1
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
-        secpassword = self.getsecpasspword()
+        self.secpassword = self.getsecpasspword()
 
 
     def onStop(self):
