@@ -382,10 +382,10 @@ class BasePlugin:
             if node["Name"] == str(Parameters["Mode4"]):
                 if node["Status"] == "On":
                     self.anybodyHome = "On"
-                    self.setSecurityState(0)
+                    #self.setSecurityState(0)
                 elif node["Status"] == "Off":
                     self.anybodyHome = "Off"
-                    self.setSecurityState(2)
+                    #self.setSecurityState(2)
                     
     def trippedSensor(self):
         strName = "trippedSensor - "
