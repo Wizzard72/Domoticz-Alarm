@@ -223,39 +223,39 @@ class BasePlugin:
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 10:
-                self.entryDelay = 10 #seconds
+                self.exitDelay = 10 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 20:
-                self.entryDelay = 20 #seconds
+                self.exitDelay = 20 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 30:
-                self.entryDelay = 30 #seconds
+                self.exitDelay = 30 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 40:
-                self.entryDelay = 40 #seconds
+                self.exitDelay = 40 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 50:
-                self.entryDelay = 50 #seconds
+                self.exitDelay = 50 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 60:
-                self.entryDelay = 60 #seconds
+                self.exitDelay = 60 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 70:
-                self.entryDelay = 70 #seconds
+                self.exitDelay = 70 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 80:
-                self.entryDelay = 80 #seconds
+                self.exitDelay = 80 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             elif Level == 90:
-                self.entryDelay = 90 #seconds
+                self.exitDelay = 90 #seconds
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
         
