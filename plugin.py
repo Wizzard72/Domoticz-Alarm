@@ -262,15 +262,15 @@ class BasePlugin:
         if self.ALARM_ARMING_MODE_UNIT == Unit:
             if Level == 0:
                 Domoticz.Log(strName+"Set Security Panel to Normal")
-                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, str(Level))
+                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 1, str(Level))
                 self.setSecurityState(0)
             elif Level == 10:
                 Domoticz.Log(strName+"Set Security Panel to Armed Home")
-                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 10, str(Level))
+                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 1, str(Level))
                 self.setSecurityState(1)
             elif Level == 20:
                 Domoticz.Log(strName+"Set Security Panel to Armed Away")
-                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 20, str(Level))
+                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 1, str(Level))
                 self.setSecurityState(2)
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
