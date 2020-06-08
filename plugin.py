@@ -329,13 +329,13 @@ class BasePlugin:
         strName = "setSecurityState - "
         #secpassword = self.getsecpasspword()
         if SecurityPanelState == 0 or SecurityPanelState == "Disarmed" or SecurityPanelState == "Normal":
-            DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode="+secpassword)
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode="+self.secpassword)
             UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
         elif SecurityPanelState == 1 or SecurityPanelState == "Arm Home" or SecurityPanelState == "Armed Home":
-            DomoticzAPI("type=command&param=setsecstatus&secstatus=1&seccode="+secpassword)
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=1&seccode="+self.secpassword)
             UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 10, "10")
         elif SecurityPanelState == 2 or SecurityPanelState == "Arm Way" or SecurityPanelState == "Armed Away":
-            DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+secpassword)
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+self.secpassword)
             UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 20, "20")
         
     
