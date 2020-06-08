@@ -69,6 +69,8 @@ class BasePlugin:
     ALARM_PIR_Zone_UNIT = 20
     SecurityPanel = ""
     anybodyHome = ""
+    entryDelay = 0
+    exitDelay = 0
     
     
     
@@ -154,6 +156,90 @@ class BasePlugin:
     def onCommand(self, Unit, Command, Level, Hue):
         strName = "onCommand: "
         Domoticz.Log(strName+"called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
+        
+        if self.ALARM_ENTRY_DELAY == Unit:
+            if Level == 0: # Override Off
+                self.entryDelay = 0 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 10:
+                self.entryDelay = 10 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 20:
+                self.entryDelay = 20 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 30:
+                self.entryDelay = 30 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 40:
+                self.entryDelay = 40 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 50:
+                self.entryDelay = 50 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 60:
+                self.entryDelay = 60 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 70:
+                self.entryDelay = 70 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 80:
+                self.entryDelay = 80 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+            elif Level == 90:
+                self.entryDelay = 90 #seconds
+                Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
+                
+        if self.ALARM_EXIT_DELAY == Unit:
+            if Level == 0:
+                self.exitDelay = 0 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 10:
+                self.entryDelay = 10 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 20:
+                self.entryDelay = 20 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 30:
+                self.entryDelay = 30 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 40:
+                self.entryDelay = 40 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 50:
+                self.entryDelay = 50 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 60:
+                self.entryDelay = 60 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 70:
+                self.entryDelay = 70 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 80:
+                self.entryDelay = 80 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
+            elif Level == 90:
+                self.entryDelay = 90 #seconds
+                Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
         
                 
                 
