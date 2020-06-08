@@ -176,7 +176,7 @@ class BasePlugin:
         Domoticz.Log(strName+"called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
         
         if self.ALARM_ENTRY_DELAY == Unit:
-            if Level == 0: # Override Off
+            if Level == 0:
                 self.entryDelay = 0 #seconds
                 Domoticz.Log(strName+"Entry Delay = "+str(self.entryDelay))
                 UpdateDevice(self.ALARM_ENTRY_DELAY, 1, str(Level))
@@ -259,7 +259,19 @@ class BasePlugin:
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, 1, str(Level))
         
-                
+        if self.ALARM_ARMING_MODE_UNIT == Unit:
+            if Level == 0:
+                Domoticz.Log(strName+"Set Security Panel to Normal")
+                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, str(Level))
+                self.setSecurityState(0)
+            elif Level == 10:
+                Domoticz.Log(strName+"Set Security Panel to Armed Home")
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 10, str(Level))
+                self.setSecurityState(1)
+            elif Level == 20:
+                Domoticz.Log(strName+"Set Security Panel to Armed Away")
+                UpdateDevice(self.ALARM_ENTRY_DELAY, 20, str(Level))
+                self.setSecurityState(2)
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         strName = "onNotification: "
@@ -507,7 +519,7 @@ def find_available_unit():
 
 
 def find_available_unit_Arming_Mode():
-    for num in range(10,19):
+    for num in range(ALARM_ARMING_MODE_UNIT,19):
         if num not in Devices:
             return num
     return None
