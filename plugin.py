@@ -69,7 +69,7 @@ class BasePlugin:
     ALARM_PIR_Zone_UNIT = 20
     SecurityPanel = ""
     anybodyHome = ""
-    secpassword = ""
+    secpassword = self.getsecpasspword()
     
     
     
@@ -237,6 +237,15 @@ class BasePlugin:
         if nodes["SecPassword"] != "":
             secpassword = nodes["SecPassword"]
         return secpassword
+    
+    def setSecurityState(SecurityPanelState):
+        #secpassword = self.getsecpasspword()
+        if SecurityPanelState == 0 or SecurityPanelState == "Disarmed" or SecurityPanelState == "Normal":
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode="+secpassword)
+        elif SecurityPanelState == 1 or SecurityPanelState == "Arm Home" or SecurityPanelState == "Armed Home":
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=1&seccode="+secpassword)
+        elif SecurityPanelState == 2 or SecurityPanelState == "Arm Way" or SecurityPanelState == "Armed Away":
+            DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+secpassword)
         
     
     def alarmEnable(self):
@@ -254,11 +263,7 @@ class BasePlugin:
                     self.anybodyHome = "On"
                 elif node["Status"] == "Off":
                     self.anybodyHome = "Off"
-        secpassword = self.getsecpasspword()
-        if self.anybodyHome == "On":
-            DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode="+secpassword)
-        elif self.anybodyHome == "Off":
-            DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+secpassword)
+        
 
         
 def DomoticzAPI(APICall):
