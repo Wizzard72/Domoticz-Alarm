@@ -62,6 +62,8 @@ from datetime import timedelta
 
 class BasePlugin:
     ALARM_MAIN_UNIT = 1
+    ALARM_ENTRY_DELAY = 2
+    ALARM_EXIT_DELAY = 3
     ALARM_ARMING_MODE_UNIT = 5
     ALARM_ARMING_STATUS_UNIT = 10
     ALARM_PIR_Zone_UNIT = 20
@@ -88,6 +90,22 @@ class BasePlugin:
             Domoticz.Log("TESTTTT")
             Domoticz.Device(Name="ALARM",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=13).Create()
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+            
+        if (self.ALARM_ENTRY_DELAY not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "0|5|10|15|20|25|30|40|50|60",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "1"}
+            Domoticz.Device(Name="Entry Delay", Unit=self.ALARM_ENTRY_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            UpdateDevice(self.ALARM_ENTRY_DELAY, 0, "0")
+            
+        if (self.ALARM_EXIT_DELAY not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "0|5|10|15|20|25|30|40|50|60",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "1"}
+            Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
     
         if (self.ALARM_ARMING_MODE_UNIT not in Devices):
             Options = {"LevelActions": "||||",
