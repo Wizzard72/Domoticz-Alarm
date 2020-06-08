@@ -139,7 +139,7 @@ class BasePlugin:
                     Domoticz.Log(strName+"Found device = "+"Arming Status (Z"+str(count)+")")
                     found_device = True
             if found_device == False:
-                    new_unit = find_available_unit_Arming_Mode()
+                    new_unit = find_available_unit_Arming_Status()
                     Domoticz.Device(Name="Arming Status (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
                 
         #if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
