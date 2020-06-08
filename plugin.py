@@ -378,7 +378,6 @@ class BasePlugin:
     def trippedSensor(self):
         strName = "trippedSensor - "
         
-    def 
         
 
         
