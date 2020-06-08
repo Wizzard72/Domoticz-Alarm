@@ -114,6 +114,7 @@ class BasePlugin:
                        "LevelNames": "Disarmed|Armed Home|Armed Away",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "0"}
+        Description = "The Arming Mode options."
         found_device = False
         for count in range(int(Parameters["Mode1"])):
             for item in Devices:
@@ -122,16 +123,14 @@ class BasePlugin:
                         found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
-                    Domoticz.Device(Name="Arming Mode (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
-                    #if (self.ALARM_ARMING_MODE_UNIT not in Devices):
-                    #    Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
-                    #    UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
-        
+                    Domoticz.Device(Name="Arming Mode (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
+       
         
         Options = {"LevelActions": "||||",
                        "LevelNames": "Normal|Arming|Tripped|Timed Out|Alert|Error",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
+        Description = "The Arming Status options."
         found_device = False
         for count in range(int(Parameters["Mode1"])):
             for item in Devices:
@@ -140,11 +139,9 @@ class BasePlugin:
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Status()
-                    Domoticz.Device(Name="Arming Status (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
+                    Domoticz.Device(Name="Arming Status (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
                 
-        #if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
-        #    Domoticz.Device(Name="Arming Status", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
-        #    UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
+
 
         # Create table
         w, h = 5, int(Parameters["Mode1"]);
@@ -377,6 +374,11 @@ class BasePlugin:
                 elif node["Status"] == "Off":
                     self.anybodyHome = "Off"
                     self.setSecurityState(2)
+                    
+    def trippedSensor(self):
+        strName = "trippedSensor - "
+        
+    def 
         
 
         
