@@ -69,7 +69,7 @@ class BasePlugin:
     ALARM_PIR_Zone_UNIT = 20
     SecurityPanel = ""
     anybodyHome = ""
-    #secpassword = self.getsecpasspword()
+    
     
     
     
@@ -131,6 +131,7 @@ class BasePlugin:
         # Matrix[0][0] = 1
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
+        secpassword = self.getsecpasspword()
 
 
     def onStop(self):
