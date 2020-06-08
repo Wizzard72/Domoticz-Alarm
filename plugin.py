@@ -293,7 +293,7 @@ class BasePlugin:
         #    if node["Status"] == "On":
         #        Domoticz.Log(strName+node["Name"]+" is Activated (On)")
         #        zoneStatus = "On"
-        3    elif node["Status"] == "Off":
+        #    elif node["Status"] == "Off":
         #        Domoticz.Log(strName+node["Name"]+" is Deactivated (Off)")
         #        zoneStatus = "Off"
         #    self.Matrix[i][1] = node["Name"]
