@@ -64,9 +64,9 @@ class BasePlugin:
     ALARM_MAIN_UNIT = 1
     ALARM_ENTRY_DELAY = 2
     ALARM_EXIT_DELAY = 3
-    ALARM_ARMING_MODE_UNIT = 5
-    ALARM_ARMING_STATUS_UNIT = 10
-    ALARM_PIR_Zone_UNIT = 20
+    ALARM_ARMING_MODE_UNIT = 10
+    ALARM_ARMING_STATUS_UNIT = 20
+    ALARM_PIR_Zone_UNIT = 30
     SecurityPanel = ""
     anybodyHome = ""
     entryDelay = 0
@@ -110,21 +110,41 @@ class BasePlugin:
             Domoticz.Device(Name="Exit Delay (s)", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
             UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
     
-        if (self.ALARM_ARMING_MODE_UNIT not in Devices):
-            Options = {"LevelActions": "||||",
+        Options = {"LevelActions": "||||",
                        "LevelNames": "Disarmed|Armed Home|Armed Away",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "0"}
-            Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
-            UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
-    
-        if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
-            Options = {"LevelActions": "||||",
+        found_device = False
+        for count in range(int(Parameters["Mode1"])):
+            for item in Devices:
+                if Devices[item].Name[8:] == "Arming Mode (Z"+count+")":
+                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+count+")")
+                        found_device = True
+            if found_device == False:
+                    new_unit = find_available_unit_Arming_Mode()
+                    Domoticz.Device(Name="Arming Mode (Z"+count+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+                    #if (self.ALARM_ARMING_MODE_UNIT not in Devices):
+                    #    Domoticz.Device(Name="Arming Mode", Unit=self.ALARM_ARMING_MODE_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+                    #    UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
+        
+        
+        Options = {"LevelActions": "||||",
                        "LevelNames": "Normal|Arming|Tripped|Timed Out|Alert|Error",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
-            Domoticz.Device(Name="Arming Status", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
-            UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
+        found_device = False
+        for count in range(int(Parameters["Mode1"])):
+            for item in Devices:
+                if Devices[item].Name[8:] == "Arming Status (Z"+count+")":
+                    Domoticz.Log(strName+"Found device = "+"Arming Status (Z"+count+")")
+                    found_device = True
+            if found_device == False:
+                    new_unit = find_available_unit_Arming_Mode()
+                    Domoticz.Device(Name="Arming Mode (Z"+count+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
+                
+        #if (self.ALARM_ARMING_STATUS_UNIT not in Devices):
+        #    Domoticz.Device(Name="Arming Status", Unit=self.ALARM_ARMING_STATUS_UNIT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=8).Create()
+        #    UpdateDevice(self.ALARM_ARMING_STATUS_UNIT, 0, "0")
 
         # Create table
         w, h = 5, int(Parameters["Mode1"]);
@@ -480,6 +500,19 @@ def DumpConfigToLog():
 
 def find_available_unit():
     for num in range(51,200):
+        if num not in Devices:
+            return num
+    return None
+
+
+def find_available_unit_Arming_Mode():
+    for num in range(10,19):
+        if num not in Devices:
+            return num
+    return None
+
+def find_available_unit_Arming_Status():
+    for num in range(20,29):
         if num not in Devices:
             return num
     return None
