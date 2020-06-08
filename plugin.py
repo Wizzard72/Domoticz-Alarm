@@ -325,7 +325,7 @@ class BasePlugin:
             secpassword = nodes["SecPassword"]
         return secpassword
     
-    def setSecurityState(SecurityPanelState):
+    def setSecurityState(self, SecurityPanelState):
         strName = "setSecurityState - "
         #secpassword = self.getsecpasspword()
         if SecurityPanelState == 0 or SecurityPanelState == "Disarmed" or SecurityPanelState == "Normal":
