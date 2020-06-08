@@ -69,7 +69,7 @@ class BasePlugin:
     ALARM_PIR_Zone_UNIT = 20
     SecurityPanel = ""
     anybodyHome = ""
-    secpassword = self.getsecpasspword()
+    #secpassword = self.getsecpasspword()
     
     
     
