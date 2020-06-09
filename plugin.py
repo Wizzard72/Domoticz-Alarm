@@ -357,7 +357,7 @@ class BasePlugin:
     def trippedSensor(self):
         strName = "trippedSensor - "
         
-    def collectSensorData(self)
+    def collectSensorData(self):
         strName = "collectSensorData - "
         jsonQuery = "type=scenes
         APIjson = DomoticzAPI(jsonQuery)
