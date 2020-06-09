@@ -464,9 +464,9 @@ class BasePlugin:
                 else:
                     removeCharacters = -21
                 Domoticz.Log(strName+"Devices Name ="+Devices[item].Name[removeCharacters:])
-                Domoticz.Log(strName+Devices[item].Name[removeCharacters:]+" == "+"Arming Mode (Z"+str(zone_nr)+")")
-                if Devices[item].Name[removeCharacters:] == "Arming Mode (Z"+str(zone_nr)+")":
-                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+str(zone_nr)+")")
+                Domoticz.Log(strName+Devices[item].Name[removeCharacters:]+" == "+"Arming Mode (Zone "+str(zone_nr)+")")
+                if Devices[item].Name[removeCharacters:] == "Arming Mode (Zone "+str(zone_nr)+")":
+                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Zone "+str(zone_nr)+")")
                         found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
