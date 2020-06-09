@@ -406,6 +406,7 @@ class BasePlugin:
                         Domoticz.Log(strName+"No open sections found. Safe to set the Alarm.")
                         self.openSections = false
         elif zoneMode == 20: # Armed Away
+            Domoticz.Log(strName+"Armed Away")
     
     def deviceOpenSections(self, zoneIdx, zoneName):
         strName = "deviceOpenSections - "
