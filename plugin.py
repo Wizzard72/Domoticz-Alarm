@@ -488,7 +488,7 @@ class BasePlugin:
         zoneCountArmedHome =0
         for zone in zoneArmedHome:
             #/json.htm?type=addscene&name=scenename&scenetype=1
-            zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Home"
+            zoneGroupName = "Alarm Zone "+str(zoneCountArmedHome)+" - Armed Home"
             jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
             DomoticzAPI(jsonQueryAddGroup)
             Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
