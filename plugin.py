@@ -527,7 +527,8 @@ class BasePlugin:
                         node_idx=node["idx"]
             # Populate the zone groups with devices (idx)
             # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-            jsonQueryListDevices = "type=command&param=getscenedevices&idx="+node_idx+"&isscene=true"
+            jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
+            Domoticz.Log(strName+"jsonQueryListDevices = "+jsonQueryListDevices)
             APIjson = DomoticzAPI(jsonQueryListDevices)
             nodes_result = False
             try:
