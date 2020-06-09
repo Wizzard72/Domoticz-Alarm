@@ -543,6 +543,7 @@ class BasePlugin:
                 count = 1
                 for addDevice in deviceAddGroup:
                     jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=0&hue=0"
+                    DomoticzAPI(jsonQueryAddDevicetoGroup)
             #else:
                 # Devices already belong to group, have to check if all are in them
                 
