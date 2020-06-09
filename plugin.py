@@ -541,8 +541,9 @@ class BasePlugin:
                 deviceAddGroup = zone.split(",")
                 count = 1
                 for addDevice in deviceAddGroup:
-                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                    DomoticzAPI(jsonQueryAddDevicetoGroup)
+                    if node_idx != 0 or str(node_idx) != "none":
+                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+                        DomoticzAPI(jsonQueryAddDevicetoGroup)
             else:
                 # Devices already belong to group, have to check if all are in them
                 # Delete all devices from group
@@ -564,8 +565,9 @@ class BasePlugin:
                 deviceAddGroup = zone.split(",")
                 count = 1
                 for addDevice in deviceAddGroup:
-                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                    DomoticzAPI(jsonQueryAddDevicetoGroup)
+                    if node_idx != 0 or str(node_idx) != "none":
+                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+                        DomoticzAPI(jsonQueryAddDevicetoGroup)
             zoneCountArmedHome = zoneCountArmedHome + 1        
 
         # Armed Away Group
@@ -580,7 +582,7 @@ class BasePlugin:
         except:
             nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        for zone in zoneArmedHome:
+        for zone in zoneArmedAway:
             #/json.htm?type=addscene&name=scenename&scenetype=1
             zoneGroupName = "Alarm Zone "+str(zoneCountArmedAway)+" - Armed Away"
             found_node = False
@@ -618,8 +620,9 @@ class BasePlugin:
                 deviceAddGroup = zone.split(",")
                 count = 1
                 for addDevice in deviceAddGroup:
-                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                    DomoticzAPI(jsonQueryAddDevicetoGroup)
+                    if node_idx != 0 or str(node_idx) != "none":
+                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+                        DomoticzAPI(jsonQueryAddDevicetoGroup)
             else:
                 # Devices already belong to group, have to check if all are in them
                 # Delete all devices from group
@@ -641,8 +644,9 @@ class BasePlugin:
                 deviceAddGroup = zone.split(",")
                 count = 1
                 for addDevice in deviceAddGroup:
-                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                    DomoticzAPI(jsonQueryAddDevicetoGroup)
+                    if node_idx != 0 or str(node_idx) != "none":
+                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+                        DomoticzAPI(jsonQueryAddDevicetoGroup)
             zoneCountArmedAway = zoneCountArmedAway + 1    
         
         # Armed Away Group
