@@ -567,7 +567,7 @@ class BasePlugin:
                 for addDevice in deviceAddGroup:
                     if node_idx != 0 or str(node_idx) != "none":
                         jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                        #DomoticzAPI(jsonQueryAddDevicetoGroup)
+                        DomoticzAPI(jsonQueryAddDevicetoGroup)
             zoneCountArmedHome = zoneCountArmedHome + 1        
 
         # Armed Away Group
@@ -646,7 +646,7 @@ class BasePlugin:
                 for addDevice in deviceAddGroup:
                     if node_idx != 0 or str(node_idx) != "none":
                         jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                        #DomoticzAPI(jsonQueryAddDevicetoGroup)
+                        DomoticzAPI(jsonQueryAddDevicetoGroup)
             zoneCountArmedAway = zoneCountArmedAway + 1    
         
         # Armed Away Group
