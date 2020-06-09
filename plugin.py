@@ -512,7 +512,7 @@ class BasePlugin:
                     # zone group exists and find its idx
                     found_node = True
                     node_idx = node["idx"]
-            if found_node = False:
+            if found_node == False:
                 # if zone group is not found create it and find its idx
                 jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
                 DomoticzAPI(jsonQueryAddGroup)
