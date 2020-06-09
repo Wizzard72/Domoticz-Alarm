@@ -272,6 +272,17 @@ class BasePlugin:
                 Domoticz.Log(strName+"Set Security Panel to Armed Away")
                 UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
                 self.setSecurityState(2)
+        
+        
+        for zone_nr in range(int(Parameters["Mode1"])):
+            switchAlarmModeUnit = 10 + zone_nr
+            if switchAlarmModeUnit == Unit:
+                if Level == 0:
+                    self.alarmModeChange(self, zone_nr, Level)
+                elif Level == 10:
+                    self.alarmModeChange(self, zone_nr, Level)
+                elif Level == 20:
+                    self.alarmModeChange(self, zone_nr, Level)
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         strName = "onNotification: "
@@ -391,7 +402,25 @@ class BasePlugin:
         strName = "trippedSensor - "
         
         
-
+    def createTheMatrix(self, width, hight):
+        strName = "createTheMatrix - "
+        
+    def mainAlarm:
+        strName = "mainAlarm - "
+        for count in range(int(Parameters["Mode 1"])):
+            Domoticz.Log("")
+            
+    def alarmModeChange(self, zoneNr, newStatus):
+        strName = "alarmModeChange"
+        if newStatus == 0: # Normal
+            # Reset Siren and Alarm Status
+            zoneNrUnit = self.ALARM_ARMING_MODE_UNIT + zoneNr
+            UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+            UpdateDevice(zoneNrUnit, 0, "Off")
+        elif newStatus == 10: # Armed Home
+            # Use EntryDelay
+        elif newStatus == 20: # Armed Way
+            # Use EntryDelay
         
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
