@@ -461,6 +461,7 @@ class BasePlugin:
         Domoticz.Log(strName+"zoneNr = "+str(zoneNr)+" | newStatus = "+str(newStatus)+ " | zoneNrUnit = "+str(zoneNrUnit))
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
+            UpdateDevice(zoneNrUnit, 10, "Arming")
             UpdateDevice(zoneNrUnit, 0, "Normal")
         elif newStatus == 10: # Armed Home
             # Use 
