@@ -571,7 +571,7 @@ class BasePlugin:
             zoneCountArmedHome = zoneCountArmedHome + 1        
 
         # Armed Away Group
-        zoneArmedHome = Parameters["Mode3"].split(";")
+        zoneArmedAway = Parameters["Mode3"].split(";")
         zoneCountArmedAway = 0
         node_idx = ""
         #/json.htm?type=scenes
