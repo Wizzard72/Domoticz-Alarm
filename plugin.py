@@ -395,6 +395,14 @@ class BasePlugin:
                     Domoticz.Log(strName+"All sensors are deactivated.")
                 elif x["Status"] == "Mixed":
                     Domoticz.Log(strName+"Some sensors are activated.")
+                    if self.SecurityPanel == "Disarmed":
+                        Domoticz.Log("But alarm is Disabled")
+                    elif self.SecurityPanel == "Armed Home":
+                        Domoticz.Log("Check if Armed Home sensors are triggered orthe Armed Away.")
+                        if x["Name"][10:] != "Armed Home":
+                            Domoticz.Log("The sensors are triggerd. SOUND THE SIREN")
+                            self.sirenOn = True
+                            self.activateSiren()
         
     def createTheMatrix(self, width, hight):
         strName = "createTheMatrix - "
