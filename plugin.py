@@ -501,14 +501,14 @@ class BasePlugin:
             zoneCountArmedHome = zoneCountArmedHome + 1
         
         # Armed Away Group
-        zoneArmedHome = Parameters["Mode3"].split(";")
+        zoneArmedAway = Parameters["Mode3"].split(";")
         zoneCountArmedAway =0
-        for zone in zoneArmedHome:
+        for zone in zoneArmedAway:
             #/json.htm?type=addscene&name=scenename&scenetype=1
-            zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Home"
+            zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Away"
             jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
             DomoticzAPI(jsonQueryAddGroup)
-            Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
+            Domoticz.Log(strName+"zoneArmedAway = "+zoneArmedAway)
             deviceAddGroup = zone.split(",")
             count = 1
             for addDevice in deviceAddGroup:
@@ -520,6 +520,7 @@ class BasePlugin:
         
         if zoneCountArmedHome == zoneCountArmedAway:
             self.amountofZones = zoneCount
+            Domoticz.Log(strName+"Found "+str(self.amountofZones)+" zone(s).")
         elif zoneCountArmedHome > zoneCountArmedAway:
             Domoticz.Error(strName+"Zone Armed Home has more zones than Zone Armed Away")
             Domoticz.Error(strName+"Add an empty zone in Zone Armed Away Parameter (;none)")
