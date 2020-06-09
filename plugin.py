@@ -430,6 +430,7 @@ class BasePlugin:
         return openSectionsDeviceName
     
     def createDevices(self):
+        strName = "createDevices - " 
         if (self.ALARM_MAIN_UNIT not in Devices):
             Domoticz.Device(Name="SIREN",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=13).Create()
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
