@@ -434,6 +434,7 @@ class BasePlugin:
     def alarmModeChange(self, zoneNr, newStatus):
         strName = "alarmModeChange"
         zoneNrUnit = self.ALARM_ARMING_MODE_UNIT + zoneNr
+        Domoticz.Log(strName+"zoneNrUnit = "+zoneNrUnit)
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
