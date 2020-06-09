@@ -229,7 +229,17 @@ class BasePlugin:
                 UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
                 self.setSecurityState(2)
         
-        
+        for zone_nr in range(int(Parameters["Mode1"])):
+            switchAlarmModeUnit = 10 + zone_nr
+            if switchAlarmModeUnit != 10:
+                if Level == 0:
+                    UpdateDevice(switchAlarmModeUnit, Level, str(Level))
+                elif Level == 10:
+                    UpdateDevice(switchAlarmModeUnit, Level, str(Level))
+                elif Level == 20:
+                    UpdateDevice(switchAlarmModeUnit, Level, str(Level))
+
+            
         for zone_nr in range(int(Parameters["Mode1"])):
             switchAlarmModeUnit = 10 + zone_nr
             if switchAlarmModeUnit == Unit:
