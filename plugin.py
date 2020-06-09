@@ -537,19 +537,23 @@ class BasePlugin:
                 nodes = []
             if nodes_result == False:
                 # No devices addes to the group
-                
-            else:
+                #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
+                deviceAddGroup = zone.split(",")
+                count = 1
+                for addDevice in deviceAddGroup:
+                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=0&hue=0"
+            #else:
                 # Devices already belong to group, have to check if all are in them
                 
-            Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
-            deviceAddGroup = zone.split(",")
-            count = 1
-            for addDevice in deviceAddGroup:
+            #Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
+            #deviceAddGroup = zone.split(",")
+            #count = 1
+            #for addDevice in deviceAddGroup:
                 #/json.htm?type=command&param=addscenedevice&idx=number&isscene=true&devidx=deviceindex&command=1&level=number&hue=number
-                deviceIdx = ""
-                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
-                count = count + 1
-            zoneCountArmedHome = zoneCountArmedHome + 1
+                #deviceIdx = ""
+                #jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
+                #count = count + 1
+            #zoneCountArmedHome = zoneCountArmedHome + 1
         
         # Armed Away Group
         zoneArmedAway = Parameters["Mode3"].split(";")
