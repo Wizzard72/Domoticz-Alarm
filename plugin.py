@@ -528,7 +528,6 @@ class BasePlugin:
             # Populate the zone groups with devices (idx)
             # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
             jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-            Domoticz.Log(strName+"jsonQueryListDevices = "+jsonQueryListDevices)
             APIjson = DomoticzAPI(jsonQueryListDevices)
             nodes_result = False
             try:
@@ -544,9 +543,21 @@ class BasePlugin:
                 for addDevice in deviceAddGroup:
                     jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=0&hue=0"
                     DomoticzAPI(jsonQueryAddDevicetoGroup)
-            #else:
+            else:
                 # Devices already belong to group, have to check if all are in them
-                
+                # Delete all devices from group
+                #/json.htm?type=command&param=getscenedevices&idx=number&isscene=true
+                jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
+                APIjson = DomoticzAPI(jsonQueryListDevices)
+                nodes_result = False
+                try:
+                    nodes = APIjson["result"]
+                except:
+                    nodes = []
+                for idem in nodes:
+                    jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+idem["idx"]
+                    DomoticzAPI(jsonQueryListDevices)
+                    
             #Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
             #deviceAddGroup = zone.split(",")
             #count = 1
