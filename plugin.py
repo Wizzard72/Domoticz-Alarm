@@ -217,7 +217,7 @@ class BasePlugin:
         
         for zone_nr in range(int(Parameters["Mode1"])):
             zoneUnitNr = self.ALARM_ARMING_MODE_UNIT + zone_nr
-            if self.ALARM_ARMING_MODE_UNIT == Unit:
+            if zoneUnitNr == Unit:
                 if Level == 0:
                     Domoticz.Log(strName+"Set Security Panel to Normal")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
