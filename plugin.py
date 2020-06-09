@@ -232,7 +232,7 @@ class BasePlugin:
         for zone_nr in range(int(Parameters["Mode1"])):
             switchAlarmModeUnit = 10 + zone_nr
             if switchAlarmModeUnit != 10:
-                Domoticz.Log(strname+"switchAlarmModeUnit = "+str(switchAlarmModeUnit))
+                Domoticz.Log(strName+"switchAlarmModeUnit = "+str(switchAlarmModeUnit))
                 if Level == 0:
                     UpdateDevice(switchAlarmModeUnit, Level, str(Level))
                 elif Level == 10:
