@@ -26,8 +26,8 @@
                 <option label="7" value="7"/>
             </options>
         </param>
-        <param field="Mode2" label="Zone devices" width="600px" required="true" default="Zone1=idx,idc,idc;Zone2=idx,idx,idx"/>
-        <param field="Mode4" label="Anybody Home Device" width="200px" required="true" default="Anybody Home Device"/>
+        <param field="Mode2" label="Zone Armed Home" width="600px" required="true" default="idx,idc,idc;idx,idx,idx"/>
+        <param field="Mode3" label="Zone Armed Away" width="600px" required="true" default="idx,idc,idc;idx,idx,idx"/>
         <param field="Mode5" label="Interval in seconds" width="200px" required="true" default="15"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
@@ -90,58 +90,7 @@ class BasePlugin:
             Domoticz.Debugging(0)
         
         # create devices
-        if (self.ALARM_MAIN_UNIT not in Devices):
-            Domoticz.Log("TESTTTT")
-            Domoticz.Device(Name="SIREN",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=13).Create()
-            UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
-            
-        if (self.ALARM_ENTRY_DELAY not in Devices):
-            Options = {"LevelActions": "||||",
-                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
-                       "LevelOffHidden": "false",
-                       "SelectorStyle": "1"}
-            Domoticz.Device(Name="Entry Delay", Unit=self.ALARM_ENTRY_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
-            UpdateDevice(self.ALARM_ENTRY_DELAY, 0, "0")
-            
-        if (self.ALARM_EXIT_DELAY not in Devices):
-            Options = {"LevelActions": "||||",
-                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
-                       "LevelOffHidden": "false",
-                       "SelectorStyle": "1"}
-            Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
-            UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
-    
-        Options = {"LevelActions": "||||",
-                       "LevelNames": "Disarmed|Armed Home|Armed Away",
-                       "LevelOffHidden": "false",
-                       "SelectorStyle": "0"}
-        Description = "The Arming Mode options."
-        found_device = False
-        for count in range(int(Parameters["Mode1"])):
-            for item in Devices:
-                if Devices[item].Name[8:] == "Arming Mode (Z"+str(count)+")":
-                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+str(count)+")")
-                        found_device = True
-            if found_device == False:
-                    new_unit = find_available_unit_Arming_Mode()
-                    Domoticz.Device(Name="Arming Mode (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
-       
-        
-        Options = {"LevelActions": "||||",
-                       "LevelNames": "Normal|Arming|Tripped|Timed Out|Alert|Error",
-                       "LevelOffHidden": "false",
-                       "SelectorStyle": "1"}
-        Description = "The Arming Status options."
-        found_device = False
-        for count in range(int(Parameters["Mode1"])):
-            for item in Devices:
-                if Devices[item].Name[8:] == "Arming Status (Z"+str(count)+")":
-                    Domoticz.Log(strName+"Found device = "+"Arming Status (Z"+str(count)+")")
-                    found_device = True
-            if found_device == False:
-                    new_unit = find_available_unit_Arming_Status()
-                    Domoticz.Device(Name="Arming Status (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
-                
+              
 
 
         # Create table
@@ -474,7 +423,74 @@ class BasePlugin:
             if node["Status"] == "On":
                 openSectionsDeviceName = openSectionsDeviceName + node["Name"] + " | "
         return openSectionsDeviceName
+    
+    def createDevices():
+        if (self.ALARM_MAIN_UNIT not in Devices):
+            Domoticz.Device(Name="SIREN",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=13).Create()
+            UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
             
+        if (self.ALARM_ENTRY_DELAY not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "1"}
+            Domoticz.Device(Name="Entry Delay", Unit=self.ALARM_ENTRY_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            UpdateDevice(self.ALARM_ENTRY_DELAY, 0, "0")
+            
+        if (self.ALARM_EXIT_DELAY not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "1"}
+            Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
+    
+        Options = {"LevelActions": "||||",
+                       "LevelNames": "Disarmed|Armed Home|Armed Away",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "0"}
+        Description = "The Arming Mode options."
+        found_device = False
+        for count in range(int(Parameters["Mode1"])):
+            for item in Devices:
+                if Devices[item].Name[8:] == "Arming Mode (Z"+str(count)+")":
+                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+str(count)+")")
+                        found_device = True
+            if found_device == False:
+                    new_unit = find_available_unit_Arming_Mode()
+                    Domoticz.Device(Name="Arming Mode (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
+       
+        
+        Options = {"LevelActions": "||||",
+                       "LevelNames": "Normal|Arming|Tripped|Timed Out|Alert|Error",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "1"}
+        Description = "The Arming Status options."
+        found_device = False
+        for count in range(int(Parameters["Mode1"])):
+            for item in Devices:
+                if Devices[item].Name[8:] == "Arming Status (Z"+str(count)+")":
+                    Domoticz.Log(strName+"Found device = "+"Arming Status (Z"+str(count)+")")
+                    found_device = True
+            if found_device == False:
+                    new_unit = find_available_unit_Arming_Status()
+                    Domoticz.Device(Name="Arming Status (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
+        
+        #create zone groups and populate them
+        # Armed Home Group
+        zoneArmedHome = Parameters["Mode2"].split(";")
+        for zone in zoneArmedHome:
+            #/json.htm?type=addscene&name=scenename&scenetype=1
+            zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Home"
+            jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
+            DomoticzAPI(jsonQueryAddGroup)
+            deviceAddGroup = zoneArmedHome.split(",")
+            count = 1
+            for addDevice in deviceAddGroup:
+                #/json.htm?type=command&param=addscenedevice&idx=number&isscene=true&devidx=deviceindex&command=1&level=number&hue=number
+                deviceIdx = ""
+                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
+                count = count + 1
         
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
