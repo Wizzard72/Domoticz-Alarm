@@ -556,32 +556,32 @@ class BasePlugin:
             #zoneCountArmedHome = zoneCountArmedHome + 1
         
         # Armed Away Group
-        zoneArmedAway = Parameters["Mode3"].split(";")
-        zoneCountArmedAway =0
-        for zone in zoneArmedAway:
+        #zoneArmedAway = Parameters["Mode3"].split(";")
+        #zoneCountArmedAway =0
+        #for zone in zoneArmedAway:
             #/json.htm?type=addscene&name=scenename&scenetype=1
-            zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Away"
-            jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
+       #    zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Away"
+        #    jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
             #DomoticzAPI(jsonQueryAddGroup)
-            Domoticz.Log(strName+"zoneArmedAway = "+str(zoneArmedAway))
-            deviceAddGroup = zone.split(",")
-            count = 1
-            for addDevice in deviceAddGroup:
+         #   Domoticz.Log(strName+"zoneArmedAway = "+str(zoneArmedAway))
+          #  deviceAddGroup = zone.split(",")
+           # count = 1
+            #for addDevice in deviceAddGroup:
                 #/json.htm?type=command&param=addscenedevice&idx=number&isscene=true&devidx=deviceindex&command=1&level=number&hue=number
-                deviceIdx = ""
-                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
-                count = count + 1
-            zoneCountArmedAway = zoneCountArmedAway + 1
+             #   deviceIdx = ""
+              #  jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
+               # count = count + 1
+            #zoneCountArmedAway = zoneCountArmedAway + 1
         
-        if zoneCountArmedHome == zoneCountArmedAway:
-            self.amountofZones = zoneCount
-            Domoticz.Log(strName+"Found "+str(self.amountofZones)+" zone(s).")
-        elif zoneCountArmedHome > zoneCountArmedAway:
-            Domoticz.Error(strName+"Zone Armed Home has more zones than Zone Armed Away")
-            Domoticz.Error(strName+"Add an empty zone in Zone Armed Away Parameter (;none)")
-        elif zoneCountArmedHome < zoneCountArmedAway:
-            Domoticz.Error(strName+"Zone Armed Home has less zones than Zone Armed Away")
-            Domoticz.Error(strName+"Add an empty zone in Zone Armed Home Parameter (;none)")
+        #if zoneCountArmedHome == zoneCountArmedAway:
+         #   self.amountofZones = zoneCount
+          #  Domoticz.Log(strName+"Found "+str(self.amountofZones)+" zone(s).")
+        #elif zoneCountArmedHome > zoneCountArmedAway:
+         #   Domoticz.Error(strName+"Zone Armed Home has more zones than Zone Armed Away")
+          #  Domoticz.Error(strName+"Add an empty zone in Zone Armed Away Parameter (;none)")
+        #elif zoneCountArmedHome < zoneCountArmedAway:
+         #   Domoticz.Error(strName+"Zone Armed Home has less zones than Zone Armed Away")
+          #  Domoticz.Error(strName+"Add an empty zone in Zone Armed Home Parameter (;none)")
         
         
         
