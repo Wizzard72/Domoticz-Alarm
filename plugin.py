@@ -6,8 +6,12 @@
 <plugin key="Alarm" name="Alarm" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
+        This plugin creates a Alarm System in Domoticz. It depends on the devices already available in Domoticz.
         
         
+        The parameter "Zone Armed Home" and "Zone Armed Away" are used to create one or more zones. The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";".
+        Both parameters must have the same amount of zones, but a zone van have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".
+        Zone(s) are groups in Domoticz. Best is to Protect the groups.
 
     </description>
     <params>
@@ -73,6 +77,7 @@ class BasePlugin:
     exitDelay = 0
     secpassword = ""
     openSections = False
+    amountofZones = 0
     
     
     
@@ -479,6 +484,7 @@ class BasePlugin:
         #create zone groups and populate them
         # Armed Home Group
         zoneArmedHome = Parameters["Mode2"].split(";")
+        zoneCountArmedHome =0
         for zone in zoneArmedHome:
             #/json.htm?type=addscene&name=scenename&scenetype=1
             zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Home"
@@ -492,6 +498,37 @@ class BasePlugin:
                 deviceIdx = ""
                 jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
                 count = count + 1
+            zoneCountArmedHome = zoneCountArmedHome + 1
+        
+        # Armed Away Group
+        zoneArmedHome = Parameters["Mode3"].split(";")
+        zoneCountArmedAway =0
+        for zone in zoneArmedHome:
+            #/json.htm?type=addscene&name=scenename&scenetype=1
+            zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Home"
+            jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
+            DomoticzAPI(jsonQueryAddGroup)
+            Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
+            deviceAddGroup = zone.split(",")
+            count = 1
+            for addDevice in deviceAddGroup:
+                #/json.htm?type=command&param=addscenedevice&idx=number&isscene=true&devidx=deviceindex&command=1&level=number&hue=number
+                deviceIdx = ""
+                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
+                count = count + 1
+            zoneCountArmedAway = zoneCountArmedAway + 1
+        
+        if zoneCountArmedHome == zoneCountArmedAway:
+            self.amountofZones = zoneCount
+        elif zoneCountArmedHome > zoneCountArmedAway:
+            Domoticz.Error(strName+"Zone Armed Home has more zones than Zone Armed Away")
+            Domoticz.Error(strName+"Add an empty zone in Zone Armed Away Parameter (;none)")
+        elif zoneCountArmedHome < zoneCountArmedAway:
+            Domoticz.Error(strName+"Zone Armed Home has less zones than Zone Armed Away")
+            Domoticz.Error(strName+"Add an empty zone in Zone Armed Home Parameter (;none)")
+        
+        
+        
         
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
