@@ -497,6 +497,7 @@ class BasePlugin:
             for node in nodes:
                 if node["Name"] == zoneName:
                     Domoticz.Log(strName+"zoneName = "+zoneName)
+                    Domoticz.Log(strName+"node["Status"] = "+node["Status"])
                     if node["Status"] == "On":
                         OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
                         Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
