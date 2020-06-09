@@ -90,7 +90,7 @@ class BasePlugin:
             Domoticz.Debugging(0)
         
         # create devices
-              
+        self.createDevices()
 
 
         # Create table
