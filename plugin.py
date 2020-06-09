@@ -582,7 +582,7 @@ class BasePlugin:
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         for zone in zoneArmedHome:
             #/json.htm?type=addscene&name=scenename&scenetype=1
-            zoneGroupName = "Alarm Zone "+str(zoneCountArmedHome)+" - Armed Away"
+            zoneGroupName = "Alarm Zone "+str(zoneCountArmedAway)+" - Armed Away"
             found_node = False
             for node in nodes:
                 if node["Name"] == zoneGroupName:
