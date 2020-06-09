@@ -72,6 +72,7 @@ class BasePlugin:
     entryDelay = 0
     exitDelay = 0
     secpassword = ""
+    openSections = false
     
     
     
@@ -445,17 +446,35 @@ class BasePlugin:
             for node in nodes:
                 if node["Name"] == zoneName:
                     if node["Status"] == "On":
-                        deviceOpenSections(zoneName)
-                        Domoticz.Log(strName+"Found open sections. Please check open sections")
+                        OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
+                        Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
+                        self.openSections = true
                     elif node["Status"] == "Mixed":
-                        deviceOpenSections(zoneName)
-                        Domoticz.Log(strName+"Found open sections. Please check open sections")
+                        OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
+                        Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
+                        self.openSections = true
                     elif node["Status"] == "Off":
                         Domoticz.Log(strName+"No open sections found. Safe to set the Alarm.")
+                        self.openSections = false
         elif zoneMode == 20: # Armed Away
-        
-    def deviceOpenSections(self, zoneName):
+    
+    
+    def deviceOpenSections(self, zoneIdx, zoneName):
         strName = "deviceOpenSections - "
+        openSectionsDeviceName = "| "
+        # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
+        jsonQuery = "type=command&param=getscenedevices&idx="+zoneIdx+"&isscene=true"
+        APIjson = DomoticzAPI(jsonQuery)
+        try:
+            nodes = APIjson["result"]
+        except:
+            nodes = []
+        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        for node in nodes:
+            if node["Status"] == "On":
+                openSectionsDeviceName = openSectionsDeviceName + node["Name"] + " | "
+        return openSectionsDeviceName
+            
         
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
