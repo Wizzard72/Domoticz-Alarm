@@ -559,7 +559,7 @@ class BasePlugin:
                     jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
                     Domoticz.Log(strName+"json delete = "+jsonQueryDeleteDevices)
                     #DomoticzAPI(jsonQueryDeleteDevices)
-                    
+            zoneCountArmedHome = zoneCountArmedHome + 1        
             #Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
             #deviceAddGroup = zone.split(",")
             #count = 1
