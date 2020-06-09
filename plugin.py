@@ -221,21 +221,21 @@ class BasePlugin:
                 if Level == 0:
                     Domoticz.Log(strName+"Set Security Panel to Normal")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
+                    self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(0)
-                    self.alarmModeChange(zone_nr, Level)
                 elif Level == 10:
                     Domoticz.Log(strName+"Set Security Panel to Armed Home")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
+                    self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(1)
-                    self.alarmModeChange(zone_nr, Level)
                 elif Level == 20:
                     Domoticz.Log(strName+"Set Security Panel to Armed Away")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
+                    self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(2)
-                    self.alarmModeChange(zone_nr, Level)
         
         #for zone_nr in range(int(Parameters["Mode1"])):
         #    switchAlarmModeUnit = 10 + zone_nr
@@ -457,12 +457,11 @@ class BasePlugin:
             
     def alarmModeChange(self, zoneNr, newStatus):
         strName = "alarmModeChange - "
-        zoneNrUnit = self.ALARM_ARMING_MODE_UNIT + int(zoneNr)
+        zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         Domoticz.Log(strName+"zoneNr = "+str(zoneNr)+" | newStatus = "+str(newStatus)+ " | zoneNrUnit = "+str(zoneNrUnit))
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
-            #UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
-            UpdateDevice(zoneNrUnit, 0, "Off")
+            UpdateDevice(zoneNrUnit, 0, "Normal")
         elif newStatus == 10: # Armed Home
             # Use 
             UpdateDevice(zoneNrUnit, 10, "Arming")
