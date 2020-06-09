@@ -458,7 +458,7 @@ class BasePlugin:
         Description = "The Arming Mode options."
         found_device = False
         for count in range(int(Parameters["Mode1"])):
-            Domoticz.Log(strName+"count = "+count)
+            Domoticz.Log(strName+"count = "+str(count))
             for item in Devices:
                 Domoticz.Log(strName+"Devices Name ="+Devices[item].Name[-20:])
                 if Devices[item].Name[-20:] == "Arming Mode (Z"+str(count)+")":
