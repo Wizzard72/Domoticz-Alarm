@@ -367,7 +367,7 @@ class BasePlugin:
             nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         for x in nodes:
-            Domoticz.Log(strName+""+x["Name"][10:])
+            Domoticz.Log(strName+""+x["Name"][:10])
             #if x["Name"][10:] == "Alarm Zone":
         
     def createTheMatrix(self, width, hight):
