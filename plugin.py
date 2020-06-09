@@ -541,7 +541,7 @@ class BasePlugin:
                 deviceAddGroup = zone.split(",")
                 count = 1
                 for addDevice in deviceAddGroup:
-                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=0&hue=0"
+                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
                     DomoticzAPI(jsonQueryAddDevicetoGroup)
             else:
                 # Devices already belong to group, have to check if all are in them
@@ -564,7 +564,7 @@ class BasePlugin:
                 deviceAddGroup = zone.split(",")
                 count = 1
                 for addDevice in deviceAddGroup:
-                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=0&hue=0"
+                    jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
                     DomoticzAPI(jsonQueryAddDevicetoGroup)
             zoneCountArmedHome = zoneCountArmedHome + 1        
             #Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
