@@ -379,6 +379,7 @@ class BasePlugin:
         for x in nodes:
             Domoticz.Log(strName+""+x["Name"][:10])
             if x["Name"][:10] == "Alarm Zone":
+                Domoticz.Log("Status = "+x["Status"])
                 if x["Status"] == "On":
                     Domoticz.Log(strName+"All sensors are activated.")
                     if self.SecurityPanel == "Disarmed":
