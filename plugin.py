@@ -359,7 +359,7 @@ class BasePlugin:
         
     def collectSensorData(self):
         strName = "collectSensorData - "
-        jsonQuery = "type=scenes
+        jsonQuery = "type=scenes"
         APIjson = DomoticzAPI(jsonQuery)
         try:
             nodes = APIjson["result"]
