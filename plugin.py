@@ -253,7 +253,8 @@ class BasePlugin:
         Domoticz.Debug(strName+"called")
         self.pollZoneDevices()
         self.getSecurityState()
-        self.alarmEnable()
+        #self.alarmEnable()
+        self.collectSensorData()
         
     def pollZoneDevices(self):
         strName = "pollZoneDevices - "
@@ -356,6 +357,18 @@ class BasePlugin:
     def trippedSensor(self):
         strName = "trippedSensor - "
         
+    def collectSensorData(self)
+        strName = "collectSensorData - "
+        jsonQuery = "type=scenes
+        APIjson = DomoticzAPI(jsonQuery)
+        try:
+            nodes = APIjson["result"]
+        except:
+            nodes = []
+        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        for x in nodes:
+            Domoticz.Log(strName+""+x["Name"][10:])
+            if x["Name"][10:] == "Alarm Zone":
         
     def createTheMatrix(self, width, hight):
         strName = "createTheMatrix - "
