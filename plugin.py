@@ -433,7 +433,7 @@ class BasePlugin:
             
     def alarmModeChange(self, zoneNr, newStatus):
         strName = "alarmModeChange - "
-        Domoticz.Log(strName+"zoneNr = "+str(zoneNr)+" | newStatus = "+(str(newStatus))
+        Domoticz.Log(strName+"zoneNr = "+str(zoneNr)+" | newStatus = "+str(newStatus))
         #zoneNrUnit = self.ALARM_ARMING_MODE_UNIT + int(zoneNr)
         zoneNrUnit = 10
         zoneNrUnit = zoneNrUnit + int(zoneNr)         
