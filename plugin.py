@@ -468,18 +468,18 @@ class BasePlugin:
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(zoneNr, 10)
-            if self.openSections = True:
+            if self.openSections == True:
                 Domoticz.Log(strName+"There are open sections")
-            elif self.openSections = False:
+            elif self.openSections == False:
                 UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(zoneNr, 20)
-            if self.openSections = True:
+            if self.openSections == True:
                 Domoticz.Log(strName+"There are open sections")
-            elif self.openSections = False:
+            elif self.openSections == False:
                 UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
     def checkOpenSections(self, zoneNr, zoneMode):
