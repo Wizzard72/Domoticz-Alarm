@@ -457,16 +457,19 @@ class BasePlugin:
                        "SelectorStyle": "0"}
         Description = "The Arming Mode options."
         found_device = False
-        for count in range(int(Parameters["Mode1"])):
-            Domoticz.Log(strName+"count = "+str(count))
+        for zone_nr in range(int(Parameters["Mode1"])):
             for item in Devices:
-                Domoticz.Log(strName+"Devices Name ="+Devices[item].Name[-20:])
-                if Devices[item].Name[-20:] == "Arming Mode (Z"+str(count)+")":
-                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+str(count)+")")
+                if zone_nr < 10:
+                    removeCharacters = -20
+                else:
+                    removeCharacters = -21
+                Domoticz.Log(strName+"Devices Name ="+Devices[item].Name[removeCharacters:])
+                if Devices[item].Name[removeCharacters:] == "Arming Mode (Z"+str(zone_nr)+")":
+                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+str(zone_nr)+")")
                         found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
-                    Domoticz.Device(Name="Arming Mode (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
+                    Domoticz.Device(Name="Arming Mode (Zone "+str(zone_nr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
        
         
         Options = {"LevelActions": "||||",
