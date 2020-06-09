@@ -221,15 +221,18 @@ class BasePlugin:
                 if Level == 0:
                     Domoticz.Log(strName+"Set Security Panel to Normal")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
-                    #self.setSecurityState(0)
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
+                        self.setSecurityState(0)
                 elif Level == 10:
                     Domoticz.Log(strName+"Set Security Panel to Armed Home")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
-                    #self.setSecurityState(1)
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
+                        self.setSecurityState(1)
                 elif Level == 20:
                     Domoticz.Log(strName+"Set Security Panel to Armed Away")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
-                    #self.setSecurityState(2)
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
+                        self.setSecurityState(2)
         
         #for zone_nr in range(int(Parameters["Mode1"])):
         #    switchAlarmModeUnit = 10 + zone_nr
