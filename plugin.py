@@ -557,7 +557,7 @@ class BasePlugin:
                 for item in nodes:
                     Domoticz.Log(strName+"item "+item["DevID"])
                     jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
-                    DomoticzAPI(jsonQueryListDevices)
+                    DomoticzAPI(jsonQueryDeleteDevices)
                     
             #Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
             #deviceAddGroup = zone.split(",")
