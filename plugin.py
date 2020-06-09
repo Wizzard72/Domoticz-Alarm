@@ -459,7 +459,7 @@ class BasePlugin:
         found_device = False
         for count in range(int(Parameters["Mode1"])):
             for item in Devices:
-                if Devices[item].Name[8:] == "Arming Mode (Z"+str(count)+")":
+                if Devices[item].Name == "Arming Mode (Z"+str(count)+")":
                         Domoticz.Log(strName+"Found device = "+"Arming Mode (Z"+str(count)+")")
                         found_device = True
             if found_device == False:
