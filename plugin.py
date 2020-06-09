@@ -555,7 +555,7 @@ class BasePlugin:
                 except:
                     nodes = []
                 for item in nodes:
-                    Domoticz.Log(strName+"item "+item)
+                    Domoticz.Log(strName+"item "+item["DevID"])
                     jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["DevID"])
                     DomoticzAPI(jsonQueryListDevices)
                     
