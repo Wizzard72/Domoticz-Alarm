@@ -517,6 +517,7 @@ class BasePlugin:
         openSectionsDeviceName = "| "
         # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
         jsonQuery = "type=command&param=getscenedevices&idx="+zoneIdx+"&isscene=true"
+        Domoticz.Log(strName+"jsonQuery = "+jsonQuery)
         APIjson = DomoticzAPI(jsonQuery)
         try:
             nodes = APIjson["result"]
