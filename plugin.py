@@ -463,8 +463,6 @@ class BasePlugin:
                     removeCharacters = -20
                 else:
                     removeCharacters = -21
-                Domoticz.Log(strName+"Devices Name ="+Devices[item].Name[removeCharacters:])
-                Domoticz.Log(strName+Devices[item].Name[removeCharacters:]+" == "+"Arming Mode (Zone "+str(zone_nr)+")")
                 if Devices[item].Name[removeCharacters:] == "Arming Mode (Zone "+str(zone_nr)+")":
                         Domoticz.Log(strName+"Found device = "+"Arming Mode (Zone "+str(zone_nr)+")")
                         found_device = True
@@ -479,14 +477,18 @@ class BasePlugin:
                        "SelectorStyle": "1"}
         Description = "The Arming Status options."
         found_device = False
-        for count in range(int(Parameters["Mode1"])):
+        for zone_nr in range(int(Parameters["Mode1"])):
             for item in Devices:
-                if Devices[item].Name[-22:] == "Arming Status (Z"+str(count)+")":
-                    Domoticz.Log(strName+"Found device = "+"Arming Status (Z"+str(count)+")")
+                if zone_nr < 10:
+                    removeCharacters = -22
+                else:
+                    removeCharacters = -23
+                if Devices[item].Name[removeCharacters:] == "Arming Status (Zone "+str(zone_nr)+")":
+                    Domoticz.Log(strName+"Found device = "+"Arming Status (Zone "+str(zone_nr)+")")
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Status()
-                    Domoticz.Device(Name="Arming Status (Zone "+str(count)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
+                    Domoticz.Device(Name="Arming Status (Zone "+str(zone_nr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
         
         #create zone groups and populate them
         # Armed Home Group
