@@ -355,7 +355,7 @@ class BasePlugin:
     def createTheMatrix(self, width, hight):
         strName = "createTheMatrix - "
         
-    def mainAlarm:
+    def mainAlarm(self):
         strName = "mainAlarm - "
         for count in range(int(Parameters["Mode 1"])):
             Domoticz.Log("")
