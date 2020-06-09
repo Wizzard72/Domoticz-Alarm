@@ -72,7 +72,7 @@ class BasePlugin:
     entryDelay = 0
     exitDelay = 0
     secpassword = ""
-    openSections = false
+    openSections = False
     
     
     
@@ -397,14 +397,14 @@ class BasePlugin:
                     if node["Status"] == "On":
                         OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
                         Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
-                        self.openSections = true
+                        self.openSections = True
                     elif node["Status"] == "Mixed":
                         OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
                         Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
-                        self.openSections = true
+                        self.openSections = True
                     elif node["Status"] == "Off":
                         Domoticz.Log(strName+"No open sections found. Safe to set the Alarm.")
-                        self.openSections = false
+                        self.openSections = False
         elif zoneMode == 20: # Armed Away
             Domoticz.Log(strName+"Armed Away")
     
