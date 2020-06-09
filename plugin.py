@@ -551,11 +551,11 @@ class BasePlugin:
                 APIjson = DomoticzAPI(jsonQueryListDevices)
                 nodes_result = False
                 try:
-                    nodes = APIjson["result"]
+                    test = APIjson["result"]
                 except:
-                    nodes = []
-                for item in nodes:
-                    Domoticz.Log(strName+"item "+item["DevID"])
+                    test = []
+                for item in test:
+                    Domoticz.Log(strName+"item "+item["ID"])
                     jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
                     DomoticzAPI(jsonQueryDeleteDevices)
                     
