@@ -485,7 +485,7 @@ class BasePlugin:
             jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
             DomoticzAPI(jsonQueryAddGroup)
             Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
-            deviceAddGroup = zoneArmedHome.split(",")
+            deviceAddGroup = zone.split(",")
             count = 1
             for addDevice in deviceAddGroup:
                 #/json.htm?type=command&param=addscenedevice&idx=number&isscene=true&devidx=deviceindex&command=1&level=number&hue=number
