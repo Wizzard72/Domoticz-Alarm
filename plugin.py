@@ -462,19 +462,19 @@ class BasePlugin:
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
             UpdateDevice(zoneNrUnit, 10, "Arming")
-            UpdateDevice(zoneNrUnit, 0, "Normal")
+            #UpdateDevice(zoneNrUnit, 0, "Normal")
         elif newStatus == 10: # Armed Home
             # Use 
             UpdateDevice(zoneNrUnit, 10, "Arming")
             # check open sections
             self.checkOpenSections(zoneNr, 10)
-            UpdateDevice(zoneNrUnit, 0, "Normal")
+            #UpdateDevice(zoneNrUnit, 0, "Normal")
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "Arming")
             # check open sections
             self.checkOpenSections(zoneNr, 20)
-            UpdateDevice(zoneNrUnit, 0, "Normal")
+            #UpdateDevice(zoneNrUnit, 0, "Normal")
         
     def checkOpenSections(self, zoneNr, zoneMode):
         strName = "checkOpenSections - "
