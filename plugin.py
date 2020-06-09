@@ -499,11 +499,11 @@ class BasePlugin:
                     Domoticz.Log(strName+"zoneName = "+zoneName)
                     Domoticz.Log(strName+"node[Status] = "+node["Status"])
                     if node["Status"] == "On":
-                        OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
+                        OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
                         Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
                         self.openSections = True
                     elif node["Status"] == "Mixed":
-                        OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
+                        OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
                         Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
                         self.openSections = True
                     elif node["Status"] == "Off":
