@@ -554,8 +554,9 @@ class BasePlugin:
                     nodes = APIjson["result"]
                 except:
                     nodes = []
-                for idem in nodes:
-                    jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(idem["DevID"])
+                for item in nodes:
+                    Domoticz.Log(strName+"item "+item)
+                    jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["DevID"])
                     DomoticzAPI(jsonQueryListDevices)
                     
             #Domoticz.Log(strName+"zoneArmedHome = "+zoneArmedHome)
