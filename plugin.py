@@ -244,11 +244,11 @@ class BasePlugin:
             switchAlarmModeUnit = 10 + zone_nr
             if switchAlarmModeUnit == Unit:
                 if Level == 0:
-                    self.alarmModeChange(self, zone_nr, Level)
+                    self.alarmModeChange(zone_nr, Level)
                 elif Level == 10:
-                    self.alarmModeChange(self, zone_nr, Level)
+                    self.alarmModeChange(zone_nr, Level)
                 elif Level == 20:
-                    self.alarmModeChange(self, zone_nr, Level)
+                    self.alarmModeChange(zone_nr, Level)
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         strName = "onNotification: "
@@ -432,7 +432,7 @@ class BasePlugin:
             Domoticz.Log("")
             
     def alarmModeChange(self, zoneNr, newStatus):
-        strName = "alarmModeChange"
+        strName = "alarmModeChange - "
         Domoticz.Log(strName+"zoneNr = "+zoneNr+" | newStatus = "+newStatus)
         zoneNrUnit = self.ALARM_ARMING_MODE_UNIT + zoneNr
         Domoticz.Log(strName+"zoneNrUnit = "+zoneNrUnit)
