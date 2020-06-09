@@ -215,19 +215,19 @@ class BasePlugin:
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
         
-        if self.ALARM_ARMING_MODE_UNIT == Unit:
-            if Level == 0:
-                Domoticz.Log(strName+"Set Security Panel to Normal")
-                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
-                self.setSecurityState(0)
-            elif Level == 10:
-                Domoticz.Log(strName+"Set Security Panel to Armed Home")
-                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
-                self.setSecurityState(1)
-            elif Level == 20:
-                Domoticz.Log(strName+"Set Security Panel to Armed Away")
-                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
-                self.setSecurityState(2)
+        #if self.ALARM_ARMING_MODE_UNIT == Unit:
+        #    if Level == 0:
+        #        Domoticz.Log(strName+"Set Security Panel to Normal")
+        #        UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
+        #        self.setSecurityState(0)
+        #    elif Level == 10:
+        #        Domoticz.Log(strName+"Set Security Panel to Armed Home")
+        #        UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
+        #        self.setSecurityState(1)
+        #    elif Level == 20:
+        #        Domoticz.Log(strName+"Set Security Panel to Armed Away")
+        #        UpdateDevice(self.ALARM_ARMING_MODE_UNIT, Level, str(Level))
+        #        self.setSecurityState(2)
         
         for zone_nr in range(int(Parameters["Mode1"])):
             switchAlarmModeUnit = 10 + zone_nr
@@ -239,6 +239,19 @@ class BasePlugin:
                     UpdateDevice(switchAlarmModeUnit, Level, str(Level))
                 elif Level == 20:
                     UpdateDevice(switchAlarmModeUnit, Level, str(Level))
+            else:
+                if Level == 0:
+                Domoticz.Log(strName+"Set Security Panel to Normal")
+                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
+                self.setSecurityState(0)
+            elif Level == 10:
+                Domoticz.Log(strName+"Set Security Panel to Armed Home")
+                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
+                self.setSecurityState(1)
+            elif Level == 20:
+                Domoticz.Log(strName+"Set Security Panel to Armed Away")
+                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
+                self.setSecurityState(2)
 
             
         for zone_nr in range(int(Parameters["Mode1"])):
