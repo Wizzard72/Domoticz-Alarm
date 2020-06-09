@@ -407,7 +407,6 @@ class BasePlugin:
                         self.openSections = false
         elif zoneMode == 20: # Armed Away
     
-    
     def deviceOpenSections(self, zoneIdx, zoneName):
         strName = "deviceOpenSections - "
         openSectionsDeviceName = "| "
