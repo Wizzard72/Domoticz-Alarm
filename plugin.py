@@ -256,15 +256,15 @@ class BasePlugin:
         #                self.setSecurityState(2)
 
             
-        for zone_nr in range(int(Parameters["Mode1"])):
-            switchAlarmModeUnit = 10 + zone_nr
-            if switchAlarmModeUnit == Unit:
-                if Level == 0:
-                    self.alarmModeChange(zone_nr, Level)
-                elif Level == 10:
-                    self.alarmModeChange(zone_nr, Level)
-                elif Level == 20:
-                    self.alarmModeChange(zone_nr, Level)
+        #for zone_nr in range(int(Parameters["Mode1"])):
+        #    switchAlarmModeUnit = 10 + zone_nr
+        #    if switchAlarmModeUnit == Unit:
+        #        if Level == 0:
+        #            self.alarmModeChange(zone_nr, Level)
+        #        elif Level == 10:
+        #            self.alarmModeChange(zone_nr, Level)
+        #        elif Level == 20:
+        #            self.alarmModeChange(zone_nr, Level)
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         strName = "onNotification: "
