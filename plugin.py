@@ -493,9 +493,10 @@ class BasePlugin:
             except:
                 nodes = []
             Domoticz.Debug(strName+"APIjson = "+str(nodes))
-            zoneName = "Alarm Zone "+zoneNr+" - Armed Home"
+            zoneName = "Alarm Zone "+str(zoneNr)+" - Armed Home"
             for node in nodes:
                 if node["Name"] == zoneName:
+                    Domoticz.Log(strName+"zoneName = "+zoneName)
                     if node["Status"] == "On":
                         OpenSectionDevice = deviceOpenSections(node["idx"], zoneName)
                         Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
