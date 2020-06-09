@@ -526,8 +526,9 @@ class BasePlugin:
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         # Find DevID en met DevID kan met: /json.htm?type=devices&rid=DevID de Status opgevraagd worden van device!
         for node in nodes:
-            if getSwitchIDXStatus(node["DevID"]) == "On":
+            if self.getSwitchIDXStatus(node["DevID"]) == "On":
                 openSectionsDeviceName = openSectionsDeviceName + node["Name"] + " | "
+        Domoticz.Log(strName+"openSectionsDeviceName = "+openSectionsDeviceName)
         return openSectionsDeviceName
     
     def getSwitchIDXStatus(self, idx):
