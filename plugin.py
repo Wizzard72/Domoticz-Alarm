@@ -563,7 +563,7 @@ class BasePlugin:
             zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Away"
             jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
             #DomoticzAPI(jsonQueryAddGroup)
-            Domoticz.Log(strName+"zoneArmedAway = "+zoneArmedAway)
+            Domoticz.Log(strName+"zoneArmedAway = "+str(zoneArmedAway))
             deviceAddGroup = zone.split(",")
             count = 1
             for addDevice in deviceAddGroup:
