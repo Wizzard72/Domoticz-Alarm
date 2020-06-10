@@ -301,7 +301,9 @@ class BasePlugin:
         
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         for row in range(TotalRows):
-            if self.getSwitchIDXStatus(self.Matrix[row][3)) == "On":
+            deviceIDX = self.Matrix[row][3)
+            Domoticz.Log(strName+"deviceIDX"+str(deviceIDX))
+            if self.getSwitchIDXStatus(deviceIDX) == "On":
                 if self.Matrix[row][4] != "On" and self.Matrix[row][4] == "Normal":
                     self.changeRowinMatrix(self.TotalRows, self.Matrix[row][3), "On", "Tripped", 10)
         for x in range(TotalRows):
