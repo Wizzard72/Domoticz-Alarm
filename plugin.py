@@ -303,7 +303,7 @@ class BasePlugin:
                 if self.Matrix[row][4] != "On" and self.Matrix[row][4] == "Normal":
                     self.changeRowinMatrix(self.TotalRows, self.Matrix[row][3), "On", "Tripped", 10)
         for x in range(TotalRows):
-            Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
+            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
         
         #i = 0
         #for node in nodes:
