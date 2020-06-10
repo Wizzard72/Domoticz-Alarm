@@ -110,7 +110,7 @@ class BasePlugin:
         for zone in ZoneArmedHome:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
-                if devices.lower() != "none" or devices != 0:
+                if str(devices.lower()) not in "none,0":
                     self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "OFF", "NO", 0)
             zoneNr = zoneNr + 1
         zoneNr = 0
@@ -480,7 +480,8 @@ class BasePlugin:
         for amount in AmountOfDevices:
             zoneDevices = amount.split(",")
             for amountDevices in zoneDevices:
-                DevicesCount = DevicesCount + 1
+                if str(amountDevices.lower()) not in "none,0":
+                    DevicesCount = DevicesCount + 1
         return DevicesCount
         
         
