@@ -488,7 +488,9 @@ class BasePlugin:
         # Find free row number
         LastRow = 0
         for row in range(TotalRows):
-            if self.Matrix[row][0] != "":
+            Domoticz.Log(strName+"row = "+str(row))
+            Domoticz.Log(strName+"self.Matrix[row][0] = "+self.Matrix[row][0])
+            if self.Matrix[row][0] != None:
                 LastRow = LastRow + 1
         
         # Add to Matrix
