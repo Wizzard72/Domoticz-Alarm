@@ -104,7 +104,7 @@ class BasePlugin:
         # ZONE_Nr | Arm Home/Away| DeviceIdx | State | Changed | Time Changed |
         TotalRows = self.calculateMatixRows()
         TotalColoms = 6
-        self.createTheMatrix(self, TotalColoms, TotalRows)
+        self.createTheMatrix(TotalColoms, TotalRows)
         ZoneArmedHome = Parameters["Mode2"].split(";")
         for zone in ZoneArmedHome:
             devicesIdx = zone.split(",")
