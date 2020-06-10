@@ -110,7 +110,7 @@ class BasePlugin:
         for zone in ZoneArmedHome:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
-                Domoticz.Log(strName+"devices = "+devices)
+                Domoticz.Log(strName+"devices = "+str(devices))
                 if devices != "none" or devices != 0:
                     self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "OFF", "NO", 0)
             zoneNr = zoneNr + 1
