@@ -79,6 +79,7 @@ class BasePlugin:
     openSections = False
     amountofZones = 0
     sirenOn = False
+    Matrix = ""
     
     
     
@@ -100,11 +101,24 @@ class BasePlugin:
 
 
         # Create table
-        w, h = 5, int(Parameters["Mode1"]);
-        self.Matrix = [[0 for x in range(w)] for y in range(h)] 
-        # table:
-        # ZONE_Name | State | Changed | Time | Refresh
-        # Matrix[0][0] = 1
+        # ZONE_Nr | Arm Home/Away| DeviceIdx | State | Changed | Time Changed |
+        TotalRows = self.calculateMatixRows()
+        TotalColoms = 6
+        self.createTheMatrix(self, TotalColoms, TotalRows)
+        ZoneArmedHome = Parameters["Mode2"].split(";")
+        for zone in ZoneArmedHome:
+            devicesIdx = zone.split(",")
+            for devices in devicesIdx:
+                self.addToMatrix(self, TotalRows, zone, "Armed Home", devices, "OFF", "NO", "")
+        ZoneArmedAway = Parameters["Mode3"].split(";")
+        for zone in ZoneArmedAway:
+            devicesIdx = zone.split(",")
+            for devices in devicesIdx:
+                self.addToMatrix(self, TotalRows, zone, "Armed Away", devices, "OFF", "NO", "")
+        
+        for x in TotalRows:
+            Domoticz.Log(strName+"Matrix: "+self.Matrix[x][0]+" | "+self.Matrix[x][1]+" | "+self.Matrix[x][2]+" | "+self.Matrix[x][3]+" | "+self.Matrix[x][4]+" | "+self.Matrix[x][5]+" | ")
+        
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
         self.secpassword = self.getsecpasspword()
@@ -441,7 +455,58 @@ class BasePlugin:
         
     def createTheMatrix(self, width, hight):
         strName = "createTheMatrix - "
+        self.Matrix = [[0 for x in range(width)] for y in range(hight)] 
+        # table:
+        # ZONE_Nr | Arm Home/Away| DeviceIdx | State | Changed | Time Changed |
+        # Matrix[0][0] = 1
         
+    def calculateMatixRows(self):
+        ZoneArmedHome = Parameters["Mode2"].split(";")
+        ZoneArmedAway = Parameters["Mode3"].split(";")
+        countArmedHome = self.calculateAmountOfDevices(ZoneArmedHome)
+        countArmedAway = self.calculateAmountOfDevices(ZoneArmedAway)
+        TotalRows = countArmedHome + countArmedAway
+        return TotalRows
+        
+    def calculateAmountOfDevices(self, AmountOfDevices):
+        DevicesCount = 0
+        for amount in AmountOfDevices:
+            zoneDevices = amount.split(",")
+            for amountDevices in zoneDevices:
+                DevicesCount = DevicesCount + 1
+        return DevicesCount
+        
+        
+    def addToMatrix(self, TotalRows, ZoneNr, ArmMode, DeviceIdx, DeviceState, Changed, TimeChanged):
+        strName = "addToMatrix - "
+        # Find free row number
+        LastRow = 0
+        for row in TotalRows:
+            if self.Matrix[row][0] != "":
+                LastRow = LastRow + 1
+        
+        # Add to Matrix
+        NewRow = LastRow + 1
+        self.Matrix[NewRow][0] = ZoneNr
+        self.Matrix[NewRow][1] = ArmMode
+        self.Matrix[NewRow][2] = DeviceIdx
+        self.Matrix[NewRow][3] = DeviceState
+        self.Matrix[NewRow][4] = Changed
+        self.Matrix[NewRow][5] = TimeChanged
+        Domoticz.Log(strName+"Add row: ZoneNr = "+ZoneNr+" ArmMode = "+ArmMode+" DeviceIdx = "+ DeviceIdx+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+TimeChanged)
+    
+    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed, TimeChanged):
+        strName = "changeRowinMatrix - "
+        for row in TotalRows:
+            if self.Matrix[row][2] = DeviceIdx:
+                self.Matrix[row][3] = DeviceState
+                self.Matrix[row][4] = Changed
+                self.Matrix[row][5] = TimeChanged
+                Domoticz.Log(strName+"Changed row "+row+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+TimeChanged)
+    
+    def populateMatrix(self):
+        
+    
     def activateSiren(self):
         strName = "activateSiren - "
         UpdateDevice(self.ALARM_MAIN_UNIT, 1, "On")
