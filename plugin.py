@@ -121,8 +121,8 @@ class BasePlugin:
                     self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "OFF", "NO", "")
             zoneNr = zoneNr + 1
         
-        for x in TotalRows:
-            Domoticz.Log(strName+"Matrix: "+self.Matrix[x][0]+" | "+self.Matrix[x][1]+" | "+self.Matrix[x][2]+" | "+self.Matrix[x][3]+" | "+self.Matrix[x][4]+" | "+self.Matrix[x][5]+" | ")
+        for x in range(TotalRows):
+            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
         
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
