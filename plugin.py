@@ -493,7 +493,7 @@ class BasePlugin:
                 self.Matrix[row][4] = DeviceState
                 self.Matrix[row][5] = Changed
                 self.Matrix[row][6] = TimeChanged
-                Domoticz.Log(strName+"Changed row "+row+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+TimeChanged)
+                Domoticz.Log(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
     
     def activateSiren(self):
