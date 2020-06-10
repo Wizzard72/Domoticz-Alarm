@@ -506,8 +506,6 @@ class BasePlugin:
                 self.Matrix[row][5] = TimeChanged
                 Domoticz.Log(strName+"Changed row "+row+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+TimeChanged)
     
-    def populateMatrix(self):
-        
     
     def activateSiren(self):
         strName = "activateSiren - "
