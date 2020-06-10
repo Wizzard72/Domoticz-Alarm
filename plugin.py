@@ -485,19 +485,15 @@ class BasePlugin:
         
     def addToMatrix(self, TotalRows, ZoneNr, ArmMode, DeviceIdx, DeviceState, Changed, TimeChanged):
         strName = "addToMatrix - "
-        Domoticz.Log(strName+"TotalRows = "+str(TotalRows)+ " ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" TimeChanged = "+str(TimeChanged))
         # Find free row number
         LastRow = 0
         for row in range(TotalRows):
-            Domoticz.Log(strName+"row = "+str(row))
-            Domoticz.Log(strName+"self.Matrix[row][1] = "+str(self.Matrix[row][1]))
             if self.Matrix[row][0] == 0:
                 LastRow = row
                 break
                 
         
         # Add to Matrix
-        Domoticz.Log(strName+"LastRow = "+str(LastRow))
         NewRow = LastRow+1
         self.Matrix[LastRow][0] = NewRow
         self.Matrix[LastRow][1] = ZoneNr
@@ -506,7 +502,7 @@ class BasePlugin:
         self.Matrix[LastRow][4] = DeviceState
         self.Matrix[LastRow][5] = Changed
         self.Matrix[LastRow][6] = TimeChanged
-        Domoticz.Log(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
+        Domoticz.Debug(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
     def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed, TimeChanged):
         strName = "changeRowinMatrix - "
