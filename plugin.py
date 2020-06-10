@@ -304,8 +304,8 @@ class BasePlugin:
             Domoticz.Log(strName+"deviceIDX"+str(deviceIDX))
             Domoticz.Log(strName+"self.getSwitchIDXStatus(deviceIDX) = "+self.getSwitchIDXStatus(deviceIDX))
             if self.getSwitchIDXStatus(deviceIDX) == "On":
-                Domoticz.Log(strName+"Gelukt")
                 if self.Matrix[row][4] not in "On,Normal":
+                    Domoticz.Log(strName+"Gelukt")
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "Tripped", 10)
         for x in range(TotalRows):
             Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
