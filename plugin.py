@@ -101,9 +101,9 @@ class BasePlugin:
 
 
         # Create table
-        # ZONE_Nr | Arm Home/Away| DeviceIdx | State | Changed | Time Changed |
+        # Nr | ZONE_Nr | Arm Home/Away| DeviceIdx | State | Changed | Time Changed |
         TotalRows = self.calculateMatixRows()
-        TotalColoms = 6
+        TotalColoms = 7
         self.createTheMatrix(TotalColoms, TotalRows)
         ZoneArmedHome = Parameters["Mode2"].split(";")
         zoneNr = 0
@@ -490,8 +490,8 @@ class BasePlugin:
         for row in range(TotalRows):
             Domoticz.Log(strName+"row = "+str(row))
             Domoticz.Log(strName+"self.Matrix[row][1] = "+str(self.Matrix[row][1]))
-            if self.Matrix[row][0] != None:
-                LastRow = LastRow + 1
+            if self.Matrix[row][0] == 0:
+                LastRow = row
         
         # Add to Matrix
         if LastRow == 0:
@@ -499,12 +499,13 @@ class BasePlugin:
         else:
             NewRow = LastRow + 1
         Domoticz.Log(strName+"LastRow = "+str(LastRow))
-        self.Matrix[NewRow][0] = ZoneNr
-        self.Matrix[NewRow][1] = ArmMode
-        self.Matrix[NewRow][2] = DeviceIdx
-        self.Matrix[NewRow][3] = DeviceState
-        self.Matrix[NewRow][4] = Changed
-        self.Matrix[NewRow][5] = TimeChanged
+        self.Matrix[NewRow][0] = NewRow
+        self.Matrix[NewRow][1] = ZoneNr
+        self.Matrix[NewRow][2] = ArmMode
+        self.Matrix[NewRow][3] = DeviceIdx
+        self.Matrix[NewRow][4] = DeviceState
+        self.Matrix[NewRow][5] = Changed
+        self.Matrix[NewRow][6] = TimeChanged
         Domoticz.Log(strName+"Add row: ZoneNr = "+ZoneNr+" ArmMode = "+ArmMode+" DeviceIdx = "+ DeviceIdx+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+TimeChanged)
     
     def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed, TimeChanged):
