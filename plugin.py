@@ -114,6 +114,7 @@ class BasePlugin:
                 if devices != "none" or devices != 0:
                     self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "OFF", "NO", 0)
             zoneNr = zoneNr + 1
+        zoneNr = 0
         ZoneArmedAway = Parameters["Mode3"].split(";")
         for zone in ZoneArmedAway:
             devicesIdx = zone.split(",")
