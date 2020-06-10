@@ -488,7 +488,7 @@ class BasePlugin:
     
     def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed, TimeChanged):
         strName = "changeRowinMatrix - "
-        for row in TotalRows:
+        for row in range(TotalRows):
             if self.Matrix[row][2] == DeviceIdx:
                 self.Matrix[row][3] = DeviceState
                 self.Matrix[row][4] = Changed
