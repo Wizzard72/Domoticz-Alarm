@@ -496,6 +496,7 @@ class BasePlugin:
             NewRow = LastRow
         else:
             NewRow = LastRow + 1
+        Domoticz.Log(strName+"LastRow = "+LastRow)
         self.Matrix[NewRow][0] = ZoneNr
         self.Matrix[NewRow][1] = ArmMode
         self.Matrix[NewRow][2] = DeviceIdx
