@@ -80,6 +80,7 @@ class BasePlugin:
     amountofZones = 0
     sirenOn = False
     Matrix = ""
+    MatrixRowTotal = 0
 
     
     
@@ -107,6 +108,7 @@ class BasePlugin:
         # 1    0         Arm Home       1000        On      New       Time
         # 1    0         Arm Home       1000        On      Tripped   Time
         TotalRows = self.calculateMatixRows()
+        self.MatrixRowTotal = TotalRows
         TotalColoms = 7
         self.createTheMatrix(TotalColoms, TotalRows)
         ZoneArmedHome = Parameters["Mode2"].split(";")
@@ -275,7 +277,7 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
-        self.pollZoneDevices()
+        self.pollZoneDevices(self.MatrixRowTotal)
         self.getSecurityState()
         #self.alarmEnable()
         self.collectSensorData()
