@@ -509,7 +509,7 @@ class BasePlugin:
         self.Matrix[NewRow][4] = DeviceState
         self.Matrix[NewRow][5] = Changed
         self.Matrix[NewRow][6] = TimeChanged
-        Domoticz.Log(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+TimeChanged)
+        Domoticz.Log(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
     def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed, TimeChanged):
         strName = "changeRowinMatrix - "
