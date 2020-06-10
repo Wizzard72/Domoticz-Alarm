@@ -125,7 +125,6 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    Domoticz.Log(strName+"10devices ="+devices+"=")
                     self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "NO", 0)
             zoneNr = zoneNr + 1
         
@@ -850,17 +849,17 @@ def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
     resultJson = None
     url = "http://{}:{}/json.htm?{}".format(Parameters["Address"], Parameters["Port"], parse.quote(APICall, safe="&="))
-    Domoticz.Log(strName+"Calling domoticz API: {}".format(url))
+    Domoticz.Debug(strName+"Calling domoticz API: {}".format(url))
     try:
         req = request.Request(url)
         if Parameters["Username"] != "":
-            Domoticz.Log(strName+"Add authentification for user {}".format(Parameters["Username"]))
+            Domoticz.Debug(strName+"Add authentification for user {}".format(Parameters["Username"]))
             credentials = ('%s:%s' % (Parameters["Username"], Parameters["Password"]))
             encoded_credentials = base64.b64encode(credentials.encode('ascii'))
             req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
 
         response = request.urlopen(req)
-        Domoticz.Log(strName+"Response status = "+str(response.status))
+        Domoticz.Debug(strName+"Response status = "+str(response.status))
         if response.status == 200:
             resultJson = json.loads(response.read().decode('utf-8'))
             if resultJson["status"] != "OK":
