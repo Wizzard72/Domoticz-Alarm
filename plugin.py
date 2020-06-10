@@ -488,7 +488,10 @@ class BasePlugin:
                 LastRow = LastRow + 1
         
         # Add to Matrix
-        NewRow = LastRow + 1
+        if LastRow == 0:
+            NewRow = LastRow
+        else:
+            NewRow = LastRow + 1
         self.Matrix[NewRow][0] = ZoneNr
         self.Matrix[NewRow][1] = ArmMode
         self.Matrix[NewRow][2] = DeviceIdx
