@@ -307,7 +307,7 @@ class BasePlugin:
             switchStatusIdx = self.getSwitchIDXStatus(deviceIDX)
             if switchStatusIdx == "On":
                 if self.Matrix[row][4] not in "On,Normal":
-                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "Tripped", 10)
+                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New", 10)
             elif switchStatusIdx == "Off":
                 if self.Matrix[row][4] not in "Off":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal", 10)
