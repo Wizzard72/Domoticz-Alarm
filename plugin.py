@@ -117,7 +117,7 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "NO", 0)
+                    self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         zoneNr = 0
         ZoneArmedAway = Parameters["Mode3"].split(";")
@@ -125,7 +125,7 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "NO", 0)
+                    self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         
         for x in range(TotalRows):
@@ -312,7 +312,7 @@ class BasePlugin:
                 if self.Matrix[row][4] not in "Off":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal", 10)
         for x in range(TotalRows):
-            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][6])+" | ")
+            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
         #i = 0
         #for node in nodes:
