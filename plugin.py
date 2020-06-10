@@ -80,6 +80,7 @@ class BasePlugin:
     amountofZones = 0
     sirenOn = False
     Matrix = ""
+
     
     
     
@@ -102,6 +103,9 @@ class BasePlugin:
 
         # Create table
         # Nr | ZONE_Nr | Arm Home/Away| DeviceIdx | State | Changed | Time Changed |
+        # 1    0         Arm Home       1000        Off     Normal    0
+        # 1    0         Arm Home       1000        On      New       Time
+        # 1    0         Arm Home       1000        On      Tripped   Time
         TotalRows = self.calculateMatixRows()
         TotalColoms = 7
         self.createTheMatrix(TotalColoms, TotalRows)
@@ -111,7 +115,7 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "OFF", "NO", 0)
+                    self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "NO", 0)
             zoneNr = zoneNr + 1
         zoneNr = 0
         ZoneArmedAway = Parameters["Mode3"].split(";")
@@ -120,11 +124,11 @@ class BasePlugin:
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
                     Domoticz.Log(strName+"10devices ="+devices+"=")
-                    self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "OFF", "NO", 0)
+                    self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "NO", 0)
             zoneNr = zoneNr + 1
         
         for x in range(TotalRows):
-            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
+            Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
         
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
@@ -258,42 +262,6 @@ class BasePlugin:
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(2)
         
-        #for zone_nr in range(int(Parameters["Mode1"])):
-        #    switchAlarmModeUnit = 10 + zone_nr
-        #    if switchAlarmModeUnit == Unit:
-        #        if Unit != 10:
-        #            Domoticz.Log(strName+"switchAlarmModeUnit = "+str(switchAlarmModeUnit))
-        #            if Level == 0:
-        #                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
-        #            elif Level == 10:
-        #                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
-        #            elif Level == 20:
-        #                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
-        #        elif Unit == 10:
-        #            Domoticz.Log(strName+"switchAlarmModeUnit = "+str(switchAlarmModeUnit))
-        #            if Level == 0:
-        #                Domoticz.Log(strName+"Set Security Panel to Normal")
-        #                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
-        #                self.setSecurityState(0)
-        #            elif Level == 10:
-        #                Domoticz.Log(strName+"Set Security Panel to Armed Home")
-        #                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
-        #                self.setSecurityState(1)
-        #            elif Level == 20:
-        #                Domoticz.Log(strName+"Set Security Panel to Armed Away")
-        #                UpdateDevice(switchAlarmModeUnit, Level, str(Level))
-        #                self.setSecurityState(2)
-
-            
-        #for zone_nr in range(int(Parameters["Mode1"])):
-        #    switchAlarmModeUnit = 10 + zone_nr
-        #    if switchAlarmModeUnit == Unit:
-        #        if Level == 0:
-        #            self.alarmModeChange(zone_nr, Level)
-        #        elif Level == 10:
-        #            self.alarmModeChange(zone_nr, Level)
-        #        elif Level == 20:
-        #            self.alarmModeChange(zone_nr, Level)
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         strName = "onNotification: "
@@ -321,7 +289,7 @@ class BasePlugin:
             if timeDiffSeconds >= 45:
                 self.deactivateSiren()
         
-    def pollZoneDevices(self):
+    def pollZoneDevices(self, TotalRows):
         strName = "pollZoneDevices - "
         APIjson = DomoticzAPI("type=scenes")
         try:
@@ -330,6 +298,13 @@ class BasePlugin:
             nodes = []
         
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        for row in range(TotalRows):
+            if self.getSwitchIDXStatus(self.Matrix[row][3) == "On":
+                if self.Matrix[row][4] != "On" and self.Matrix[row][4] == "Normal":
+                    self.changeRowinMatrix(self.TotalRows, self.Matrix[row][3), "On", "Tripped", 10)
+        for x in range(TotalRows):
+            Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
+        
         #i = 0
         #for node in nodes:
         #    self.Matrix[i][0] = node["Name"]
