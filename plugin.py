@@ -481,7 +481,7 @@ class BasePlugin:
         
     def addToMatrix(self, TotalRows, ZoneNr, ArmMode, DeviceIdx, DeviceState, Changed, TimeChanged):
         strName = "addToMatrix - "
-        Domoticz.Log(strName+"TotalRows = "+TotalRows+ " ZoneNr = "+ZoneNr+" ArmMode = "+ArmMode+" DeviceIdx = "+DeviceIdx+" DeviceState = "+DeviceState+" Changed = "+Changed+" TimeChanged = "+TimeChanged)
+        Domoticz.Log(strName+"TotalRows = "+str(TotalRows)+ " ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" TimeChanged = "+TimeChanged)
         # Find free row number
         LastRow = 0
         for row in range(TotalRows):
