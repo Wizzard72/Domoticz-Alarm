@@ -497,18 +497,15 @@ class BasePlugin:
                 
         
         # Add to Matrix
-        if LastRow == 0:
-            NewRow = LastRow
-        else:
-            NewRow = LastRow + 1
         Domoticz.Log(strName+"LastRow = "+str(LastRow))
-        self.Matrix[NewRow][0] = NewRow+1
-        self.Matrix[NewRow][1] = ZoneNr
-        self.Matrix[NewRow][2] = ArmMode
-        self.Matrix[NewRow][3] = DeviceIdx
-        self.Matrix[NewRow][4] = DeviceState
-        self.Matrix[NewRow][5] = Changed
-        self.Matrix[NewRow][6] = TimeChanged
+        NewRow = LastRow+1
+        self.Matrix[LastRow][0] = NewRow
+        self.Matrix[LastRow][1] = ZoneNr
+        self.Matrix[LastRow][2] = ArmMode
+        self.Matrix[LastRow][3] = DeviceIdx
+        self.Matrix[LastRow][4] = DeviceState
+        self.Matrix[LastRow][5] = Changed
+        self.Matrix[LastRow][6] = TimeChanged
         Domoticz.Log(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
     def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed, TimeChanged):
