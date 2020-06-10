@@ -483,7 +483,7 @@ class BasePlugin:
         strName = "addToMatrix - "
         # Find free row number
         LastRow = 0
-        for row in TotalRows:
+        for row in range(TotalRows):
             if self.Matrix[row][0] != "":
                 LastRow = LastRow + 1
         
