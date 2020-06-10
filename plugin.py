@@ -489,7 +489,7 @@ class BasePlugin:
         LastRow = 0
         for row in range(TotalRows):
             Domoticz.Log(strName+"row = "+str(row))
-            Domoticz.Log(strName+"self.Matrix[row][0] = "+str(self.Matrix[row][0]))
+            Domoticz.Log(strName+"self.Matrix[row][1] = "+str(self.Matrix[row][1]))
             if self.Matrix[row][0] != None:
                 LastRow = LastRow + 1
         
