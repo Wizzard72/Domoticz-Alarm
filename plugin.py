@@ -489,10 +489,10 @@ class BasePlugin:
     def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed, TimeChanged):
         strName = "changeRowinMatrix - "
         for row in range(TotalRows):
-            if self.Matrix[row][2] == DeviceIdx:
-                self.Matrix[row][3] = DeviceState
-                self.Matrix[row][4] = Changed
-                self.Matrix[row][5] = TimeChanged
+            if self.Matrix[row][3] == DeviceIdx:
+                self.Matrix[row][4] = DeviceState
+                self.Matrix[row][5] = Changed
+                self.Matrix[row][6] = TimeChanged
                 Domoticz.Log(strName+"Changed row "+row+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+TimeChanged)
     
     
