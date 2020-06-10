@@ -593,7 +593,7 @@ class BasePlugin:
         except:
             nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        return node["Status"]
+        return nodes["Status"]
     
     def createDevices(self):
         strName = "createDevices - " 
