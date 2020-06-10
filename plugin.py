@@ -591,7 +591,7 @@ class BasePlugin:
             nodes = APIjson["result"]
         except:
             nodes = []
-        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        Domoticz.Log(strName+"APIjson = "+str(nodes))
         Domoticz.Log(strName+"Node Status = "+str(nodes["Status"]))
         return nodes["Status"]
     
