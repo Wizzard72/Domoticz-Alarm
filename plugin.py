@@ -492,6 +492,8 @@ class BasePlugin:
             Domoticz.Log(strName+"self.Matrix[row][1] = "+str(self.Matrix[row][1]))
             if self.Matrix[row][0] == 0:
                 LastRow = row
+                break
+                
         
         # Add to Matrix
         if LastRow == 0:
