@@ -81,6 +81,7 @@ class BasePlugin:
     sirenOn = False
     Matrix = ""
     MatrixRowTotal = 0
+    TotalZones = -
 
     
     
@@ -127,6 +128,8 @@ class BasePlugin:
                 if str(devices.lower()) not in "none,0":
                     self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
+        
+        self.TotalZones = ZoneNr
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
@@ -314,27 +317,6 @@ class BasePlugin:
         for x in range(TotalRows):
             Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
-        #i = 0
-        #for node in nodes:
-        #    self.Matrix[i][0] = node["Name"]
-        #    Domoticz.Log(strName+"node = "+str(node))
-        #    if node["Status"] == "On":
-        #        Domoticz.Log(strName+node["Name"]+" is Activated (On)")
-        #        zoneStatus = "On"
-        #    elif node["Status"] == "Off":
-        #        Domoticz.Log(strName+node["Name"]+" is Deactivated (Off)")
-        #        zoneStatus = "Off"
-        #    self.Matrix[i][1] = node["Name"]
-        #    self.Matrix[i][2] = ""
-        #    self.Matrix[i][3] = ""
-        #    self.Matrix[i][4] = ""
-        #    i = i + 1
-        
-        #for count in range(int(Parameters["Mode1"])):
-        #    Domoticz.Log(strName+"Alarm = "+self.Matrix[count][0]+" | "+str(self.Matrix[count][1])+" | "+str(self.Matrix[count][2])+" | "+self.Matrix[count][3]+" | "+self.Matrix[count][4])
-        
-        #for i in nodes:
-        #    Domoticz.Log("APIjson = "+nodes[i])
             
     def getSecurityState(self):
         strName = "getSecurityState - "
@@ -403,8 +385,12 @@ class BasePlugin:
                     self.anybodyHome = "Off"
                     #self.setSecurityState(2)
                     
-    def trippedSensor(self):
+    def trippedSensor(self, TotalRows):
         strName = "trippedSensor - "
+        # Check Sensor with state New
+        for row in range(TotalRows):
+            if self.Matrix[row][5] == "New":
+                Domoticz.Log(strName+"")
         
     def collectSensorData(self):
         strName = "collectSensorData - "
@@ -510,8 +496,20 @@ class BasePlugin:
         
     def mainAlarm(self):
         strName = "mainAlarm - "
-        for count in range(int(Parameters["Mode 1"])):
-            Domoticz.Log("")
+        # Main Alarm script
+        # Poll all sensors
+        self.pollZoneDevices(self.MatrixRowTotal)
+        # Alarm Mode
+        for zone in range(self.TotalZones):
+            ZoneID = self.ALARM_ARMING_MODE_UNIT + zone
+            if Devices(ZoneID).nValue == "Disarmed": # or sValue
+                Domoticz.Log(strName+"")
+            elif Devices(ZoneID).nValue == "Armed Home":
+                Domoticz.Log(strName+"")
+            elif Devices(ZoneID).nValue == "Armed Away":
+                Domoticz.Log(strName+"")
+    
+
             
     def alarmModeChange(self, zoneNr, newStatus):
         strName = "alarmModeChange - "
