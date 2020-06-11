@@ -385,12 +385,18 @@ class BasePlugin:
                     self.anybodyHome = "Off"
                     #self.setSecurityState(2)
                     
-    def trippedSensor(self, TotalRows):
+    def trippedSensor(self, TotalRows, AlarmMode):
         strName = "trippedSensor - "
         # Check Sensor with state New
+        # Runs only when Armed Home or Armed Away
+        trippedSensor = 0
         for row in range(TotalRows):
             if self.Matrix[row][5] == "New":
-                Domoticz.Log(strName+"")
+                Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
+                trippedSensor = TrippedSensor + 1
+                zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
+                UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+                
         
     def collectSensorData(self):
         strName = "collectSensorData - "
@@ -506,8 +512,10 @@ class BasePlugin:
                 Domoticz.Log(strName+"")
             elif Devices(ZoneID).nValue == "Armed Home":
                 Domoticz.Log(strName+"")
+                self.trippedSensor(self.MatrixRowTotal, "Armed Home")
             elif Devices(ZoneID).nValue == "Armed Away":
                 Domoticz.Log(strName+"")
+                self.trippedSensor(self.MatrixRowTotal, "Armed Away")
     
 
             
