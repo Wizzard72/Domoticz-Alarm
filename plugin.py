@@ -431,7 +431,7 @@ class BasePlugin:
             trippedZone = ""
             for row in range(TotalRows):
                 zoneNrUnit = 0
-                if self.Matrix[row][5] == "New" and self.Matrix[row][2] == "Armed Home":
+                if self.Matrix[row][5] == "New" and self.Matrix[row][2] == "Armed Away":
                     Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
