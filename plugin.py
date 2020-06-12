@@ -402,7 +402,7 @@ class BasePlugin:
                     trippedZone = trippedZone+","+self.Matrix[row][1]
                 zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-        trippedZoneCheck = trippedZOne.count('0')
+        trippedZoneCheck = trippedZone.count('0')
         Domoticz.Log(strName+"trippedZoneCheck =- "+trippedZoneCheck)
                 
         
