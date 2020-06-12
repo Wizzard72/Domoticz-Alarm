@@ -313,7 +313,7 @@ class BasePlugin:
             Domoticz.Log(strName+"Devices[zoneNr].nValue = "+str(Devices[zoneNr].nValue))
             if Devices[zoneNr].nValue == 40:
                 #try:
-                timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                #timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 Domoticz.Log(strName+"tijd = "+datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S'))
                 #except TypeError:
                 #    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
