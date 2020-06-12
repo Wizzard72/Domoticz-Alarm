@@ -439,7 +439,7 @@ class BasePlugin:
                     Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
                 elif trippedZoneCheck == 0:
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+int(self.Matrix[zone][1])
+                    zoneNrUnit = int(self.ALARM_ARMING_STATUS_UNIT)+int(self.Matrix[zone][1])
                     Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
