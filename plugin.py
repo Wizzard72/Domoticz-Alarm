@@ -306,7 +306,7 @@ class BasePlugin:
         #self.getSecurityState()
         #self.alarmEnable()
         #self.collectSensorData()
-
+        countAlarm = 0
         for zone in range(self.TotalZones):
             Domoticz.Log(strName+"HIERRR")
             zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
@@ -323,13 +323,18 @@ class BasePlugin:
                 Domoticz.Log(strName+"endSirenTimeSeconds = "+str(endSirenTimeSeconds))
                 if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
                     self.activateSiren()
+                    countAlarm = countAlarm + 1
                     Domoticz.Log(strName+"Turn ON Siren")
                 else:
-                    #self.deactivateSiren()
+                    self.deactivateSiren()
+                    if countAlarm >= 1:
+                        countAlarm = countAlarm - 1
+                    else:
+                        countAlarm = 0
                     Domoticz.Log(strName+"Turn OFF Siren")
             elif Devices[zoneNr].nValue == 0:
-                if Devices[self.ALARM_MAIN_UNIT].nValue == 1:
-                    #self.deactivateSiren()
+                if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm = 0:
+                    self.deactivateSiren()
                     Domoticz.Log(StrName+"")
                 
          
