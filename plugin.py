@@ -279,10 +279,11 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
-        self.pollZoneDevices(self.MatrixRowTotal)
-        self.getSecurityState()
+        self.mainAlarm()
+        #self.pollZoneDevices(self.MatrixRowTotal)
+        #self.getSecurityState()
         #self.alarmEnable()
-        self.collectSensorData()
+        #self.collectSensorData()
         
         if self.sirenOn == True:
             try:
@@ -511,6 +512,7 @@ class BasePlugin:
         strName = "mainAlarm - "
         # Main Alarm script
         # Poll all sensors
+        self.getSecurityState()
         self.pollZoneDevices(self.MatrixRowTotal)
         # Alarm Mode
         for zone in range(self.TotalZones):
