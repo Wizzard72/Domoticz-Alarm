@@ -403,7 +403,7 @@ class BasePlugin:
                 zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 UpdateDevice(zoneNrUnit, 20, "20") # Tripped
         trippedZoneCheck = trippedZone.count('0')
-        Domoticz.Log(strName+"trippedZoneCheck =- "+trippedZoneCheck)
+        Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
                 
         
     def collectSensorData(self):
