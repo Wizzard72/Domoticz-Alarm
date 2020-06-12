@@ -314,7 +314,7 @@ class BasePlugin:
             if Devices[zoneNr].nValue == 40:
                 #try:
                 #timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                Domoticz.Log(strName+"tijd = "+Devices[1].LastUpdate)
+                Domoticz.Log(strName+"tijd = "+Devices[20].LastUpdate)
                 #except TypeError:
                 #    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
