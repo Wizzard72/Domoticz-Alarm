@@ -599,15 +599,15 @@ class BasePlugin:
             timeDiffSeconds = timeDiff.seconds
             #if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
             if Devices[ZoneID].nValue == 0: # or Disarmed
-                Domoticz.Log(strName+"Zone "+zone+" is Disarmed")
+                Domoticz.Log(strName+"Zone "+str(zone)+" is Disarmed")
             elif Devices[ZoneID].nValue == 10: # Armed Home
-                Domoticz.Log(strName+"Zone "+zone+" is Armed Home")
+                Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
                 if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                 else:
                     UpdateDevice(StatusID, 30, "30") # Normal
             elif Devices[ZoneID].nValue == 20: # Armed Away
-                Domoticz.Log(strName+"Zone "+zone+" is Armed Away")
+                Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Away")
                 if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
                 else:
