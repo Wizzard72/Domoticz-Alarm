@@ -431,6 +431,7 @@ class BasePlugin:
             trippedZoneCheck = trippedZone.count('0')
             Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
             for zone in range(TotalZones):
+                Domoticz.Log(strName+"zone = "+str(zone))
                 trippedZoneCheck = trippedZone.count(str(zone))
                 Domoticz.Log(strName+"zone = "+str(zone)+" trippedZoneCheck = "+str(trippedZoneCheck))
                 if trippedZoneCheck >= 2:
