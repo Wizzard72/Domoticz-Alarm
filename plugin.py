@@ -301,14 +301,7 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
-        # Exit Delay
-        try:
-            timeDiff = datetime.now() - datetime.strptime(Devices[self.ALARM_EXIT_DELAY].LastUpdate,'%Y-%m-%d %H:%M:%S')
-        except TypeError:
-            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[self.ALARM_EXIT_DELAY].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-        timeDiffSeconds = timeDiff.seconds
-        if timeDiffSeconds >= Devices[].nValue:
-            self.mainAlarm()
+        self.mainAlarm()
 
         
         countAlarm = 0
@@ -605,9 +598,17 @@ class BasePlugin:
         # Poll all sensors
         self.getSecurityState()
         self.pollZoneDevices(self.MatrixRowTotal)
+        
         # Alarm Mode
         for zone in range(self.TotalZones):
             ZoneID = self.ALARM_ARMING_MODE_UNIT + zone
+            # Exit Delay
+            #try:
+            #    timeDiff = datetime.now() - datetime.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')
+            #except TypeError:
+            #    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+            #timeDiffSeconds = timeDiff.seconds
+            #if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
             Domoticz.Log(strName+"Devices(ZoneID).nValue = "+str(Devices[10].nValue))
             if Devices[ZoneID].nValue == 0: # or Disarmed
                 Domoticz.Log(strName+"")
