@@ -597,17 +597,17 @@ class BasePlugin:
             except TypeError:
                 timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
-            #if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-            if Devices[ZoneID].nValue == 0: # or Disarmed
-                Domoticz.Log(strName+"Zone "+str(zone)+" is Disarmed")
-            elif Devices[ZoneID].nValue == 10: # Armed Home
-                Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
+            #if Devices[ZoneID].nValue == 0: # or Disarmed
+            #    Domoticz.Log(strName+"Zone "+str(zone)+" is Disarmed")
+            #el
+            if Devices[ZoneID].nValue == 10: # Armed Home
+                Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
                 if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                 else:
                     UpdateDevice(StatusID, 30, "30") # Normal
             elif Devices[ZoneID].nValue == 20: # Armed Away
-                Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Away")
+                Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
                 if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
                 else:
