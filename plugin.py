@@ -448,7 +448,7 @@ class BasePlugin:
                 Domoticz.Log(strName+"zone = "+str(zone))
                 trippedZoneCheck = trippedZone.count(str(zone))
                 Domoticz.Log(strName+"zone = "+str(zone)+" trippedZoneCheck = "+str(trippedZoneCheck))
-                if trippedZoneCheck >= ActivePIRSirenAway:
+                if trippedZoneCheck >= self.ActivePIRSirenAway:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
