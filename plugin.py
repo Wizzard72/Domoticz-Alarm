@@ -395,7 +395,7 @@ class BasePlugin:
         for row in range(TotalRows):
             if self.Matrix[row][5] == "New":
                 Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
-                trippedSensor = TrippedSensor + 1
+                trippedSensor = trippedSensor + 1
                 if trippedZone == "":
                     trippedZone = str(self.Matrix[row][1])
                 else:
