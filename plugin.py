@@ -17,17 +17,14 @@
     <params>
         <param field="Address" label="Domoticz IP Address" width="200px" required="true" default="localhost"/>
         <param field="Port" label="Port" width="40px" required="true" default="8080"/>
-        <param field="Username" label="Username" width="200px" required="false" default=""/>
-        <param field="Password" label="Password" width="200px" required="false" default=""/>
-        <param field="Mode1" label="Total amount of PIR zones:" width="75px">
+        <param field="Username" label="Username" width="200px" required="true" default=""/>
+        <param field="Password" label="Password" width="200px" required="true" default=""/>
+        <param field="Mode1" label="Active devices to trigger Siren" width="75px">
             <options>
-                <option label="1" value="1"  default="true" />
-                <option label="2" value="2"/>
-                <option label="3" value="3"/>
-                <option label="4" value="4"/>
-                <option label="5" value="5"/>
-                <option label="6" value="6"/>
-                <option label="7" value="7"/>
+                <option label="Armed Home >= 1 / Armed Away = 1" value="1"  default="true" />
+                <option label="Armed Home >= 1 / Armed Away >= 2" value="2"/>
+                <option label="Armed Home >= 2 / Armed Away >= 1" value="3"/>
+                <option label="Armed Home >= 2 / Armed Away >= 2" value="4"/>
             </options>
         </param>
         <param field="Mode2" label="Zone Armed Home" width="600px" required="true" default="idx,idc,idc;idx,idx,idx"/>
@@ -133,6 +130,19 @@ class BasePlugin:
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
+        
+        if Parameters["Mode1"] = 1:
+            ActivePIRSirenHome = 1
+            ActivePIRSirenAway = 1
+        elif Parameters["Mode1"] = 2:
+            ActivePIRSirenHome = 1
+            ActivePIRSirenAway = 2
+        elif Parameters["Mode1"] = 3:
+            ActivePIRSirenHome = 2
+            ActivePIRSirenAway = 1
+        elif Parameters["Mode1"] = 4:
+            ActivePIRSirenHome = 2
+            ActivePIRSirenAway = 2
         
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
@@ -244,7 +254,7 @@ class BasePlugin:
                 Domoticz.Log(strName+"Exit Delay = "+str(self.exitDelay))
                 UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
         
-        for zone_nr in range(int(Parameters["Mode1"])):
+        for zone_nr in range(self.TotalZones):
             zoneUnitNr = self.ALARM_ARMING_MODE_UNIT + zone_nr
             if zoneUnitNr == Unit:
                 if Level == 0:
@@ -409,7 +419,7 @@ class BasePlugin:
             Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
-                if trippedZoneCheck >= 1:
+                if trippedZoneCheck >= self.ActivePIRSirenHome:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
                 elif trippedZoneCheck == 0:
@@ -437,7 +447,7 @@ class BasePlugin:
                 Domoticz.Log(strName+"zone = "+str(zone))
                 trippedZoneCheck = trippedZone.count(str(zone))
                 Domoticz.Log(strName+"zone = "+str(zone)+" trippedZoneCheck = "+str(trippedZoneCheck))
-                if trippedZoneCheck >= 2:
+                if trippedZoneCheck >= ActivePIRSirenAway:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
@@ -688,7 +698,7 @@ class BasePlugin:
                        "SelectorStyle": "0"}
         Description = "The Arming Mode options."
         found_device = False
-        for zone_nr in range(int(Parameters["Mode1"])):
+        for zone_nr in range(self.TotalZones):
             for item in Devices:
                 if zone_nr < 10:
                     removeCharacters = -20
@@ -708,7 +718,7 @@ class BasePlugin:
                        "SelectorStyle": "1"}
         Description = "The Arming Status options."
         found_device = False
-        for zone_nr in range(int(Parameters["Mode1"])):
+        for zone_nr in range(self.TotalZones):
             for item in Devices:
                 if zone_nr < 10:
                     removeCharacters = -22
