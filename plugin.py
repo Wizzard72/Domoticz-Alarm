@@ -435,9 +435,11 @@ class BasePlugin:
                 Domoticz.Log(strName+"zone = "+str(zone)+" trippedZoneCheck = "+str(trippedZoneCheck))
                 if trippedZoneCheck >= 2:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
+                    Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
                 elif trippedZoneCheck == 0:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
+                    Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
     def collectSensorData(self):
