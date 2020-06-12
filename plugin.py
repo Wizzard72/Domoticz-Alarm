@@ -602,22 +602,29 @@ class BasePlugin:
         # Alarm Mode
         for zone in range(self.TotalZones):
             ZoneID = self.ALARM_ARMING_MODE_UNIT + zone
+            StatusID = self.ALARM_ARMING_STATUS_UNIT + zone
             # Exit Delay
-            #try:
-            #    timeDiff = datetime.now() - datetime.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')
-            #except TypeError:
-            #    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-            #timeDiffSeconds = timeDiff.seconds
+            try:
+                timeDiff = datetime.now() - datetime.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')
+            except TypeError:
+                timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+            timeDiffSeconds = timeDiff.seconds
             #if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
             Domoticz.Log(strName+"Devices(ZoneID).nValue = "+str(Devices[10].nValue))
             if Devices[ZoneID].nValue == 0: # or Disarmed
                 Domoticz.Log(strName+"")
             elif Devices[ZoneID].nValue == 10: # Armed Home
                 Domoticz.Log(strName+"")
-                self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
+                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
+                else:
+                    UpdateDevice(StatusID, 30, "30") # Normal
             elif Devices[ZoneID].nValue == 20: # Armed Away
                 Domoticz.Log(strName+"")
-                self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+                else:
+                    UpdateDevice(StatusID, 30, "30") # Normal
     
 
             
