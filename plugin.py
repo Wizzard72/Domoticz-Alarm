@@ -19,7 +19,7 @@
         <param field="Port" label="Port" width="40px" required="true" default="8080"/>
         <param field="Username" label="Username" width="200px" required="true" default=""/>
         <param field="Password" label="Password" width="200px" required="true" default=""/>
-        <param field="Mode1" label="Active devices to trigger Siren" width="75px">
+        <param field="Mode1" label="Active devices to trigger Siren" width="150px">
             <options>
                 <option label="Armed Home >= 1 / Armed Away = 1" value="1"  default="true" />
                 <option label="Armed Home >= 1 / Armed Away >= 2" value="2"/>
@@ -447,7 +447,7 @@ class BasePlugin:
             for zone in range(TotalZones):
                 Domoticz.Log(strName+"zone = "+str(zone))
                 trippedZoneCheck = trippedZone.count(str(zone))
-                Domoticz.Log(strName+"zone = "+str(zone)+" trippedZoneCheck = "+str(trippedZoneCheck))
+                Domoticz.Log(strName+"zone = "+str(zone)+" trippedZoneCheck = "+str(trippedZoneCheck)+">="+str(self.ActivePIRSirenAway))
                 if trippedZoneCheck >= self.ActivePIRSirenAway:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
