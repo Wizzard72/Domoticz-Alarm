@@ -409,10 +409,10 @@ class BasePlugin:
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck >= 1:
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
                 elif trippedZoneCheck == 0:
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
