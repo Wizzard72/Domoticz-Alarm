@@ -517,13 +517,13 @@ class BasePlugin:
         # Alarm Mode
         for zone in range(self.TotalZones):
             ZoneID = self.ALARM_ARMING_MODE_UNIT + zone
-            Domoticz.Log(strName+"Devices("+str(ZoneID)+").nValue = "+str(Devices(ZoneID).nValue))
-            if Devices(ZoneID).nValue == "Disarmed": # or sValue
+            Domoticz.Log(strName+"Devices(ZoneID).nValue = "+str(Devices[10].nValue))
+            if Devices]ZoneID].nValue == "Disarmed": # or sValue
                 Domoticz.Log(strName+"")
-            elif Devices(ZoneID).nValue == "Armed Home":
+            elif Devices[ZoneID].nValue == "Armed Home":
                 Domoticz.Log(strName+"")
                 self.trippedSensor(self.MatrixRowTotal, "Armed Home")
-            elif Devices(ZoneID).nValue == "Armed Away":
+            elif Devices[ZoneID].nValue == "Armed Away":
                 Domoticz.Log(strName+"")
                 self.trippedSensor(self.MatrixRowTotal, "Armed Away")
     
