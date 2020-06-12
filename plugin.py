@@ -310,7 +310,7 @@ class BasePlugin:
             Domoticz.Log(strName+"HIERRR")
             zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
             #timeDiff = 0
-            Domoticz.Log(strName+"Devices[zoneNr].nValue = "+Devices[zoneNr].nValue)
+            Domoticz.Log(strName+"Devices[zoneNr].nValue = "+str(Devices[zoneNr].nValue))
             if Devices[zoneNr].nValue == 40:
                 #try:
                 timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
