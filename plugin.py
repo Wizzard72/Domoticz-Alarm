@@ -412,6 +412,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
                 elif trippedZoneCheck == 0:
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
@@ -436,6 +437,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
                 elif trippedZoneCheck == 0:
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
     def collectSensorData(self):
