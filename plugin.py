@@ -307,6 +307,7 @@ class BasePlugin:
         #self.collectSensorData()
 
         for zone in range(self.TotalZones):
+            Domoticz.Log("HIERRR")
             zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
             #timeDiff = 0
             if Devices[zoneNr].nValue == 40:
