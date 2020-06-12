@@ -301,11 +301,16 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
-        self.mainAlarm()
-        #self.pollZoneDevices(self.MatrixRowTotal)
-        #self.getSecurityState()
-        #self.alarmEnable()
-        #self.collectSensorData()
+        # Exit Delay
+        try:
+            timeDiff = datetime.now() - datetime.strptime(Devices[self.ALARM_EXIT_DELAY].LastUpdate,'%Y-%m-%d %H:%M:%S')
+        except TypeError:
+            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[self.ALARM_EXIT_DELAY].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+        timeDiffSeconds = timeDiff.seconds
+        if timeDiffSeconds >= Devices[].nValue:
+            self.mainAlarm()
+
+        
         countAlarm = 0
         for zone in range(self.TotalZones):
             Domoticz.Log(strName+"HIERRR")
