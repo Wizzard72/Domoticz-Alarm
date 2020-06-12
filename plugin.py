@@ -314,11 +314,11 @@ class BasePlugin:
                 timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 #except TypeError:
                 #    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-            timeDiffSeconds = timeDiff.seconds
-            if timeDiffSeconds >= Devices[zoneNr].nValue:
-                self.activateSiren()
-            else:
-                self.deactivateSiren()
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= Devices[zoneNr].nValue:
+                    self.activateSiren()
+                else:
+                    self.deactivateSiren()
                 
          
     def pollZoneDevices(self, TotalRows):
