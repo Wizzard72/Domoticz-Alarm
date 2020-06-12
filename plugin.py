@@ -441,10 +441,11 @@ class BasePlugin:
                         trippedZone = str(self.Matrix[row][1])
                     else:
                         trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
-            trippedZoneCheck = trippedZone.count('0')
-            Domoticz.Log(strName+"Total tripped sensors for all zones = "+str(trippedZoneCheck))
+            #trippedZoneCheck = trippedZone.count('0')
+            #Domoticz.Log(strName+"Total tripped sensors for all zones = "+str(trippedZoneCheck))
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
+                Domoticz.Log(strName+"Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 if trippedZoneCheck >= self.ActivePIRSirenHome:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
@@ -457,7 +458,7 @@ class BasePlugin:
             for row in range(TotalRows):
                 zoneNrUnit = 0
                 if self.Matrix[row][5] == "New":
-                    Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
+                    Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+") in zone "+self.Matrix[row][1])
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
