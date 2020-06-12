@@ -81,7 +81,7 @@ class BasePlugin:
     sirenOn = False
     Matrix = ""
     MatrixRowTotal = 0
-    TotalZones = -
+    TotalZones = 0
 
     
     
@@ -390,12 +390,19 @@ class BasePlugin:
         # Check Sensor with state New
         # Runs only when Armed Home or Armed Away
         trippedSensor = 0
+        trippedZone = ""
         for row in range(TotalRows):
             if self.Matrix[row][5] == "New":
                 Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
                 trippedSensor = TrippedSensor + 1
+                if trippedZone == "":
+                    trippedZone = str(self.Matrix[row][1])
+                else:
+                    trippedZone = trippedZone+","+self.Matrix[row][1]
                 zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+        trippedZoneCheck = trippedZOne.count('0')
+        Domoticz.Log(strName+"trippedZoneCheck =- "+trippedZoneCheck)
                 
         
     def collectSensorData(self):
