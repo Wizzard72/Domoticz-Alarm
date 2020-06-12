@@ -330,6 +330,7 @@ class BasePlugin:
             elif Devices[zoneNr].nValue == 0:
                 if Devices[self.ALARM_MAIN_UNIT].nValue == 1:
                     #self.deactivateSiren()
+                    Domoticz.Log(StrName+"")
                 
          
     def pollZoneDevices(self, TotalRows):
