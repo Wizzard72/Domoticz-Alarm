@@ -79,7 +79,8 @@ class BasePlugin:
     Matrix = ""
     MatrixRowTotal = 0
     TotalZones = 0
-
+    ActivePIRSirenHome = 0
+    ActivePIRSirenAway = 0
     
     
     
