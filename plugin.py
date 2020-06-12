@@ -319,7 +319,7 @@ class BasePlugin:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 Domoticz.Log(strName+"TimeDiff = "+str(timeDiffSeconds))
-                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"]
+                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
                 Domoticz.Log(strName+"endSirenTimeSeconds = "+str(endSirenTimeSeconds))
                 if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds): # EntryDelay
                     self.activateSiren()
