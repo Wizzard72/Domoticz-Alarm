@@ -308,7 +308,7 @@ class BasePlugin:
 
         for zone in range(self.TotalZones):
             zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
-            if Devices[ZoneNr].nValue == 40:
+            if Devices[zoneNr].nValue == 40:
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 except TypeError:
