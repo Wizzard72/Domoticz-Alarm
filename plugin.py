@@ -321,9 +321,12 @@ class BasePlugin:
                 Domoticz.Log(strName+"TimeDiff = "+str(timeDiffSeconds))
                 if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= (Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])): # EntryDelay
                     self.activateSiren()
+                    Domoticz.Log(strName+"Turn ON Siren")
                 else:
                     self.deactivateSiren()
                     Domoticz.Log(strName+"Turn OFF Siren")
+            elif Devices[zoneNr].nValue == 0:
+                self.deactivateSiren()
                 
          
     def pollZoneDevices(self, TotalRows):
