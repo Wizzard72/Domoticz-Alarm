@@ -132,16 +132,16 @@ class BasePlugin:
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
         
-        if Parameters["Mode1"] == 1:
+        if int(Parameters["Mode1"]) == 1:
             self.ActivePIRSirenHome = 1
             self.ActivePIRSirenAway = 1
-        elif Parameters["Mode1"] == 2:
+        elif int(Parameters["Mode1"]) == 2:
             self.ActivePIRSirenHome = 1
             self.ActivePIRSirenAway = 2
-        elif Parameters["Mode1"] == 3:
+        elif int(Parameters["Mode1"]) == 3:
             self.ActivePIRSirenHome = 2
             self.ActivePIRSirenAway = 1
-        elif Parameters["Mode1"] == 4:
+        elif int(Parameters["Mode1"]) == 4:
             self.ActivePIRSirenHome = 2
             self.ActivePIRSirenAway = 2
         
