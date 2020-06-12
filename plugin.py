@@ -487,7 +487,6 @@ class BasePlugin:
                     Domoticz.Log(strName+"zoneNrUnit = "+str(zoneNrUnit))
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
-    def alarmAlert(self, entryDelay):
         
     
     def collectSensorData(self):
