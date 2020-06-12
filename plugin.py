@@ -386,25 +386,52 @@ class BasePlugin:
                     self.anybodyHome = "Off"
                     #self.setSecurityState(2)
                     
-    def trippedSensor(self, TotalRows, AlarmMode):
+    def trippedSensor(self, TotalZones, TotalRows, AlarmMode):
         strName = "trippedSensor - "
         # Check Sensor with state New
         # Runs only when Armed Home or Armed Away
-        trippedSensor = 0
-        trippedZone = ""
-        for row in range(TotalRows):
-            if self.Matrix[row][5] == "New":
-                Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
-                trippedSensor = trippedSensor + 1
-                if trippedZone == "":
-                    trippedZone = str(self.Matrix[row][1])
-                else:
-                    trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
-                zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
-                UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-        trippedZoneCheck = trippedZone.count('0')
-        Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
-                
+        if AlarmMode == "Armed Home":
+            trippedSensor = 0
+            trippedZone = ""
+            for row in range(TotalRows):
+                zoneNrUnit = 0
+                if self.Matrix[row][5] == "New" and self.Matrix[row][2] == "Armed Home":
+                    Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
+                    UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+                    trippedSensor = trippedSensor + 1
+                    if trippedZone == "":
+                        trippedZone = str(self.Matrix[row][1])
+                    else:
+                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
+            trippedZoneCheck = trippedZone.count('0')
+            Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
+            for zone in TotalZones:
+                trippedZoneCheck = trippedZone.count(zone)
+                if trippedZoneCheck >= 1:
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
+                    UpdateDevice(zoneNrUnit, 40, "40") # Alert
+        elif AlarmMode == "Armed Away": 
+            trippedSensor = 0
+            trippedZone = ""
+            for row in range(TotalRows):
+                zoneNrUnit = 0
+                if self.Matrix[row][5] == "New":
+                    Domoticz.Log(strName+"Found Tripped Sensor (idx = "+self.Matrix[row][3]+")")
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
+                    UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+                    trippedSensor = trippedSensor + 1
+                    if trippedZone == "":
+                        trippedZone = str(self.Matrix[row][1])
+                    else:
+                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
+            trippedZoneCheck = trippedZone.count('0')
+            Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
+            for zone in TotalZones:
+                trippedZoneCheck = trippedZone.count(zone)
+                if trippedZoneCheck >= 2:
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
+                    UpdateDevice(zoneNrUnit, 40, "40") # Alert
         
     def collectSensorData(self):
         strName = "collectSensorData - "
