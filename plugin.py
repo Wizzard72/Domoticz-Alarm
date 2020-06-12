@@ -365,7 +365,7 @@ class BasePlugin:
             nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
         if nodes["secstatus"] == 0:
-            Domoticz.Log("Security State = Disarmed")
+            Domoticz.Debug("Security State = Disarmed")
             self.SecurityPanel = "Disarmed"
         elif nodes["secstatus"] == 1:
             Domoticz.Log("Security State = Arm Home")
