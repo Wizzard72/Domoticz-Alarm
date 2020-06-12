@@ -327,7 +327,7 @@ class BasePlugin:
             for zone in range(self.TotalZones):
                 zoneNr - self.ALARM_ARMING_STATUS_UNIT+zone
                 if Devices[ZoneNr].nValue == 40:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[self.ALARM_MAIN_UNIT].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
         timeDiffSeconds = timeDiff.seconds
         if timeDiffSeconds >= Devices[zoneNr].nValue:
             self.activateSiren()
