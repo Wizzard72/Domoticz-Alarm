@@ -517,7 +517,7 @@ class BasePlugin:
         # Alarm Mode
         for zone in range(self.TotalZones):
             ZoneID = self.ALARM_ARMING_MODE_UNIT + zone
-            Domoticz.Log(strName+"Devices("+ZoneID+").nValue = "+Devices(ZoneID).nValue)
+            Domoticz.Log(strName+"Devices("+str(ZoneID)+").nValue = "+Devices(ZoneID).nValue)
             if Devices(ZoneID).nValue == "Disarmed": # or sValue
                 Domoticz.Log(strName+"")
             elif Devices(ZoneID).nValue == "Armed Home":
