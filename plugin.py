@@ -8,6 +8,8 @@
         <h2>Alarm plugin</h2><br/>
         This plugin creates a Alarm System in Domoticz. It depends on the devices already available in Domoticz.
         
+        The first zone triggers the Security Panel.
+        
         
         The parameter "Zone Armed Home" and "Zone Armed Away" are used to create one or more zones. The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";".
         Both parameters must have the same amount of zones, but a zone van have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".
@@ -170,6 +172,14 @@ class BasePlugin:
     def onCommand(self, Unit, Command, Level, Hue):
         strName = "onCommand: "
         Domoticz.Log(strName+"called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
+        
+        for zone in range(self.TotalZones):
+            zoneNrUnitID = self.ALARM_ARMING_STATUS_UNIT+zone
+            if zoneNrUnitID == Unit:
+                if Level == 0:
+                    self.deactivateSiren()
+                elif Level == 40:
+                    self.activateSiren()
         
         if self.ALARM_ENTRY_DELAY == Unit:
             if Level == 0:
