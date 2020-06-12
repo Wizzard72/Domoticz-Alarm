@@ -556,7 +556,7 @@ class BasePlugin:
                 self.trippedSensor(self.MatrixRowTotal, "Armed Home")
             elif Devices[ZoneID].nValue == 20: # Armed Away
                 Domoticz.Log(strName+"")
-                self.trippedSensor(self.MatrixRowTotal, "Armed Away")
+                self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
     
 
             
