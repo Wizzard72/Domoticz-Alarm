@@ -322,6 +322,7 @@ class BasePlugin:
                     self.activateSiren()
                 else:
                     self.deactivateSiren()
+                    Domoticz.Log(strName+"Turn OFF Siren")
                 
          
     def pollZoneDevices(self, TotalRows):
