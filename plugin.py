@@ -315,6 +315,7 @@ class BasePlugin:
                 #except TypeError:
                 #    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
+                Domoticz.Log(strName+"TimeDiff = "+str(timeDiffSeconds))
                 if timeDiffSeconds >= Devices[zoneNr].nValue:
                     self.activateSiren()
                 else:
