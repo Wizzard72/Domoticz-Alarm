@@ -326,7 +326,8 @@ class BasePlugin:
                     self.deactivateSiren()
                     Domoticz.Log(strName+"Turn OFF Siren")
             elif Devices[zoneNr].nValue == 0:
-                self.deactivateSiren()
+                if Devices[self.ALARM_MAIN_UNIT].nValue == 1:
+                    self.deactivateSiren()
                 
          
     def pollZoneDevices(self, TotalRows):
