@@ -305,34 +305,19 @@ class BasePlugin:
         #self.getSecurityState()
         #self.alarmEnable()
         #self.collectSensorData()
-        
-        if self.Matrix[0][3] == "On":
-            try:
-                timeDiff = datetime.now() - datetime.strptime(Devices[255].LastUpdate,'%Y-%m-%d %H:%M:%S')
-            except TypeError:
-                timeDiff = datetime.now() - datetime(*(time.strptime(Devices[255].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-            timeDiffSeconds = timeDiff.seconds
-            Domoticz.Log(strName+"OverRide is on for: "+str(timeDiffSeconds)+" seconds")
-            if timeDiffSeconds >= self.override_time:
-                self.Matrix[0][3] = "Off"
-                self.Matrix[0][4] = "Yes"
-        
 
-        try:
-            for zone in range(self.TotalZones):
-                zoneNr - self.ALARM_ARMING_STATUS_UNIT+zone
-                if Devices[ZoneNr].nValue == 40:
+        for zone in range(self.TotalZones):
+            zoneNr - self.ALARM_ARMING_STATUS_UNIT+zone
+            if Devices[ZoneNr].nValue == 40:
+                try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
-        except TypeError:
-            for zone in range(self.TotalZones):
-                zoneNr - self.ALARM_ARMING_STATUS_UNIT+zone
-                if Devices[ZoneNr].nValue == 40:
+                except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-        timeDiffSeconds = timeDiff.seconds
-        if timeDiffSeconds >= Devices[zoneNr].nValue:
-            self.activateSiren()
-        else:
-            self.deactivateSiren()
+            timeDiffSeconds = timeDiff.seconds
+            if timeDiffSeconds >= Devices[zoneNr].nValue:
+                self.activateSiren()
+            else:
+                self.deactivateSiren()
                 
          
     def pollZoneDevices(self, TotalRows):
