@@ -407,7 +407,7 @@ class BasePlugin:
             trippedZoneCheck = trippedZone.count('0')
             Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
             for zone in range(TotalZones):
-                trippedZoneCheck = trippedZone.count(zone)
+                trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck >= 1:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
@@ -430,7 +430,7 @@ class BasePlugin:
             trippedZoneCheck = trippedZone.count('0')
             Domoticz.Log(strName+"trippedZoneCheck =- "+str(trippedZoneCheck))
             for zone in range(TotalZones):
-                trippedZoneCheck = trippedZone.count(zone)
+                trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck >= 2:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[zone][1]
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
