@@ -435,14 +435,15 @@ class BasePlugin:
             trippedZone = ""
             for row in range(TotalRows):
                 zoneNrUnit = 0
-                if self.Matrix[row][5] == "New" and self.Matrix[row][2] == "Armed Away":
+                if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Away":
                     Domoticz.Log(strName+"Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                    sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                    Domoticz.Log(strName+"sensorTime = "+str(sensorTime))
-                    self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                    if self.Matrix[row][5] == "New":
+                        sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                        Domoticz.Log(strName+"sensorTime = "+str(sensorTime))
+                        self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
