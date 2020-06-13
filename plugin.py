@@ -304,7 +304,7 @@ class BasePlugin:
         Domoticz.Debug(strName+"called")
         self.mainAlarm()
 
-        
+        # Siren
         countAlarm = 0
         for zone in range(self.TotalZones):
             zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
@@ -352,7 +352,7 @@ class BasePlugin:
             if switchStatusIdx == "On":
                 if self.Matrix[row][4] not in "On,Normal":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
-            elif switchStatusIdx == "Off" and self.Matrix[row][5] != "Tripped":
+            elif switchStatusIdx == "Off":
                 if self.Matrix[row][4] not in "Off":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
         for x in range(TotalRows):
