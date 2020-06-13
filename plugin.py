@@ -437,7 +437,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
+                        self.setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
@@ -464,7 +464,11 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        self.setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
+                        try:
+                            sensorTime = datetime.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                        except TypeError:
+                            sensorTime = datetime(*(time.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                        self.setTrippedSensorTimer(self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
