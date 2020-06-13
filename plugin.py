@@ -652,7 +652,7 @@ class BasePlugin:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
                 else:
                     UpdateDevice(StatusID, 30, "30") # Normal
-            if Devices[StatusID].nValue = 50: # Open sections
+            if Devices[StatusID].nValue == 50: # Open sections
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 except TypeError:
