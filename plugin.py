@@ -369,13 +369,13 @@ class BasePlugin:
             Domoticz.Debug("Security State = Disarmed")
             self.SecurityPanel = "Disarmed"
         elif nodes["secstatus"] == 1:
-            Domoticz.Log("Security State = Arm Home")
+            Domoticz.Debug("Security State = Arm Home")
             self.SecurityPanel = "Arm Home"
         elif nodes["secstatus"] == 2:
-            Domoticz.Log("Security State = Arm Away")
+            Domoticz.Debug("Security State = Arm Away")
             self.SecurityPanel = "Arm Away"
         elif nodes["secstatus"] == 3:
-            Domoticz.Log("Security State = Unknown")
+            Domoticz.Debug("Security State = Unknown")
             self.SecurityPanel = "Unknown"
         
     def getsecpasspword(self):
