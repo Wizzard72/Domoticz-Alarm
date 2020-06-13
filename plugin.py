@@ -761,162 +761,162 @@ class BasePlugin:
         
         #create zone groups and populate them
         # Armed Home Group
-        zoneArmedHome = Parameters["Mode2"].split(";")
-        zoneCountArmedHome = 0
-        node_idx = ""
+        #zoneArmedHome = Parameters["Mode2"].split(";")
+        #zoneCountArmedHome = 0
+        #node_idx = ""
         #/json.htm?type=scenes
-        jsonQuery = "type=scenes"
-        APIjson = DomoticzAPI(jsonQuery)
-        try:
-            nodes = APIjson["result"]
-        except:
-            nodes = []
-        Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        for zone in zoneArmedHome:
-            #/json.htm?type=addscene&name=scenename&scenetype=1
-            zoneGroupName = "Alarm Zone "+str(zoneCountArmedHome)+" - Armed Home"
-            found_node = False
-            for node in nodes:
-                if node["Name"] == zoneGroupName:
-                    # zone group exists and find its idx
-                    found_node = True
-                    node_idx = node["idx"]
-            if found_node == False:
-                # if zone group is not found create it and find its idx
-                jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
-                DomoticzAPI(jsonQueryAddGroup)
-                jsonQuery = "type=scenes"
-                APIjson = DomoticzAPI(jsonQuery)
-                try:
-                    nodes = APIjson["result"]
-                except:
-                    nodes = []
-                for node in nodes:
-                    if node["Name"] == zoneGroupName:
-                        node_idx=node["idx"]
-            # Populate the zone groups with devices (idx)
-            # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-            jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-            APIjson = DomoticzAPI(jsonQueryListDevices)
-            nodes_result = False
-            try:
-                nodes = APIjson["result"]
-                nodes_result = True
-            except:
-                nodes = []
-            if nodes_result == False:
-                # No devices addes to the group
-                #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-                deviceAddGroup = zone.split(",")
-                count = 1
-                for addDevice in deviceAddGroup:
-                    if node_idx != 0 or str(node_idx) != "none":
-                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                        DomoticzAPI(jsonQueryAddDevicetoGroup)
-            else:
-                # Devices already belong to group, have to check if all are in them
-                # Delete all devices from group
-                #/json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-                jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-                APIjson = DomoticzAPI(jsonQueryListDevices)
-                nodes_result = False
-                try:
-                    test = APIjson["result"]
-                except:
-                    test = []
-                for item in test:
-                    Domoticz.Debug(strName+"item "+item["ID"])
-                    jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
-                    Domoticz.Debug(strName+"json delete = "+jsonQueryDeleteDevices)
-                    DomoticzAPI(jsonQueryDeleteDevices)
-                # No devices addes to the group
-                #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-                deviceAddGroup = zone.split(",")
-                count = 1
-                for addDevice in deviceAddGroup:
-                    if node_idx != 0 or str(node_idx) != "none":
-                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                        DomoticzAPI(jsonQueryAddDevicetoGroup)
-            zoneCountArmedHome = zoneCountArmedHome + 1        
+        #jsonQuery = "type=scenes"
+        #APIjson = DomoticzAPI(jsonQuery)
+        #try:
+        #    nodes = APIjson["result"]
+        #except:
+        #    nodes = []
+        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        #for zone in zoneArmedHome:
+        #    #/json.htm?type=addscene&name=scenename&scenetype=1
+        #    zoneGroupName = "Alarm Zone "+str(zoneCountArmedHome)+" - Armed Home"
+        #    found_node = False
+        #    for node in nodes:
+        #        if node["Name"] == zoneGroupName:
+        #            # zone group exists and find its idx
+        #            found_node = True
+        #            node_idx = node["idx"]
+        #    if found_node == False:
+        #        # if zone group is not found create it and find its idx
+        #        jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
+        #        DomoticzAPI(jsonQueryAddGroup)
+        #        jsonQuery = "type=scenes"
+        #        APIjson = DomoticzAPI(jsonQuery)
+        #        try:
+        #            nodes = APIjson["result"]
+        #        except:
+        #            nodes = []
+        #        for node in nodes:
+        #            if node["Name"] == zoneGroupName:
+        #                node_idx=node["idx"]
+        #    # Populate the zone groups with devices (idx)
+        #    # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
+        #    jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
+        #    APIjson = DomoticzAPI(jsonQueryListDevices)
+        #    nodes_result = False
+        #    try:
+        #        nodes = APIjson["result"]
+        #        nodes_result = True
+        #    except:
+        #        nodes = []
+        #    if nodes_result == False:
+        #        # No devices addes to the group
+        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
+        #        deviceAddGroup = zone.split(",")
+        #        count = 1
+        #        for addDevice in deviceAddGroup:
+        #            if node_idx != 0 or str(node_idx) != "none":
+        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
+        #    else:
+        #        # Devices already belong to group, have to check if all are in them
+        #        # Delete all devices from group
+        #        #/json.htm?type=command&param=getscenedevices&idx=number&isscene=true
+        #        jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
+        #        APIjson = DomoticzAPI(jsonQueryListDevices)
+        #        nodes_result = False
+        #        try:
+        #            test = APIjson["result"]
+        #        except:
+        #            test = []
+        #        for item in test:
+        #            Domoticz.Debug(strName+"item "+item["ID"])
+        #            jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
+        #            Domoticz.Debug(strName+"json delete = "+jsonQueryDeleteDevices)
+        #            DomoticzAPI(jsonQueryDeleteDevices)
+        #        # No devices addes to the group
+        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
+        #        deviceAddGroup = zone.split(",")
+        #        count = 1
+        #        for addDevice in deviceAddGroup:
+        #            if node_idx != 0 or str(node_idx) != "none":
+        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
+        #    zoneCountArmedHome = zoneCountArmedHome + 1        
 
         # Armed Away Group
-        zoneArmedAway = Parameters["Mode3"].split(";")
-        zoneCountArmedAway = 0
-        node_idx = ""
-        #/json.htm?type=scenes
-        jsonQuery = "type=scenes"
-        APIjson = DomoticzAPI(jsonQuery)
-        try:
-            nodes = APIjson["result"]
-        except:
-            nodes = []
-        Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        for zone in zoneArmedAway:
-            #/json.htm?type=addscene&name=scenename&scenetype=1
-            zoneGroupName = "Alarm Zone "+str(zoneCountArmedAway)+" - Armed Away"
-            found_node = False
-            for node in nodes:
-                if node["Name"] == zoneGroupName:
-                    # zone group exists and find its idx
-                    found_node = True
-                    node_idx = node["idx"]
-            if found_node == False:
-                # if zone group is not found create it and find its idx
-                jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
-                DomoticzAPI(jsonQueryAddGroup)
-                jsonQuery = "type=scenes"
-                APIjson = DomoticzAPI(jsonQuery)
-                try:
-                    nodes = APIjson["result"]
-                except:
-                    nodes = []
-                for node in nodes:
-                    if node["Name"] == zoneGroupName:
-                        node_idx=node["idx"]
-            # Populate the zone groups with devices (idx)
-            # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-            jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-            APIjson = DomoticzAPI(jsonQueryListDevices)
-            nodes_result = False
-            try:
-                nodes = APIjson["result"]
-                nodes_result = True
-            except:
-                nodes = []
-            if nodes_result == False:
-                # No devices addes to the group
-                #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-                deviceAddGroup = zone.split(",")
-                count = 1
-                for addDevice in deviceAddGroup:
-                    if node_idx != 0 or str(node_idx) != "none":
-                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                        DomoticzAPI(jsonQueryAddDevicetoGroup)
-            else:
-                # Devices already belong to group, have to check if all are in them
-                # Delete all devices from group
-                #/json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-                jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-                APIjson = DomoticzAPI(jsonQueryListDevices)
-                nodes_result = False
-                try:
-                    test = APIjson["result"]
-                except:
-                    test = []
-                for item in test:
-                    Domoticz.Debug(strName+"item "+item["ID"])
-                    jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
-                    Domoticz.Debug(strName+"json delete = "+jsonQueryDeleteDevices)
-                    DomoticzAPI(jsonQueryDeleteDevices)
-                # No devices addes to the group
-                #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-                deviceAddGroup = zone.split(",")
-                count = 1
-                for addDevice in deviceAddGroup:
-                    if node_idx != 0 or str(node_idx) != "none":
-                        jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-                        DomoticzAPI(jsonQueryAddDevicetoGroup)
-            zoneCountArmedAway = zoneCountArmedAway + 1    
+        #zoneArmedAway = Parameters["Mode3"].split(";")
+        #zoneCountArmedAway = 0
+        #node_idx = ""
+        ##/json.htm?type=scenes
+        #jsonQuery = "type=scenes"
+        #APIjson = DomoticzAPI(jsonQuery)
+        #try:
+        #    nodes = APIjson["result"]
+        #except:
+        #    nodes = []
+        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        #for zone in zoneArmedAway:
+        #    #/json.htm?type=addscene&name=scenename&scenetype=1
+        #    zoneGroupName = "Alarm Zone "+str(zoneCountArmedAway)+" - Armed Away"
+        #    found_node = False
+        #    for node in nodes:
+        #        if node["Name"] == zoneGroupName:
+        #            # zone group exists and find its idx
+        #            found_node = True
+        #            node_idx = node["idx"]
+        #    if found_node == False:
+        #        # if zone group is not found create it and find its idx
+        #        jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
+        #        DomoticzAPI(jsonQueryAddGroup)
+        #        jsonQuery = "type=scenes"
+        #        APIjson = DomoticzAPI(jsonQuery)
+        #        try:
+        #            nodes = APIjson["result"]
+        #        except:
+        #            nodes = []
+        #        for node in nodes:
+        #            if node["Name"] == zoneGroupName:
+        #                node_idx=node["idx"]
+        #    # Populate the zone groups with devices (idx)
+        #    # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
+        #    jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
+        #    APIjson = DomoticzAPI(jsonQueryListDevices)
+        #    nodes_result = False
+        #    try:
+        #        nodes = APIjson["result"]
+        #        nodes_result = True
+        #    except:
+        #        nodes = []
+        #    if nodes_result == False:
+        #        # No devices addes to the group
+        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
+        #        deviceAddGroup = zone.split(",")
+        #        count = 1
+        #        for addDevice in deviceAddGroup:
+        #            if node_idx != 0 or str(node_idx) != "none":
+        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
+        #    else:
+        #        # Devices already belong to group, have to check if all are in them
+        #        # Delete all devices from group
+        #        #/json.htm?type=command&param=getscenedevices&idx=number&isscene=true
+        #        jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
+        #        APIjson = DomoticzAPI(jsonQueryListDevices)
+        #        nodes_result = False
+        #        try:
+        #            test = APIjson["result"]
+        #        except:
+        #            test = []
+        #        for item in test:
+        #            Domoticz.Debug(strName+"item "+item["ID"])
+        #            jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
+        #            Domoticz.Debug(strName+"json delete = "+jsonQueryDeleteDevices)
+        #            DomoticzAPI(jsonQueryDeleteDevices)
+        #        # No devices addes to the group
+        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
+        #        deviceAddGroup = zone.split(",")
+        #        count = 1
+        #        for addDevice in deviceAddGroup:
+        #            if node_idx != 0 or str(node_idx) != "none":
+        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
+        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
+        #    zoneCountArmedAway = zoneCountArmedAway + 1    
         
         # Armed Away Group
         #zoneArmedAway = Parameters["Mode3"].split(";")
