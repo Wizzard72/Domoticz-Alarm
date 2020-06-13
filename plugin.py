@@ -500,44 +500,6 @@ class BasePlugin:
                 if timeDiffSeconds >= self.SensorActiveTime:
                     self.Matrix[row][5] = "Normal"
                     self.Matrix[row][6] = 0
-    
-    def collectSensorData(self):
-        strName = "collectSensorData - "
-        jsonQuery = "type=scenes"
-        APIjson = DomoticzAPI(jsonQuery)
-        try:
-            nodes = APIjson["result"]
-        except:
-            nodes = []
-        Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        for x in nodes:
-            Domoticz.Log(strName+""+x["Name"][:10])
-            if x["Name"][:10] == "Alarm Zone":
-                Domoticz.Log("Status = "+x["Status"])
-                if x["Status"] == "On":
-                    Domoticz.Log(strName+"All sensors are activated.")
-                    if self.SecurityPanel == "Disarmed":
-                        Domoticz.Log("But alarm is Disabled")
-                    elif self.SecurityPanel == "Armed Home":
-                        Domoticz.Log("Check if Armed Home sensors are triggered orthe Armed Away.")
-                        if x["Name"][10:] != "Armed Home":
-                            Domoticz.Log("The sensors are triggerd. SOUND THE SIREN")
-                            self.sirenOn = True
-                            self.activateSiren()
-                    elif self.SecurityPanel == "Armed Away":
-                        Domoticz.Log("But alarm is Armed Awat: SOUND THE SIREN")
-                elif x["Status"] == "Off":
-                    Domoticz.Log(strName+"All sensors are deactivated.")
-                elif x["Status"] == "Mixed":
-                    Domoticz.Log(strName+"Some sensors are activated.")
-                    if self.SecurityPanel == "Disarmed":
-                        Domoticz.Log("But alarm is Disabled")
-                    elif self.SecurityPanel == "Armed Home":
-                        Domoticz.Log("Check if Armed Home sensors are triggered orthe Armed Away.")
-                        if x["Name"][10:] != "Armed Home":
-                            Domoticz.Log("The sensors are triggerd. SOUND THE SIREN")
-                            self.sirenOn = True
-                            self.activateSiren()
         
     def createTheMatrix(self, width, hight):
         strName = "createTheMatrix - "
