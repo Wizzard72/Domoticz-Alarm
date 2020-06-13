@@ -352,7 +352,7 @@ class BasePlugin:
             if switchStatusIdx == "On":
                 if self.Matrix[row][4] not in "On,Normal":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
-            elif switchStatusIdx == "Off" and self.Matrix[row][5] != "Locked":
+            elif switchStatusIdx == "Off" and self.Matrix[row][5] != "Tripped":
                 if self.Matrix[row][4] not in "Off":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
         for x in range(TotalRows):
@@ -495,7 +495,7 @@ class BasePlugin:
         strName = "setTrippedSensorTimer - "
         for row in range(TotalRows):
             if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "On" and self.Matrix[row][5] == "New":
-                self.Matrix[row][5] = "Locked"
+                self.Matrix[row][5] = "Tripped"
                 self.Matrix[row][6] = TimeChanged
                 Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+self.Matrix[row][4]+" Changed = "+self.Matrix[row][5]+" Time Changed = "+str(TimeChanged))
     
@@ -503,7 +503,7 @@ class BasePlugin:
     def trippedSensorTimer(self, TotalRows):
         strName = "trippedSensorTimer"
         for row in range(TotalRows):
-            if self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "Locked":
+            if self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "Tripped":
                 try:
                     timeDiff = datetime.now() - datetime.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')
                 except TypeError:
