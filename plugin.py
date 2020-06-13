@@ -437,7 +437,8 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        self.setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
+                        sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                        self.setTrippedSensorTimer(self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
@@ -465,7 +466,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        sensorTime = Devices[self.Matrix[row][3]].LastUpdate
+                        sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                         self.setTrippedSensorTimer(self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
@@ -715,6 +716,20 @@ class BasePlugin:
             if self.getSwitchIDXStatus(node["DevID"]) == "On":
                 openSectionsDeviceName = openSectionsDeviceName + node["Name"] + " | "
         return openSectionsDeviceName
+    
+    def getSwitchIDXLastUpdate(self, idx):
+        strName = "getSwitchIDXLastUpdate"
+        jsonQuery = "type=devices&rid="+idx
+        APIjson = DomoticzAPI(jsonQuery)
+        try:
+            nodes = APIjson["result"]
+        except:
+            nodes = []
+        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+        statusIdx = ""
+        for node in nodes:
+            statusIdx = str(node["LastUpdate"])
+        return statusIdx
     
     def getSwitchIDXStatus(self, idx):
         strName = "getSwitchIDXStatus"
