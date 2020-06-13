@@ -675,7 +675,7 @@ class BasePlugin:
             # Use 
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
-            self.checkOpenSections(self.TotalZones, zoneNr, 10)
+            self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
             if Devices[StatusIDUnit].nValue == 50: # open sections
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
@@ -692,7 +692,7 @@ class BasePlugin:
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
-            self.checkOpenSections(self.TotalZones, zoneNr, 20)
+            self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             if Devices[StatusIDUnit].nValue == 50: # open sections
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
@@ -706,16 +706,16 @@ class BasePlugin:
             #elif self.openSections == False:
             #    UpdateDevice(zoneNrUnit, 0, "0") # Normal
 
-    def checkOpenSections(self, TotalZones, zoneNr, zoneMode):
+    def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
-        Domoticz.Log("Paul TotalZones = "+str(TotalZones)+" zoneNr = "+str(zoneNr)+" zoneMode = "+str(zoneMode))
+        Domoticz.Log("Paul TotalDevices = "+str(TotalDevices)+" zoneNr = "+str(zoneNr)+" zoneMode = "+str(zoneMode))
         if zoneMode == 0:
             zoneModeTxt = "Disarmed"
         elif zoneMode == 10:
             zoneModeTxt = "Armed Home"
         elif zoneMode == 20:
             zoneModeTxt = "Armed Away"
-        for row in range(TotalZones):
+        for row in range(TotalDevices):
             if self.Matrix[row][1] == zoneNr:
                 Domoticz.Log("JOOOOO")
                 if self.Matrix[row][2] == zoneModeTxt:
