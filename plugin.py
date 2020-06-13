@@ -666,6 +666,7 @@ class BasePlugin:
     def alarmModeChange(self, zoneNr, newStatus):
         strName = "alarmModeChange - "
         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
+        StatusIDUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
@@ -675,19 +676,35 @@ class BasePlugin:
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(self.TotalZones, zoneNr, 10)
-            if self.openSections == True:
-                Domoticz.Log(strName+"There are open sections")
-            elif self.openSections == False:
-                UpdateDevice(zoneNrUnit, 0, "0") # Normal
+            if Devices[StatusIDUnit].nValue == 50: # open sections
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= 50:
+                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
+            #if self.openSections == True:
+            #    Domoticz.Log(strName+"There are open sections")
+            #elif self.openSections == False:
+            #    UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(self.TotalZones, zoneNr, 20)
-            if self.openSections == True:
-                Domoticz.Log(strName+"There are open sections")
-            elif self.openSections == False:
-                UpdateDevice(zoneNrUnit, 0, "0") # Normal
+            if Devices[StatusIDUnit].nValue == 50: # open sections
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= 50:
+                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
+            #if self.openSections == True:
+            #    Domoticz.Log(strName+"There are open sections")
+            #elif self.openSections == False:
+            #    UpdateDevice(zoneNrUnit, 0, "0") # Normal
 
     def checkOpenSections(self, TotalZones, zoneNr, zoneMode):
         strName = "checkOpenSections - "
