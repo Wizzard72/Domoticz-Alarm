@@ -744,9 +744,7 @@ class BasePlugin:
                        "SelectorStyle": "1"}
         Description = "The Arming Status options."
         found_device = False
-        Domoticz.Log("DAAAARRRR")
         for zoneNr in range(TotalZones):
-            Domoticz.Log("HIERRRR")
             for item in Devices:
                 if zoneNr < 10:
                     removeCharacters = -22
