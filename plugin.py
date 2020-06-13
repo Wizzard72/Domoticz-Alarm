@@ -507,7 +507,7 @@ class BasePlugin:
                 try:
                     timeDiff = datetime.now() - datetime.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')
                 except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(self.Matrix[row][3],'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiff = datetime.now() - datetime(*(time.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.SensorActiveTime:
                     self.Matrix[row][5] = "Normal"
