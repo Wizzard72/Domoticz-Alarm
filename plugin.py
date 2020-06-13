@@ -438,7 +438,7 @@ class BasePlugin:
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                        self.setTrippedSensorTimer(self.Matrix[row][3], sensorTime)
+                        self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
@@ -467,7 +467,7 @@ class BasePlugin:
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                        self.setTrippedSensorTimer(self.Matrix[row][3], sensorTime)
+                        self.setTrippedSensorTimer(self.MatrixRowTotal self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
@@ -486,7 +486,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
-    def setTrippedSensorTimer(self, DeviceIdx, TimeChanged):
+    def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
         for row in range(TotalRows):
             if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "New":
