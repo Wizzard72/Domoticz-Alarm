@@ -84,6 +84,7 @@ class BasePlugin:
     TotalZones = 0
     ActivePIRSirenHome = 0
     ActivePIRSirenAway = 0
+    SensorActiveTime = 30 #seconds
     
     
     
@@ -436,6 +437,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+                        setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
@@ -462,6 +464,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+                        setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
@@ -479,7 +482,27 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
-        
+    def setTrippedSensorTimer(self, DeviceIdx, TimeChanged):
+        strName = "setTrippedSensorTimer - "
+        for row in range(TotalRows):
+            if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "New":
+                self.Matrix[row][5] = "Locked"
+                self.Matrix[row][6] = TimeChanged
+                Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
+    
+    
+    def trippedSensorTimer(self, TotalRows):
+        strName = "trippedSensorTimer"
+        for row in range(TotalRows):
+            if self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "Locked":
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= self.SensorActiveTime:
+                    self.Matrix[row][5] = "Normal"
+                    self.Matrix[row][6] = 0
     
     def collectSensorData(self):
         strName = "collectSensorData - "
@@ -588,6 +611,7 @@ class BasePlugin:
         # Poll all sensors
         self.getSecurityState()
         self.pollZoneDevices(self.MatrixRowTotal)
+        self.trippedSensorTimer(self.MatrixRowTotal)
         
         # Alarm Mode
         for zone in range(self.TotalZones):
