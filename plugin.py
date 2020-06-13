@@ -447,7 +447,7 @@ class BasePlugin:
             #Domoticz.Log(strName+"Total tripped sensors for all zones = "+str(trippedZoneCheck))
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
-                if sensorTime != 0:
+                if trippedZoneCheck != 0:
                     Domoticz.Log(strName+"Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 if trippedZoneCheck >= self.ActivePIRSirenHome:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
@@ -479,7 +479,7 @@ class BasePlugin:
             #Domoticz.Log(strName+"Total tripped sensors for all zones = "+str(trippedZoneCheck))
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
-                if sensorTime != 0:
+                if trippedZoneCheck != 0:
                     Domoticz.Log(strName+"Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 if trippedZoneCheck >= self.ActivePIRSirenAway:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
