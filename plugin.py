@@ -302,8 +302,9 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
+        
+        
         self.mainAlarm()
-
         # Siren
         countAlarm = 0
         for zone in range(self.TotalZones):
@@ -651,7 +652,14 @@ class BasePlugin:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
                 else:
                     UpdateDevice(StatusID, 30, "30") # Normal
-    
+            if Devices[StatusID].nValue = 50: # Open sections
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= 30: # 30 seconds after Open Section Notification enable alarm anyway
+                    UpdateDevice(StatusID, 0, "0")
 
             
     def alarmModeChange(self, zoneNr, newStatus):
@@ -679,34 +687,48 @@ class BasePlugin:
                 Domoticz.Log(strName+"There are open sections")
             elif self.openSections == False:
                 UpdateDevice(zoneNrUnit, 0, "0") # Normal
-        
-    def checkOpenSections(self, zoneNr, zoneMode):
+
+    def checkOpenSections(self, TotalZones, zoneNr, zoneMode):
         strName = "checkOpenSections - "
-        if zoneMode == 10: # Armed Home
-            # We need to check Alarm Zone x - Armed Home for open sections
-            # /json.htm?type=scenes if Status is Mixed we have open sections
-            APIjson = DomoticzAPI("type=scenes")
-            try:
-                nodes = APIjson["result"]
-            except:
-                nodes = []
-            Domoticz.Debug(strName+"APIjson = "+str(nodes))
-            zoneName = "Alarm Zone "+str(zoneNr)+" - Armed Home"
-            for node in nodes:
-                if node["Name"] == zoneName:
-                    if node["Status"] == "On":
-                        OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
-                        Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
-                        self.openSections = True
-                    elif node["Status"] == "Mixed":
-                        OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
-                        Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
-                        self.openSections = True
-                    elif node["Status"] == "Off":
-                        Domoticz.Log(strName+"No open sections found. Safe to set the Alarm.")
-                        self.openSections = False
-        elif zoneMode == 20: # Armed Away
-            Domoticz.Log(strName+"Armed Away")
+        if zoneMode == 0:
+            zoneModeTxt = "Disarmed"
+        elzoneMode == 10:
+            zoneModeTxt = "Armed Home"
+        elzoneMode == 3:
+            zoneModeTxt = "Armed Away"
+        for row in range(TotalZones):
+            if self.Matrix[row][1] == zoneNr and self.Matrix[row][2] == zoneModeTxt and self.Matrix[row][4] == "On":
+                # found a device in zone to be armed
+                UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
+                
+                
+    #def checkOpenSections(self, zoneNr, zoneMode):
+    #    strName = "checkOpenSections - "
+    #    if zoneMode == 10: # Armed Home
+    #        # We need to check Alarm Zone x - Armed Home for open sections
+    #        # /json.htm?type=scenes if Status is Mixed we have open sections
+    #        APIjson = DomoticzAPI("type=scenes")
+    #        try:
+    #            nodes = APIjson["result"]
+    #        except:
+    #            nodes = []
+    #        Domoticz.Debug(strName+"APIjson = "+str(nodes))
+    #        zoneName = "Alarm Zone "+str(zoneNr)+" - Armed Home"
+    #        for node in nodes:
+    #            if node["Name"] == zoneName:
+    #                if node["Status"] == "On":
+    #                    OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
+    #                    Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
+    #                    self.openSections = True
+    #                elif node["Status"] == "Mixed":
+    #                    OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
+    #                    Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
+    #                    self.openSections = True
+    #                elif node["Status"] == "Off":
+    #                    Domoticz.Log(strName+"No open sections found. Safe to set the Alarm.")
+    #                    self.openSections = False
+    #    elif zoneMode == 20: # Armed Away
+    #        Domoticz.Log(strName+"Armed Away")
     
     def deviceOpenSections(self, zoneIdx, zoneName):
         strName = "deviceOpenSections - "
