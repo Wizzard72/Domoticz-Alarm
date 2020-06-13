@@ -776,7 +776,6 @@ class BasePlugin:
     
     def createDevices(self):
         strName = "createDevices - "
-        Domoticz.Log("DAAAARRRR")
         if (self.ALARM_MAIN_UNIT not in Devices):
             Domoticz.Device(Name="SIREN",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=13).Create()
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
@@ -823,6 +822,7 @@ class BasePlugin:
                        "SelectorStyle": "1"}
         Description = "The Arming Status options."
         found_device = False
+        Domoticz.Log("DAAAARRRR")
         for zone_nr in range(self.TotalZones):
             Domoticz.Log("HIERRRR")
             for item in Devices:
