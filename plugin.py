@@ -717,6 +717,8 @@ class BasePlugin:
         for row in range(TotalZones):
             if self.Matrix[row][1] == zoneNr and self.Matrix[row][2] == zoneModeTxt and self.Matrix[row][4] == "On":
                 # found a device in zone to be armed
+                Domoticz.Log("JOOOOO")
+                zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                 UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
                 
                 
