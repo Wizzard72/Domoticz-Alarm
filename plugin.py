@@ -717,42 +717,13 @@ class BasePlugin:
             zoneModeTxt = "Armed Away"
         for row in range(TotalDevices):
             if self.Matrix[row][1] == zoneNr:
-                Domoticz.Log("JOOOOO")
                 if self.Matrix[row][2] == zoneModeTxt:
                     if self.Matrix[row][4] == "On":
                         # found a device in zone to be armed
-                        Domoticz.Log("JOOOOO")
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
                 
                 
-    #def checkOpenSections(self, zoneNr, zoneMode):
-    #    strName = "checkOpenSections - "
-    #    if zoneMode == 10: # Armed Home
-    #        # We need to check Alarm Zone x - Armed Home for open sections
-    #        # /json.htm?type=scenes if Status is Mixed we have open sections
-    #        APIjson = DomoticzAPI("type=scenes")
-    #        try:
-    #            nodes = APIjson["result"]
-    #        except:
-    #            nodes = []
-    #        Domoticz.Debug(strName+"APIjson = "+str(nodes))
-    #        zoneName = "Alarm Zone "+str(zoneNr)+" - Armed Home"
-    #        for node in nodes:
-    #            if node["Name"] == zoneName:
-    #                if node["Status"] == "On":
-    #                    OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
-    #                    Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
-    #                    self.openSections = True
-    #                elif node["Status"] == "Mixed":
-    #                    OpenSectionDevice = self.deviceOpenSections(node["idx"], zoneName)
-    #                    Domoticz.Log(strName+"Found open sections: "+OpenSectionDevice+". Please check open sections")
-    #                    self.openSections = True
-    #                elif node["Status"] == "Off":
-    #                    Domoticz.Log(strName+"No open sections found. Safe to set the Alarm.")
-    #                    self.openSections = False
-    #    elif zoneMode == 20: # Armed Away
-    #        Domoticz.Log(strName+"Armed Away")
     
     def deviceOpenSections(self, zoneIdx, zoneName):
         strName = "deviceOpenSections - "
