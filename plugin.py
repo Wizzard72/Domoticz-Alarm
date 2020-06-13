@@ -102,7 +102,7 @@ class BasePlugin:
             Domoticz.Debugging(0)
         
         # create devices
-        self.createDevices()
+        self.createDevices(self.TotalZones)
 
 
         # Create table
@@ -774,7 +774,7 @@ class BasePlugin:
             statusIdx = str(node["Status"])
         return statusIdx
     
-    def createDevices(self):
+    def createDevices(self, TotalZones):
         strName = "createDevices - "
         if (self.ALARM_MAIN_UNIT not in Devices):
             Domoticz.Device(Name="SIREN",  Unit=self.ALARM_MAIN_UNIT, Used=1, TypeName="Switch", Image=13).Create()
@@ -823,19 +823,19 @@ class BasePlugin:
         Description = "The Arming Status options."
         found_device = False
         Domoticz.Log("DAAAARRRR")
-        for zone_nr in range(self.TotalZones):
+        for zoneNr in range(TotalZones):
             Domoticz.Log("HIERRRR")
             for item in Devices:
-                if zone_nr < 10:
+                if zoneNr < 10:
                     removeCharacters = -22
                 else:
                     removeCharacters = -23
-                if Devices[item].Name[removeCharacters:] == "Arming Status (Zone "+str(zone_nr)+")":
-                    Domoticz.Log(strName+"Found device = "+"Arming Status (Zone "+str(zone_nr)+")")
+                if Devices[item].Name[removeCharacters:] == "Arming Status (Zone "+str(zoneNr)+")":
+                    Domoticz.Log(strName+"Found device = "+"Arming Status (Zone "+str(zoneNr)+")")
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Status()
-                    Domoticz.Device(Name="Arming Status (Zone "+str(zone_nr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
+                    Domoticz.Device(Name="Arming Status (Zone "+str(zoneNr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
         
         #create zone groups and populate them
         # Armed Home Group
