@@ -674,7 +674,7 @@ class BasePlugin:
             # Use 
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
-            self.checkOpenSections(zoneNr, 10)
+            self.checkOpenSections(self.TotalZones, zoneNr, 10)
             if self.openSections == True:
                 Domoticz.Log(strName+"There are open sections")
             elif self.openSections == False:
@@ -683,7 +683,7 @@ class BasePlugin:
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
-            self.checkOpenSections(zoneNr, 20)
+            self.checkOpenSections(self.TotalZones, zoneNr, 20)
             if self.openSections == True:
                 Domoticz.Log(strName+"There are open sections")
             elif self.openSections == False:
