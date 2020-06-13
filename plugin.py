@@ -85,9 +85,7 @@ class BasePlugin:
     ActivePIRSirenHome = 0
     ActivePIRSirenAway = 0
     SensorActiveTime = 30 #seconds
-    
-    
-    
+
     
     def __init__(self):
         #self.var = 123
@@ -274,19 +272,19 @@ class BasePlugin:
             zoneUnitNr = self.ALARM_ARMING_MODE_UNIT + zone_nr
             if zoneUnitNr == Unit:
                 if Level == 0:
-                    Domoticz.Log(strName+"Set Security Panel to Normal")
+                    Domoticz.Log("Set Security Panel to Normal")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(0)
                 elif Level == 10:
-                    Domoticz.Log(strName+"Set Security Panel to Armed Home")
+                    Domoticz.Log("Set Security Panel to Armed Home")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(1)
                 elif Level == 20:
-                    Domoticz.Log(strName+"Set Security Panel to Armed Away")
+                    Domoticz.Log("Set Security Panel to Armed Away")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
@@ -322,22 +320,21 @@ class BasePlugin:
                 if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
                     self.activateSiren()
                     countAlarm = countAlarm + 1
-                    Domoticz.Log(strName+"Turn ON Siren")
+                    Domoticz.Log("Turn ON Siren")
                 else:
                     self.deactivateSiren()
                     if countAlarm >= 1:
                         countAlarm = countAlarm - 1
                     else:
                         countAlarm = 0
-                    Domoticz.Log(strName+"Turn OFF Siren")
+                    Domoticz.Log("Turn OFF Siren")
             elif Devices[zoneNr].nValue == 0:
                 if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
                     self.deactivateSiren()
 
         for x in range(self.MatrixRowTotal):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
-        
-                
+             
          
     def pollZoneDevices(self, TotalRows):
         strName = "pollZoneDevices - "
@@ -402,13 +399,10 @@ class BasePlugin:
         #secpassword = self.getsecpasspword()
         if SecurityPanelState == 0 or SecurityPanelState == "Disarmed" or SecurityPanelState == "Normal":
             DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode="+self.secpassword)
-            #UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0, "0")
         elif SecurityPanelState == 1 or SecurityPanelState == "Arm Home" or SecurityPanelState == "Armed Home":
             DomoticzAPI("type=command&param=setsecstatus&secstatus=1&seccode="+self.secpassword)
-            #UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 10, "10")
         elif SecurityPanelState == 2 or SecurityPanelState == "Arm Way" or SecurityPanelState == "Armed Away":
             DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+self.secpassword)
-            #UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 20, "20")
         
                     
     def trippedSensor(self, TotalZones, TotalRows, AlarmMode):
@@ -421,25 +415,22 @@ class BasePlugin:
             for row in range(TotalRows):
                 zoneNrUnit = 0
                 if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Away":
-                    Domoticz.Log(strName+"Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                    Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                     if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                        Domoticz.Log(strName+"sensorTime = "+str(sensorTime))
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
                     else:
                         trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
-            #trippedZoneCheck = trippedZone.count('0')
-            #Domoticz.Log(strName+"Total tripped sensors for all zones = "+str(trippedZoneCheck))
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
-                    Domoticz.Log(strName+"Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
+                    Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 if trippedZoneCheck >= self.ActivePIRSirenHome:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
@@ -452,25 +443,22 @@ class BasePlugin:
             for row in range(TotalRows):
                 zoneNrUnit = 0
                 if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
-                    Domoticz.Log(strName+"Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                    Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                     if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                        Domoticz.Log(strName+"sensorTime = "+str(sensorTime))
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
                     else:
                         trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
-            #trippedZoneCheck = trippedZone.count('0')
-            #Domoticz.Log(strName+"Total tripped sensors for all zones = "+str(trippedZoneCheck))
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
-                    Domoticz.Log(strName+"Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
+                    Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 if trippedZoneCheck >= self.ActivePIRSirenAway:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     UpdateDevice(zoneNrUnit, 40, "40") # Alert
@@ -627,10 +615,6 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 50:
                     UpdateDevice(StatusIDUnit, 0, "0") # Normal
-            #if self.openSections == True:
-            #    Domoticz.Log(strName+"There are open sections")
-            #elif self.openSections == False:
-            #    UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
@@ -644,14 +628,9 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 50:
                     UpdateDevice(StatusIDUnit, 0, "0") # Normal
-            #if self.openSections == True:
-            #    Domoticz.Log(strName+"There are open sections")
-            #elif self.openSections == False:
-            #    UpdateDevice(zoneNrUnit, 0, "0") # Normal
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
-        Domoticz.Log("Paul TotalDevices = "+str(TotalDevices)+" zoneNr = "+str(zoneNr)+" zoneMode = "+str(zoneMode))
         if zoneMode == 0:
             zoneModeTxt = "Disarmed"
         elif zoneMode == 10:
@@ -730,7 +709,7 @@ class BasePlugin:
                 else:
                     removeCharacters = -21
                 if Devices[item].Name[removeCharacters:] == "Arming Mode (Zone "+str(zone_nr)+")":
-                        Domoticz.Log(strName+"Found device = "+"Arming Mode (Zone "+str(zone_nr)+")")
+                        Domoticz.Log("Found device = "+"Arming Mode (Zone "+str(zone_nr)+")")
                         found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Mode()
@@ -750,201 +729,11 @@ class BasePlugin:
                 else:
                     removeCharacters = -23
                 if Devices[item].Name[removeCharacters:] == "Arming Status (Zone "+str(zoneNr)+")":
-                    Domoticz.Log(strName+"Found device = "+"Arming Status (Zone "+str(zoneNr)+")")
+                    Domoticz.Log("Found device = "+"Arming Status (Zone "+str(zoneNr)+")")
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Arming_Status()
                     Domoticz.Device(Name="Arming Status (Zone "+str(zoneNr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=8).Create()
-        
-        #create zone groups and populate them
-        # Armed Home Group
-        #zoneArmedHome = Parameters["Mode2"].split(";")
-        #zoneCountArmedHome = 0
-        #node_idx = ""
-        #/json.htm?type=scenes
-        #jsonQuery = "type=scenes"
-        #APIjson = DomoticzAPI(jsonQuery)
-        #try:
-        #    nodes = APIjson["result"]
-        #except:
-        #    nodes = []
-        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        #for zone in zoneArmedHome:
-        #    #/json.htm?type=addscene&name=scenename&scenetype=1
-        #    zoneGroupName = "Alarm Zone "+str(zoneCountArmedHome)+" - Armed Home"
-        #    found_node = False
-        #    for node in nodes:
-        #        if node["Name"] == zoneGroupName:
-        #            # zone group exists and find its idx
-        #            found_node = True
-        #            node_idx = node["idx"]
-        #    if found_node == False:
-        #        # if zone group is not found create it and find its idx
-        #        jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
-        #        DomoticzAPI(jsonQueryAddGroup)
-        #        jsonQuery = "type=scenes"
-        #        APIjson = DomoticzAPI(jsonQuery)
-        #        try:
-        #            nodes = APIjson["result"]
-        #        except:
-        #            nodes = []
-        #        for node in nodes:
-        #            if node["Name"] == zoneGroupName:
-        #                node_idx=node["idx"]
-        #    # Populate the zone groups with devices (idx)
-        #    # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-        #    jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-        #    APIjson = DomoticzAPI(jsonQueryListDevices)
-        #    nodes_result = False
-        #    try:
-        #        nodes = APIjson["result"]
-        #        nodes_result = True
-        #    except:
-        #        nodes = []
-        #    if nodes_result == False:
-        #        # No devices addes to the group
-        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-        #        deviceAddGroup = zone.split(",")
-        #        count = 1
-        #        for addDevice in deviceAddGroup:
-        #            if node_idx != 0 or str(node_idx) != "none":
-        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
-        #    else:
-        #        # Devices already belong to group, have to check if all are in them
-        #        # Delete all devices from group
-        #        #/json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-        #        jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-        #        APIjson = DomoticzAPI(jsonQueryListDevices)
-        #        nodes_result = False
-        #        try:
-        #            test = APIjson["result"]
-        #        except:
-        #            test = []
-        #        for item in test:
-        #            Domoticz.Debug(strName+"item "+item["ID"])
-        #            jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
-        #            Domoticz.Debug(strName+"json delete = "+jsonQueryDeleteDevices)
-        #            DomoticzAPI(jsonQueryDeleteDevices)
-        #        # No devices addes to the group
-        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-        #        deviceAddGroup = zone.split(",")
-        #        count = 1
-        #        for addDevice in deviceAddGroup:
-        #            if node_idx != 0 or str(node_idx) != "none":
-        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
-        #    zoneCountArmedHome = zoneCountArmedHome + 1        
-
-        # Armed Away Group
-        #zoneArmedAway = Parameters["Mode3"].split(";")
-        #zoneCountArmedAway = 0
-        #node_idx = ""
-        ##/json.htm?type=scenes
-        #jsonQuery = "type=scenes"
-        #APIjson = DomoticzAPI(jsonQuery)
-        #try:
-        #    nodes = APIjson["result"]
-        #except:
-        #    nodes = []
-        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        #for zone in zoneArmedAway:
-        #    #/json.htm?type=addscene&name=scenename&scenetype=1
-        #    zoneGroupName = "Alarm Zone "+str(zoneCountArmedAway)+" - Armed Away"
-        #    found_node = False
-        #    for node in nodes:
-        #        if node["Name"] == zoneGroupName:
-        #            # zone group exists and find its idx
-        #            found_node = True
-        #            node_idx = node["idx"]
-        #    if found_node == False:
-        #        # if zone group is not found create it and find its idx
-        #        jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
-        #        DomoticzAPI(jsonQueryAddGroup)
-        #        jsonQuery = "type=scenes"
-        #        APIjson = DomoticzAPI(jsonQuery)
-        #        try:
-        #            nodes = APIjson["result"]
-        #        except:
-        #            nodes = []
-        #        for node in nodes:
-        #            if node["Name"] == zoneGroupName:
-        #                node_idx=node["idx"]
-        #    # Populate the zone groups with devices (idx)
-        #    # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-        #    jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-        #    APIjson = DomoticzAPI(jsonQueryListDevices)
-        #    nodes_result = False
-        #    try:
-        #        nodes = APIjson["result"]
-        #        nodes_result = True
-        #    except:
-        #        nodes = []
-        #    if nodes_result == False:
-        #        # No devices addes to the group
-        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-        #        deviceAddGroup = zone.split(",")
-        #        count = 1
-        #        for addDevice in deviceAddGroup:
-        #            if node_idx != 0 or str(node_idx) != "none":
-        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
-        #    else:
-        #        # Devices already belong to group, have to check if all are in them
-        #        # Delete all devices from group
-        #        #/json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-        #        jsonQueryListDevices = "type=command&param=getscenedevices&idx="+str(node_idx)+"&isscene=true"
-        #        APIjson = DomoticzAPI(jsonQueryListDevices)
-        #        nodes_result = False
-        #        try:
-        #            test = APIjson["result"]
-        #        except:
-        #            test = []
-        #        for item in test:
-        #            Domoticz.Debug(strName+"item "+item["ID"])
-        #            jsonQueryDeleteDevices = "type=command&param=deletescenedevice&idx="+str(item["ID"])
-        #            Domoticz.Debug(strName+"json delete = "+jsonQueryDeleteDevices)
-        #            DomoticzAPI(jsonQueryDeleteDevices)
-        #        # No devices addes to the group
-        #        #/json.htm?type=command&param=addscenedevice&idx=5&isscene=true&devidx=29&command=0&level=0&hue=0
-        #        deviceAddGroup = zone.split(",")
-        #        count = 1
-        #        for addDevice in deviceAddGroup:
-        #            if node_idx != 0 or str(node_idx) != "none":
-        #                jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+str(node_idx)+"&isscene=true&devidx="+str(addDevice)+"&command=0&level=100&hue=0"
-        #                DomoticzAPI(jsonQueryAddDevicetoGroup)
-        #    zoneCountArmedAway = zoneCountArmedAway + 1    
-        
-        # Armed Away Group
-        #zoneArmedAway = Parameters["Mode3"].split(";")
-        #zoneCountArmedAway =0
-        #for zone in zoneArmedAway:
-            #/json.htm?type=addscene&name=scenename&scenetype=1
-       #    zoneGroupName = "Alarm Zone "+str(zone)+" - Armed Away"
-        #    jsonQueryAddGroup = "type=addscene&name="+zoneGroupName+"&scenetype=1"
-            #DomoticzAPI(jsonQueryAddGroup)
-         #   Domoticz.Log(strName+"zoneArmedAway = "+str(zoneArmedAway))
-          #  deviceAddGroup = zone.split(",")
-           # count = 1
-            #for addDevice in deviceAddGroup:
-                #/json.htm?type=command&param=addscenedevice&idx=number&isscene=true&devidx=deviceindex&command=1&level=number&hue=number
-             #   deviceIdx = ""
-              #  jsonQueryAddDevicetoGroup = "type=command&param=addscenedevice&idx="+number+"&isscene=true&devidx="+deviceIdx+"&command=1&level=0&hue="+count
-               # count = count + 1
-            #zoneCountArmedAway = zoneCountArmedAway + 1
-        
-        #if zoneCountArmedHome == zoneCountArmedAway:
-         #   self.amountofZones = zoneCount
-          #  Domoticz.Log(strName+"Found "+str(self.amountofZones)+" zone(s).")
-        #elif zoneCountArmedHome > zoneCountArmedAway:
-         #   Domoticz.Error(strName+"Zone Armed Home has more zones than Zone Armed Away")
-          #  Domoticz.Error(strName+"Add an empty zone in Zone Armed Away Parameter (;none)")
-        #elif zoneCountArmedHome < zoneCountArmedAway:
-         #   Domoticz.Error(strName+"Zone Armed Home has less zones than Zone Armed Away")
-          #  Domoticz.Error(strName+"Add an empty zone in Zone Armed Home Parameter (;none)")
-        
-        
-        
         
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
