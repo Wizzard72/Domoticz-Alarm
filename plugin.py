@@ -637,9 +637,7 @@ class BasePlugin:
             except TypeError:
                 timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
-            #if Devices[ZoneID].nValue == 0: # or Disarmed
-            #    Domoticz.Log(strName+"Zone "+str(zone)+" is Disarmed")
-            #el
+
             if Devices[ZoneID].nValue == 10: # Armed Home
                 Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
                 if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
@@ -825,6 +823,7 @@ class BasePlugin:
         Description = "The Arming Status options."
         found_device = False
         for zone_nr in range(self.TotalZones):
+            Domoticz.Log("HIERRRR")
             for item in Devices:
                 if zone_nr < 10:
                     removeCharacters = -22
