@@ -819,7 +819,7 @@ class BasePlugin:
        
         
         Options = {"LevelActions": "||||",
-                       "LevelNames": "Normal|Arming|Tripped|Exit Delay|Alert|Error",
+                       "LevelNames": "Normal|Arming|Tripped|Exit Delay|Alert|Open Sections",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
         Description = "The Arming Status options."
