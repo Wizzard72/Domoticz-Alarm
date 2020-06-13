@@ -411,24 +411,6 @@ class BasePlugin:
             DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+self.secpassword)
             #UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 20, "20")
         
-    
-    def alarmEnable(self):
-        strName = "alarmEnable - "
-        APIjson = DomoticzAPI("type=devices&filter=light&used=true&order=Name")
-        #type=command&param=getlightswitches
-        try:
-            nodes = APIjson["result"]
-        except:
-            nodes = []
-        Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        for node in nodes:
-            if node["Name"] == str(Parameters["Mode4"]):
-                if node["Status"] == "On":
-                    self.anybodyHome = "On"
-                    #self.setSecurityState(0)
-                elif node["Status"] == "Off":
-                    self.anybodyHome = "Off"
-                    #self.setSecurityState(2)
                     
     def trippedSensor(self, TotalZones, TotalRows, AlarmMode):
         strName = "trippedSensor - "
