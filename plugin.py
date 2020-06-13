@@ -133,6 +133,9 @@ class BasePlugin:
         
         self.TotalZones = zoneNr
         
+        # create devices
+        self.createDevices(self.TotalZones)
+        
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
         
