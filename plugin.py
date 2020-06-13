@@ -708,7 +708,7 @@ class BasePlugin:
 
     def checkOpenSections(self, TotalZones, zoneNr, zoneMode):
         strName = "checkOpenSections - "
-        Domoticz.Log("TotalZones = "+str(TotalZones)+" zoneNr = "+str(zoneNr)+" zoneMode = "+str(zoneMode))
+        Domoticz.Log("Paul TotalZones = "+str(TotalZones)+" zoneNr = "+str(zoneNr)+" zoneMode = "+str(zoneMode))
         if zoneMode == 0:
             zoneModeTxt = "Disarmed"
         elif zoneMode == 10:
