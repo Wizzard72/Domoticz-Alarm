@@ -464,7 +464,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
+                        self.setTrippedSensorTimer(self.Matrix[row][3], Devices[self.Matrix[row][3]].LastUpdate)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
