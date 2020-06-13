@@ -354,7 +354,7 @@ class BasePlugin:
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
             elif switchStatusIdx == "Off" and self.Matrix[row][5] != "Tripped":
                 if self.Matrix[row][4] not in "Off":
-                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
+                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
@@ -596,12 +596,13 @@ class BasePlugin:
         self.Matrix[LastRow][6] = TimeChanged
         Domoticz.Debug(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
-    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed):
+    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed=0):
         strName = "changeRowinMatrix - "
         for row in range(TotalRows):
             if self.Matrix[row][3] == DeviceIdx:
                 self.Matrix[row][4] = DeviceState
-                self.Matrix[row][5] = Changed
+                if Changed != 0:
+                    self.Matrix[row][5] = Changed
                 #self.Matrix[row][6] = TimeChanged
                 Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed)
     
