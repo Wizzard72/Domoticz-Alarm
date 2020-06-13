@@ -441,6 +441,7 @@ class BasePlugin:
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                     sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                    Domoticz.Log(StrName+"sensorTime = "+str(sensorTime))
                     self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
