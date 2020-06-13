@@ -6,22 +6,28 @@
 <plugin key="Alarm" name="Alarm" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        This plugin creates a Alarm System in Domoticz. It depends on the devices already available in Domoticz.
+        This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.
         
-        The first zone triggers the Security Panel.
+        Alarm zones:
+            * The first zone triggers the Security Panel
+            * The can be max 9 Alarm Zones
+            * Alarm zones are separated in Armed Home and Armed Away
+                * Armed Home consists of devices (idx numbers) that can be triggered while you're home (PIR sensors)
+                * Armed Away consists of devices (idx numbers) that can be triggered when youre not home (Door sensors)
+                In Armed Away mode it includes also the Armed Home sensors
+            * The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"
+            * Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".
         
+        Open Sections are detected and reported per zone in the Arming Status Selector Switch. After 50 seconds it's armed anyway.
         
-        The parameter "Zone Armed Home" and "Zone Armed Away" are used to create one or more zones. The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";".
-        Both parameters must have the same amount of zones, but a zone van have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".
-        Zone(s) are groups in Domoticz. Best is to Protect the groups.
-
+        Exit and Entry Delay can be set through the Selector Switches. They are for all the zones configured
     </description>
     <params>
         <param field="Address" label="Domoticz IP Address" width="200px" required="true" default="localhost"/>
         <param field="Port" label="Port" width="40px" required="true" default="8080"/>
         <param field="Username" label="Username" width="200px" required="true" default=""/>
-        <param field="Password" label="Password" width="200px" required="true" default=""/>
-        <param field="Mode1" label="Active devices to trigger Siren" width="250px">
+        <param field="Password" label="Password" width="200px" required="true" default="" password="true"/>
+        <param field="Mode1" label="Active devices to trigger Siren" width="300px">
             <options>
                 <option label="Armed Home >= 1 / Armed Away = 1" value="1"  default="true" />
                 <option label="Armed Home >= 1 / Armed Away >= 2" value="2"/>
