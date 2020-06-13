@@ -494,7 +494,7 @@ class BasePlugin:
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
         for row in range(TotalRows):
-            if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "New":
+            if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "On" and self.Matrix[row][5] == "New":
                 self.Matrix[row][5] = "Locked"
                 self.Matrix[row][6] = TimeChanged
                 Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
