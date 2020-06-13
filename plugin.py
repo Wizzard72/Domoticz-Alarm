@@ -465,7 +465,7 @@ class BasePlugin:
             trippedZone = ""
             for row in range(TotalRows):
                 zoneNrUnit = 0
-                if self.Matrix[row][5] == "Tripped":
+                if self.Matrix[row][5] == "New":
                     Domoticz.Log(strName+"Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
@@ -503,7 +503,7 @@ class BasePlugin:
     def trippedSensorTimer(self, TotalRows):
         strName = "trippedSensorTimer"
         for row in range(TotalRows):
-            if self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "Tripped":
+            if self.Matrix[row][5] == "Tripped":
                 try:
                     timeDiff = datetime.now() - datetime.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')
                 except TypeError:
