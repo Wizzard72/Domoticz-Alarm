@@ -666,26 +666,7 @@ class BasePlugin:
                         # found a device in zone to be armed
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                
-                
-    
-    def deviceOpenSections(self, zoneIdx, zoneName):
-        strName = "deviceOpenSections - "
-        openSectionsDeviceName = "| "
-        # /json.htm?type=command&param=getscenedevices&idx=number&isscene=true
-        jsonQuery = "type=command&param=getscenedevices&idx="+zoneIdx+"&isscene=true"
-        Domoticz.Debug(strName+"jsonQuery = "+jsonQuery)
-        APIjson = DomoticzAPI(jsonQuery)
-        try:
-            nodes = APIjson["result"]
-        except:
-            nodes = []
-        Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        # Find DevID en met DevID kan met: /json.htm?type=devices&rid=DevID de Status opgevraagd worden van device!
-        for node in nodes:
-            if self.getSwitchIDXStatus(node["DevID"]) == "On":
-                openSectionsDeviceName = openSectionsDeviceName + node["Name"] + " | "
-        return openSectionsDeviceName
+
     
     def getSwitchIDXLastUpdate(self, idx):
         strName = "getSwitchIDXLastUpdate"
