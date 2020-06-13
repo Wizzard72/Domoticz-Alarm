@@ -465,10 +465,7 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                     if Devices[zoneNrUnit].nValue < 20: # Tripped value
                         UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        try:
-                            sensorTime = datetime.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                        except TypeError:
-                            sensorTime = datetime(*(time.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                        sensorTime = Devices[self.Matrix[row][3]].LastUpdate
                         self.setTrippedSensorTimer(self.Matrix[row][3], sensorTime)
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
@@ -502,9 +499,9 @@ class BasePlugin:
         for row in range(TotalRows):
             if self.Matrix[row][4] == "Tripped" and self.Matrix[row][5] == "Locked":
                 try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    timeDiff = datetime.now() - datetime.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')
                 except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[self.Matrix[row][3]].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiff = datetime.now() - datetime(*(time.strptime(self.Matrix[row][3],'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.SensorActiveTime:
                     self.Matrix[row][5] = "Normal"
