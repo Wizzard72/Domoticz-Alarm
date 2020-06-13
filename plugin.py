@@ -692,9 +692,9 @@ class BasePlugin:
         strName = "checkOpenSections - "
         if zoneMode == 0:
             zoneModeTxt = "Disarmed"
-        elzoneMode == 10:
+        elif zoneMode == 10:
             zoneModeTxt = "Armed Home"
-        elzoneMode == 3:
+        elif zoneMode == 20:
             zoneModeTxt = "Armed Away"
         for row in range(TotalZones):
             if self.Matrix[row][1] == zoneNr and self.Matrix[row][2] == zoneModeTxt and self.Matrix[row][4] == "On":
