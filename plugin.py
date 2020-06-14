@@ -645,7 +645,15 @@ class BasePlugin:
             zoneModeTxt = "Armed Away"
         for row in range(TotalDevices):
             if self.Matrix[row][1] == zoneNr:
-                if self.Matrix[row][2] == zoneModeTxt:
+                # Armed Home then only check Devices in Armed Away
+                if zoneModeTxt == "Armed Home":
+                    if self.Matrix[row][2] == "Armed Away":
+                        if self.Matrix[row][4] == "On":
+                            # found a device in zone to be armed
+                            zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
+                            UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
+                # Armed Away + Armed Home
+                elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found a device in zone to be armed
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
