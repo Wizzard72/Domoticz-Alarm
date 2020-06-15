@@ -7,6 +7,7 @@
     <description>
         <h2>Alarm plugin</h2><br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
+        <br/>
         <h3>Configuration</h3><br/>
         <br/>
         Alarm zones:<br/>
