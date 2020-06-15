@@ -359,7 +359,7 @@ class BasePlugin:
             if switchStatusIdx in "On,Open,Unlocked":
                 if self.Matrix[row][4] not in "On,Normal":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
-            elif switchStatusIdx == "Off":
+            elif switchStatusIdx in "Off,Closed,Locked":
                 if self.Matrix[row][4] not in "Off":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
         for x in range(TotalRows):
