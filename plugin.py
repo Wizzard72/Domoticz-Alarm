@@ -366,7 +366,10 @@ class BasePlugin:
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
             elif switchStatusIdx in "Off,Closed,Locked":
                 if self.Matrix[row][4] not in "Off":
-                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
+                    if self.Matrix[row][2] == "Armed Home":
+                        self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
+                    else:
+                        self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
@@ -438,7 +441,7 @@ class BasePlugin:
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
                     else:
-                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
+                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])        
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
