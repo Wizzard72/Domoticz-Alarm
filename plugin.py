@@ -6,18 +6,22 @@
 <plugin key="Alarm" name="Alarm" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        <h3>Features</h3><br/>
+        <h3>Configuration</h3><br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
         Alarm zones:<br/>
-            * The first zone triggers the Security Panel<br/>
-            * The can be max 9 Alarm Zones<br/>
-            * Alarm zones are separated in Armed Home and Armed Away<br/>
-                * Armed Home consists of devices (idx numbers) that can be triggered while you're at home (Door sensors, etc.)<br/>
-                * Armed Away consists of all devices (idx numbers) that can be triggered when you're not home (PIR sensors)<br/>
-                In Armed Away mode it includes also the Armed Home sensors<br/>
-            * The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"<br/>
-            * Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".<br/>
+        <ul style="list-style-type:square">
+            <li>The first zone triggers the Security Panel</li>
+            <li>The can be max 9 Alarm Zones</li>
+            <li>Alarm zones are separated in Armed Home and Armed Away</li>
+                <ul>
+                    <li>Armed Home consists of devices (idx numbers) that can be triggered while you're at home (Door sensors, etc.)</li>
+                    <li>Armed Away consists of all devices (idx numbers) that can be triggered when you're not home (PIR sensors)</li>
+                    <li>In Armed Away mode it includes also the Armed Home sensors</li>
+                </ul>
+            <li>The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"</li>
+            <li>Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".</li>
+        </ul>
         <br/>
         Open Sections are detected and reported per zone in the Arming Status Selector Switch. After 50 seconds it's armed anyway.<br/>
         <br/>
