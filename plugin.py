@@ -366,7 +366,7 @@ class BasePlugin:
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
             elif switchStatusIdx in "Off,Closed,Locked":
                 if self.Matrix[row][4] not in "Off":
-                    if self.Matrix[row][2] == "Armed Home":
+                    if self.Matrix[row][2] == "Armed Away":
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
                     else:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
