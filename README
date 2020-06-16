@@ -27,11 +27,11 @@ such as PIR, Door, other sensors.
         
 Open Sections are detected and reported per zone in the Arming Status Selector Switch. After 50 seconds it's armed anyway.
         
-Exit and Entry Delay can be set through the Selector Switches. They are for all the zones configured<br/>
+Exit and Entry Delay can be set through the Selector Switches. They apply to each configured zone.
 
 The plugin is tested to works on a Raspberry Pi 3b.
 
-To install the plugin login to the Raspberry Pi.
+To install the plugin login to the Raspberry Pi (SSH / Putty).
   
       cd /home/<username>/domoticz/plugin
   
