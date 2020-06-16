@@ -21,7 +21,7 @@ Alarm zones:
         * PIR sensors indoors,
         * door sensor(s) indoor,
         * etc.
-    If the Alarm is in Armed Away mode it includes also the Armed Home sensors.
+    * If the Alarm is in Armed Away mode it includes also the Armed Home sensors.
     * The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"
     * Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. 
       When a zone has no devices put in a "0" or the text "none".
