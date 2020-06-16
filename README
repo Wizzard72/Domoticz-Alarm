@@ -3,26 +3,22 @@ Alarm system for Domoticz
 There was no real alarm system for Domoticz. Some scripts and blokeys are available, but they do not meet my expectations. So I created this plugin.
 
 This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
-        <br/>
-        <h3>Configuration</h3><br/>
-        <br/>
-        Alarm zones:<br/>
-        <ul style="list-style-type:square">
-            <li>The first zone triggers the Security Panel</li>
-            <li>The can be max 9 Alarm Zones</li>
-            <li>Alarm zones are separated in Armed Home and Armed Away</li>
-                <ul>
-                    <li>Armed Home consists of devices (idx numbers) that can be triggered while you're at home (Door sensors, etc.)</li>
-                    <li>Armed Away consists of all devices (idx numbers) that can be triggered when you're not home (PIR sensors)</li>
-                    <li>In Armed Away mode it includes also the Armed Home sensors</li>
-                </ul>
-            <li>The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"</li>
-            <li>Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".</li>
-        </ul>
-        <br/>
-        Open Sections are detected and reported per zone in the Arming Status Selector Switch. After 50 seconds it's armed anyway.<br/>
-        <br/>
-        Exit and Entry Delay can be set through the Selector Switches. They are for all the zones configured<br/>
+        
+        Configuration
+        
+        Alarm zones:
+                * The first zone triggers the Security Panel
+                * The can be max 9 Alarm Zones
+                * Alarm zones are separated in Armed Home and Armed Away
+                    * Armed Home consists of devices (idx numbers) that can be triggered while you're at home (Door sensors, etc.)
+                    * Armed Away consists of all devices (idx numbers) that can be triggered when you're not home (PIR sensors)
+                    * In Armed Away mode it includes also the Armed Home sensors
+            * The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"
+            * Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".
+        
+Open Sections are detected and reported per zone in the Arming Status Selector Switch. After 50 seconds it's armed anyway.
+        
+Exit and Entry Delay can be set through the Selector Switches. They are for all the zones configured<br/>
 
 The plugin is tested to works on a Raspberry Pi 3b.
 
@@ -33,7 +29,3 @@ To install the plugin login to the Raspberry Pi.
       git clone https://github.com/Wizzard72/Domoticz-Alarm
       
       sudo systemctl restart domoticz.service
-
-The plugin requires the following information:
-  
-      
