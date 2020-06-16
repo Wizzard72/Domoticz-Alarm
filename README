@@ -1,8 +1,10 @@
 Alarm System for Domoticz
 
-There was no real alarm system for Domoticz. Some scripts and blokeys are available, but they do not meet my expectations. So I created this plugin.
+There was no real alarm system for Domoticz. Some scripts and blokeys are available, but they do not meet my expectations. 
+So I created this plugin.
 
-This plugin creates an Alarm System in Domoticz. It depends on the devices already available in your Domoticz setup, such as PIR, Door, etc. sensors.<br/>
+This plugin creates an Alarm System in Domoticz. It depends on the devices already available in your Domoticz setup, 
+such as PIR, Door, etc. sensors.
         
         Configuration
         
