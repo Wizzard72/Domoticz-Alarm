@@ -608,7 +608,7 @@ class BasePlugin:
                 # Reset Siren and Alarm Status
                 #UpdateDevice(StatusIDUnit, 10, "10") # Arming
                 #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
+                #self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
             elif newStatus == 10: # Armed Home
                 # Use 
                 self.setAlarmArmingStatus("2alarmModeChange", StatusIDUnit, "Arming")
