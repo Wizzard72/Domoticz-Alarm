@@ -228,7 +228,7 @@ class BasePlugin:
                     self.pollZoneDevices(self.MatrixRowTotal)
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
-                        if Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                        if Devices[self.ALARM_ARMING_STATUS_UNIT].nValue == 0:
                             self.setSecurityState(1)
                     #self.mainAlarm()
                 elif Level == 20:
@@ -236,7 +236,7 @@ class BasePlugin:
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
-                        if Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                        if Devices[self.ALARM_ARMING_STATUS_UNIT].nValue == 0:
                             self.setSecurityState(2)
                     #self.mainAlarm()
                     
