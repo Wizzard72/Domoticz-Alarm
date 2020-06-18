@@ -251,9 +251,9 @@ class BasePlugin:
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
         # Main alarm
-        self.mainAlarm()
+        #self.mainAlarm()
         # Siren
-        self.controlSiren(self.TotalZones)
+        #self.controlSiren(self.TotalZones)
 
         for x in range(self.MatrixRowTotal):
             Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
