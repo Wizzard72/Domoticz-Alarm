@@ -219,7 +219,7 @@ class BasePlugin:
                     Domoticz.Log("Set Security Panel to Normal")
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
-                    if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(0)
                     #self.mainAlarm()
                 elif Level == 10:
@@ -227,14 +227,14 @@ class BasePlugin:
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.pollZoneDevices(self.MatrixRowTotal)
                     self.alarmModeChange(zone_nr, Level)
-                    if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                    if self.ALARM_ARMING_MODE_UNIT == Unit and Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(1)
                     #self.mainAlarm()
                 elif Level == 20:
                     Domoticz.Log("Set Security Panel to Armed Away")
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
-                    if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                    if self.ALARM_ARMING_MODE_UNIT == Unit and Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(2)
                     #self.mainAlarm()
                     
