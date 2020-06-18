@@ -438,7 +438,8 @@ class BasePlugin:
                 if trippedZoneCheck != 0:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                if Devices[zoneNrUnit] != 50:
+                if Devices[zoneNrUnit].nValue != 50:
+                    Domoticz.Log(""+)
                     if trippedZoneCheck >= self.ActivePIRSirenHome:
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                         UpdateDevice(zoneNrUnit, 40, "40") # Alert
