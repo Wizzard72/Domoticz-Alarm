@@ -655,7 +655,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                #if timeDiffSeconds >= 50:
+                #if timeDiffSeconds >= self.OpenSectionArmAnyWay:
                     #UpdateDevice(StatusIDUnit, 0, "0") # Normal
                     #Domoticz.Log("")
         elif newStatus == 20: # Armed Way
@@ -669,7 +669,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                #if timeDiffSeconds >= 50:
+                #if timeDiffSeconds >= self.OpenSectionArmAnyWay:
                     #UpdateDevice(StatusIDUnit, 0, "0") # Normal
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
@@ -683,23 +683,18 @@ class BasePlugin:
         for row in range(TotalDevices):
             if self.Matrix[row][1] == zoneNr:
                 # Armed Home then only check Devices in Armed Home
-                Domoticz.Log("1JAAA HOOR")
                 if zoneModeTxt == "Armed Home":
-                    Domoticz.Log("2JAAA HOOR")
                     if self.Matrix[row][2] == "Armed Home":
-                        Domoticz.Log("3JAAA HOOR")
                         if self.Matrix[row][4] == "On":
                             # found a device in zone to be armed
                             zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                             UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                            Domoticz.Log("4JAAA HOOR")
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found a device in zone to be armed
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                        Domoticz.Log("4JAAA HOOR")
 
     
     def getSwitchIDXLastUpdate(self, idx):
