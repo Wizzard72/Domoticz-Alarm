@@ -3,7 +3,7 @@
 # Author: Wizzard72
 #
 """
-<plugin key="Alarm" name="Alarm" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
+<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
@@ -171,7 +171,7 @@ class BasePlugin:
 
     def onStop(self):
         strName = "onStop: "
-        Domoticz.Debug(strName+"Pluggin is stopping.")
+        Domoticz.Debug(strName+"Plugin is stopping.")
         
 
     def onConnect(self, Connection, Status, Description):
@@ -225,6 +225,7 @@ class BasePlugin:
                 elif Level == 10:
                     Domoticz.Log("Set Security Panel to Armed Home")
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
+                    self.pollZoneDevices(self.MatrixRowTotal):
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(1)
