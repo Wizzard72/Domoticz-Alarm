@@ -737,7 +737,6 @@ class BasePlugin:
             Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
             UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
         
-        ALARM_SENSOR_TIME
         if (self.ALARM_SENSOR_TIME not in Devices):
             Options = {"LevelActions": "||||",
                        "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
