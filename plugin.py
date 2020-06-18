@@ -234,8 +234,9 @@ class BasePlugin:
                     Domoticz.Log("Set Security Panel to Armed Away")
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
-                    if self.ALARM_ARMING_MODE_UNIT == Unit and Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
-                        self.setSecurityState(2)
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
+                        if Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                            self.setSecurityState(2)
                     #self.mainAlarm()
                     
         for zone_nr in range(self.TotalZones):
