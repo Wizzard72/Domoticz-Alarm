@@ -476,7 +476,7 @@ class BasePlugin:
                     elif trippedZoneCheck == 0:
                         Domoticz.Log("")
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                        #UpdateDevice(zoneNrUnit, 0, "0") # Normal
+                        UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
@@ -643,7 +643,7 @@ class BasePlugin:
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
-            #UpdateDevice(zoneNrUnit, 0, "0") # Normal
+            #pdateDevice(zoneNrUnit, 0, "0") # Normal
         elif newStatus == 10: # Armed Home
             # Use 
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
@@ -655,8 +655,8 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                #if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                    #UpdateDevice(StatusIDUnit, 0, "0") # Normal
+                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
                     #Domoticz.Log("")
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
@@ -669,8 +669,8 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                #if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                    #UpdateDevice(StatusIDUnit, 0, "0") # Normal
+                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
