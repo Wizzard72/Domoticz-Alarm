@@ -613,6 +613,7 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 30: # 30 seconds after Open Section Notification enable alarm anyway
                     UpdateDevice(StatusID, 0, "0")
+                    Domoticz.Log("Neee he")
             else:
                 if Devices[ZoneID].nValue == 10: # Armed Home
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
