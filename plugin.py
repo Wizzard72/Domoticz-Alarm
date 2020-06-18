@@ -392,7 +392,7 @@ class BasePlugin:
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                         if Devices[ArmingStatusUnit].nValue < 20: # Tripped value
-                            self.setAlarmArmingStatus("4trippedSensor", zoneNrUnit, "Tripped")
+                            self.setAlarmArmingStatus("4trippedSensor", ArmingStatusUnit, "Tripped")
                             #UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                         if self.Matrix[row][5] == "New":
                             sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
