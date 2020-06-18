@@ -558,7 +558,7 @@ class BasePlugin:
         self.getSecurityState()
         self.pollZoneDevices(self.MatrixRowTotal)
         self.trippedSensorTimer(self.MatrixRowTotal)
-        for zone in range{self.TotalZones):
+        for zone in range(self.TotalZones):
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
             if Devices[ArmingStatusUnit].nValue == 50: # open sections
                     try:
