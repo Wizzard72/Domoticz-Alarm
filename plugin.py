@@ -213,25 +213,25 @@ class BasePlugin:
             
         
         for zone_nr in range(self.TotalZones):
-            zoneUnitNr = self.ALARM_ARMING_MODE_UNIT + zone_nr
-            if zoneUnitNr == Unit:
+            AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone_nr
+            if AlarmModeUnit == Unit:
                 if Level == 0:
                     Domoticz.Log("Set Security Panel to Normal")
-                    UpdateDevice(zoneUnitNr, Level, str(Level))
+                    UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(0)
                     #self.mainAlarm()
                 elif Level == 10:
                     Domoticz.Log("Set Security Panel to Armed Home")
-                    UpdateDevice(zoneUnitNr, Level, str(Level))
+                    UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(1)
                     #self.mainAlarm()
                 elif Level == 20:
                     Domoticz.Log("Set Security Panel to Armed Away")
-                    UpdateDevice(zoneUnitNr, Level, str(Level))
+                    UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(2)
@@ -332,7 +332,7 @@ class BasePlugin:
             DomoticzAPI("type=command&param=setsecstatus&secstatus=0&seccode="+self.secpassword)
         elif SecurityPanelState == 1 or SecurityPanelState == "Arm Home" or SecurityPanelState == "Armed Home":
             DomoticzAPI("type=command&param=setsecstatus&secstatus=1&seccode="+self.secpassword)
-        elif SecurityPanelState == 2 or SecurityPanelState == "Arm Way" or SecurityPanelState == "Armed Away":
+        elif SecurityPanelState == 2 or SecurityPanelState == "Arm Away" or SecurityPanelState == "Armed Away":
             DomoticzAPI("type=command&param=setsecstatus&secstatus=2&seccode="+self.secpassword)
         
                     
@@ -555,13 +555,13 @@ class BasePlugin:
         
         # Alarm Mode
         for zone in range(self.TotalZones):
-            ZoneID = self.ALARM_ARMING_MODE_UNIT + zone
+            AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
             # Exit Delay
             try:
-                timeDiff = datetime.now() - datetime.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                timeDiff = datetime.now() - datetime.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
             except TypeError:
-                timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
             if timeDiffSeconds >= self.exitDelay:
                 if Devices[ArmingStatusUnit].nValue == 50: # Open sections
@@ -574,14 +574,14 @@ class BasePlugin:
                         self.setAlarmArmingStatus("1mainAlarm", ArmingStatusUnit, "Normal")
                         #UpdateDevice(StatusID, 0, "0")
                 else:
-                    if Devices[ZoneID].nValue == 10: # Armed Home
+                    if Devices[AlarmModeUnit].nValue == 10: # Armed Home
                         Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
                         if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                             self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                         else:
                             self.setAlarmArmingStatus("mainAlarm", ArmingStatusUnit, "Exit Delay")
                             #UpdateDevice(StatusID, 30, "30") # Normal
-                    elif Devices[ZoneID].nValue == 20: # Armed Away
+                    elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
                         Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
                         if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                             self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
