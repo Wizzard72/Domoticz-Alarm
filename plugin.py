@@ -669,7 +669,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= 50:
+                #if timeDiffSeconds >= 50:
                     #UpdateDevice(StatusIDUnit, 0, "0") # Normal
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
