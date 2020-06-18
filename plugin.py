@@ -80,6 +80,7 @@ class BasePlugin:
     ALARM_MAIN_UNIT = 1
     ALARM_ENTRY_DELAY = 2
     ALARM_EXIT_DELAY = 3
+    ALARM_SENSOR_TIME = 5
     ALARM_ARMING_MODE_UNIT = 10
     ALARM_ARMING_STATUS_UNIT = 20
     ALARM_PIR_Zone_UNIT = 30
@@ -96,7 +97,7 @@ class BasePlugin:
     TotalZones = 0
     ActivePIRSirenHome = 0
     ActivePIRSirenAway = 0
-    SensorActiveTime = 30 #seconds
+    SensorActiveTime = 0 #seconds
 
     
     def __init__(self):
@@ -196,6 +197,11 @@ class BasePlugin:
                 #    self.deactivateSiren()
                 #elif Level == 40:
                 #    self.activateSiren()
+        
+        if self.ALARM_SENSOR_TIME == Unit:
+            self.SensorActiveTime = Level
+            Domoticz.Debug(strName+"Sensor Active Time = "+str(self.SensorActiveTime))
+            UpdateDevice(self.ALARM_SENSOR_TIME, Level, str(Level))
         
         if self.ALARM_ENTRY_DELAY == Unit:
             if Level == 0:
@@ -484,7 +490,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.SensorActiveTime:
+                if timeDiffSeconds >= (self.SensorActiveTime + self.entryDelay):
                     self.Matrix[row][5] = "Normal"
                     self.Matrix[row][6] = 0
         
@@ -730,7 +736,17 @@ class BasePlugin:
                        "SelectorStyle": "1"}
             Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
             UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
-    
+        
+        ALARM_SENSOR_TIME
+        if (self.ALARM_SENSOR_TIME not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "1"}
+            Domoticz.Device(Name="Sensor Active Time", Unit=self.ALARM_SENSOR_TIME, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            UpdateDevice(self.ALARM_SENSOR_TIME, 30, "30")
+        
+        
         Options = {"LevelActions": "||||",
                        "LevelNames": "Disarmed|Armed Home|Armed Away",
                        "LevelOffHidden": "false",
