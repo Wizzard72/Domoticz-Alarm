@@ -604,12 +604,13 @@ class BasePlugin:
             timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
         timeDiffSeconds = timeDiff.seconds
         if timeDiffSeconds >= self.exitDelay:
-            if newStatus == 0: # Normal
+            #if newStatus == 0: # Normal
                 # Reset Siren and Alarm Status
                 #UpdateDevice(StatusIDUnit, 10, "10") # Arming
                 #UpdateDevice(StatusIDUnit, 0, "0") # Normal
                 #self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
-            elif newStatus == 10: # Armed Home
+            #el
+            if newStatus == 10: # Armed Home
                 # Use 
                 self.setAlarmArmingStatus("2alarmModeChange", StatusIDUnit, "Arming")
                 # check open sections
