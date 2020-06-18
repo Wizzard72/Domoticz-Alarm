@@ -80,7 +80,6 @@ class BasePlugin:
     ALARM_MAIN_UNIT = 1
     ALARM_ENTRY_DELAY = 2
     ALARM_EXIT_DELAY = 3
-    ALARM_SENSOR_TIME = 5
     ALARM_ARMING_MODE_UNIT = 10
     ALARM_ARMING_STATUS_UNIT = 20
     ALARM_PIR_Zone_UNIT = 30
@@ -97,8 +96,7 @@ class BasePlugin:
     TotalZones = 0
     ActivePIRSirenHome = 0
     ActivePIRSirenAway = 0
-    SensorActiveTime = 0 #seconds
-    OpenSectionArmAnyWay = 30
+    SensorActiveTime = 30 #seconds
 
     
     def __init__(self):
@@ -193,24 +191,94 @@ class BasePlugin:
         for zone in range(self.TotalZones):
             zoneNrUnitID = self.ALARM_ARMING_STATUS_UNIT+zone
             if zoneNrUnitID == Unit:
-                self.controlSiren(self.TotalZones)
-        
-        if self.ALARM_SENSOR_TIME == Unit:
-            self.SensorActiveTime = Level
-            Domoticz.Debug(strName+"Sensor Active Time = "+str(self.SensorActiveTime))
-            UpdateDevice(self.ALARM_SENSOR_TIME, Level, str(Level))
+                if Level == 0:
+                    self.deactivateSiren()
+                elif Level == 40:
+                    self.activateSiren()
         
         if self.ALARM_ENTRY_DELAY == Unit:
-            self.entryDelay = Level #seconds
-            Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
-            UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
-            
+            if Level == 0:
+                self.entryDelay = 0 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 10:
+                self.entryDelay = 10 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 20:
+                self.entryDelay = 20 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 30:
+                self.entryDelay = 30 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 40:
+                self.entryDelay = 40 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 50:
+                self.entryDelay = 50 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 60:
+                self.entryDelay = 60 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 70:
+                self.entryDelay = 70 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 80:
+                self.entryDelay = 80 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+            elif Level == 90:
+                self.entryDelay = 90 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
                 
         if self.ALARM_EXIT_DELAY == Unit:
-            self.exitDelay = Level #seconds
-            Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
-            UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
-            
+            if Level == 0:
+                self.exitDelay = 0 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 10:
+                self.exitDelay = 10 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 20:
+                self.exitDelay = 20 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 30:
+                self.exitDelay = 30 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 40:
+                self.exitDelay = 40 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 50:
+                self.exitDelay = 50 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 60:
+                self.exitDelay = 60 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 70:
+                self.exitDelay = 70 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 80:
+                self.exitDelay = 80 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            elif Level == 90:
+                self.exitDelay = 90 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
         
         for zone_nr in range(self.TotalZones):
             zoneUnitNr = self.ALARM_ARMING_MODE_UNIT + zone_nr
@@ -219,23 +287,20 @@ class BasePlugin:
                     Domoticz.Log("Set Security Panel to Normal")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
-                    if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(0)
-                    self.mainAlarm()
                 elif Level == 10:
                     Domoticz.Log("Set Security Panel to Armed Home")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
-                    if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(1)
-                    self.mainAlarm()
                 elif Level == 20:
                     Domoticz.Log("Set Security Panel to Armed Away")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
-                    if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
+                    if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(2)
-                    self.mainAlarm()
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
@@ -253,10 +318,34 @@ class BasePlugin:
         # Main alarm
         self.mainAlarm()
         # Siren
-        self.controlSiren(self.TotalZones)
+        countAlarm = 0
+        for zone in range(self.TotalZones):
+            zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
+            #timeDiff = 0
+            if Devices[zoneNr].nValue == 40:
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
+                if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
+                    self.activateSiren()
+                    countAlarm = countAlarm + 1
+                    Domoticz.Log("Turn ON Siren")
+                else:
+                    self.deactivateSiren()
+                    if countAlarm >= 1:
+                        countAlarm = countAlarm - 1
+                    else:
+                        countAlarm = 0
+                    Domoticz.Log("Turn OFF Siren")
+            elif Devices[zoneNr].nValue == 0:
+                if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
+                    self.deactivateSiren()
 
         for x in range(self.MatrixRowTotal):
-            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
+            Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
              
          
     def pollZoneDevices(self, TotalRows):
@@ -281,11 +370,6 @@ class BasePlugin:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
                     else:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
-        # reset Matrix for the zone
-        #for row in range(self.MatrixRowTotal):
-        #    Domoticz.Log("Reset Matrix so there are no false positives ("+self.Matrix[row][3]+" - Normal - 0)")
-        #    self.changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Off", "Normal", 0)
-        
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
@@ -345,67 +429,57 @@ class BasePlugin:
             trippedZone = ""
             for row in range(TotalRows):
                 zoneNrUnit = 0
-                zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
-                if Devices[zoneNrUnit].nValue != 50:
-                    if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
-                        Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                        if Devices[zoneNrUnit].nValue < 20: # Tripped value
-                            self.setAlarmArmingStatus("1trippedSensor", zoneNrUnit, "Tripped")
-                            #UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        if self.Matrix[row][5] == "New":
-                            sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                            self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
-                        trippedSensor = trippedSensor + 1
-                        if trippedZone == "":
-                            trippedZone = str(self.Matrix[row][1])
-                        else:
-                            trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])        
-            if Devices[zoneNrUnit].nValue != 50:
-                for zone in range(TotalZones):
-                    trippedZoneCheck = trippedZone.count(str(zone))
-                    if trippedZoneCheck != 0:
-                        Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
+                if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
+                    Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
+                    if Devices[zoneNrUnit].nValue < 20: # Tripped value
+                        UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+                    if self.Matrix[row][5] == "New":
+                        sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                        self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                    trippedSensor = trippedSensor + 1
+                    if trippedZone == "":
+                        trippedZone = str(self.Matrix[row][1])
+                    else:
+                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])        
+            for zone in range(TotalZones):
+                trippedZoneCheck = trippedZone.count(str(zone))
+                if trippedZoneCheck != 0:
+                    Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
+                if trippedZoneCheck >= self.ActivePIRSirenHome:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                    if Devices[zoneNrUnit].nValue != 50:
-                        if trippedZoneCheck >= self.ActivePIRSirenHome:
-                            self.setAlarmArmingStatus("2trippedSensor", zoneNrUnit, "Alert")
-                            #UpdateDevice(zoneNrUnit, 40, "40") # Alert
-                        elif trippedZoneCheck == 0:
-                            #UpdateDevice(zoneNrUnit, 0, "0") # Normal
-                            self.setAlarmArmingStatus("3trippedSensor", zoneNrUnit, "Normal")
+                    UpdateDevice(zoneNrUnit, 40, "40") # Alert
+                elif trippedZoneCheck == 0:
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                    UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
             for row in range(TotalRows):
                 zoneNrUnit = 0
-                zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
-                if Devices[zoneNrUnit].nValue != 50:
-                    if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
-                        Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
-                        if Devices[zoneNrUnit].nValue < 20: # Tripped value
-                            self.setAlarmArmingStatus("4trippedSensor", zoneNrUnit, "Tripped")
-                            #UpdateDevice(zoneNrUnit, 20, "20") # Tripped
-                        if self.Matrix[row][5] == "New":
-                            sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                            self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
-                        trippedSensor = trippedSensor + 1
-                        if trippedZone == "":
-                            trippedZone = str(self.Matrix[row][1])
-                        else:
-                            trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
-                    for zone in range(TotalZones):
-                        trippedZoneCheck = trippedZone.count(str(zone))
-                        if trippedZoneCheck != 0:
-                            Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
-                        zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                        if Devices[zoneNrUnit].nValue != 50:
-                            if trippedZoneCheck >= self.ActivePIRSirenAway:
-                                self.setAlarmArmingStatus("5trippedSensor", zoneNrUnit, "Alert")
-                                #UpdateDevice(zoneNrUnit, 40, "40") # Alert
-                            elif trippedZoneCheck == 0:
-                                #UpdateDevice(zoneNrUnit, 0, "0") # Normal
-                                self.setAlarmArmingStatus("6trippedSensor", zoneNrUnit, "Normal")
+                if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
+                    Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
+                    if Devices[zoneNrUnit].nValue < 20: # Tripped value
+                        UpdateDevice(zoneNrUnit, 20, "20") # Tripped
+                    if self.Matrix[row][5] == "New":
+                        sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                        self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                    trippedSensor = trippedSensor + 1
+                    if trippedZone == "":
+                        trippedZone = str(self.Matrix[row][1])
+                    else:
+                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
+            for zone in range(TotalZones):
+                trippedZoneCheck = trippedZone.count(str(zone))
+                if trippedZoneCheck != 0:
+                    Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
+                if trippedZoneCheck >= self.ActivePIRSirenAway:
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                    UpdateDevice(zoneNrUnit, 40, "40") # Alert
+                elif trippedZoneCheck == 0:
+                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                    UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
@@ -425,7 +499,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= (self.SensorActiveTime + self.entryDelay):
+                if timeDiffSeconds >= self.SensorActiveTime:
                     self.Matrix[row][5] = "Normal"
                     self.Matrix[row][6] = 0
         
@@ -474,45 +548,17 @@ class BasePlugin:
         self.Matrix[LastRow][6] = TimeChanged
         Domoticz.Debug(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
-    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed=0, ChangedTime=0):
+    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed=0):
         strName = "changeRowinMatrix - "
         for row in range(TotalRows):
             if self.Matrix[row][3] == DeviceIdx:
                 self.Matrix[row][4] = DeviceState
                 if Changed != 0:
                     self.Matrix[row][5] = Changed
-                    #Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed)
-                if ChangedTime != 0:
-                    self.Matrix[row][6] = ChangedTime
-                    #Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Changedtime = "+ChangedTime)
-    
-    
-    def controlSiren(self, TotalZones):
-        countAlarm = 0
-        for zone in range(TotalZones):
-            zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
-            #timeDiff = 0
-            if Devices[zoneNr].nValue == 40: # Alert
-                try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                timeDiffSeconds = timeDiff.seconds
-                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
-                if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
-                    self.activateSiren()
-                    countAlarm = countAlarm + 1
-                    Domoticz.Log("Turn ON Siren")
+                    Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed)
                 else:
-                    self.deactivateSiren()
-                    if countAlarm >= 1:
-                        countAlarm = countAlarm - 1
-                    else:
-                        countAlarm = 0
-                    Domoticz.Log("Turn OFF Siren")
-            elif Devices[zoneNr].nValue == 0:
-                if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
-                    self.deactivateSiren()
+                    Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState)
+    
     
     def activateSiren(self):
         strName = "activateSiren - "
@@ -521,36 +567,13 @@ class BasePlugin:
     def deactivateSiren(self):
         strName = "deactivateSiren - "
         UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
-    
-    def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
-        Domoticz.Log("Location = "+Location)
-        if ZoneMode == "Normal" or ZoneMode == 0:
-            UpdateDevice(ZoneNr, 0, "0")
-            Domoticz.Log("Set Arming Status to Normal")
-        elif ZoneMode == "Arming" or ZoneMode == 10:
-            UpdateDevice(ZoneNr, 10, "10")
-            Domoticz.Log("Set Arming Status to Arming")
-        elif ZoneMode == "Tripped" or ZoneMode == 20:
-            UpdateDevice(ZoneNr, 20, "20")
-            Domoticz.Log("Set Arming Status to Tripped")
-        elif ZoneMode == "Exit Delay" or ZoneMode == 30:
-            UpdateDevice(ZoneNr, 30, "30")
-            Domoticz.Log("Set Arming Status to Exit Delay")
-        elif ZoneMode == "Alert" or ZoneMode == 40:
-            UpdateDevice(ZoneNr, 40, "40")
-            Domoticz.Log("Set Arming Status to Alert")
-        elif ZoneMode == "Open Sections" or ZoneMode == 50:
-            UpdateDevice(ZoneNr, 50, "50")
-            Domoticz.Log("Set Arming Status to Open Sections")
-
         
-    
     def mainAlarm(self):
         strName = "mainAlarm - "
         # Main Alarm script
         # Poll all sensors
         self.getSecurityState()
-        #self.pollZoneDevices(self.MatrixRowTotal)
+        self.pollZoneDevices(self.MatrixRowTotal)
         self.trippedSensorTimer(self.MatrixRowTotal)
         
         # Alarm Mode
@@ -563,47 +586,40 @@ class BasePlugin:
             except TypeError:
                 timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
+
+            if Devices[ZoneID].nValue == 10: # Armed Home
+                Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
+                else:
+                    UpdateDevice(StatusID, 30, "30") # Normal
+            elif Devices[ZoneID].nValue == 20: # Armed Away
+                Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+                else:
+                    UpdateDevice(StatusID, 30, "30") # Normal
             if Devices[StatusID].nValue == 50: # Open sections
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
-                    self.setAlarmArmingStatus("mainAlarm", StatusID, "Normal")
-                    #UpdateDevice(StatusID, 0, "0")
-                    Domoticz.Log("Neee he")
-            else:
-                if Devices[ZoneID].nValue == 10: # Armed Home
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
-                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
-                    else:
-                        self.setAlarmArmingStatus("mainAlarm", StatusID, "Exit Delay")
-                        #UpdateDevice(StatusID, 30, "30") # Normal
-                elif Devices[ZoneID].nValue == 20: # Armed Away
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
-                    else:
-                        #UpdateDevice(StatusID, 30, "30") # Normal
-                        self.setAlarmArmingStatus("mainAlarm", StatusID, "Exit Delay")
-            
+                if timeDiffSeconds >= 30: # 30 seconds after Open Section Notification enable alarm anyway
+                    UpdateDevice(StatusID, 0, "0")
 
             
     def alarmModeChange(self, zoneNr, newStatus):
         strName = "alarmModeChange - "
-        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
+        zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         StatusIDUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
-            #UpdateDevice(StatusIDUnit, 10, "10") # Arming
-            #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-            self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
+            UpdateDevice(zoneNrUnit, 10, "10") # Arming
+            UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif newStatus == 10: # Armed Home
             # Use 
-            #UpdateDevice(StatusIDUnit, 10, "10") # Arming
-            self.setAlarmArmingStatus("2alarmModeChange", StatusIDUnit, "Arming")
+            UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
             if Devices[StatusIDUnit].nValue == 50: # open sections
@@ -612,14 +628,11 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                    #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                    self.setAlarmArmingStatus("3alarmModeChange", StatusIDUnit, "Normal")
-                    #Domoticz.Log("")
+                if timeDiffSeconds >= 50:
+                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
-            #UpdateDevice(StatusIDUnit, 10, "10") # Arming
-            self.setAlarmArmingStatus("4alarmModeChange", StatusIDUnit, "Arming")
+            UpdateDevice(zoneNrUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             if Devices[StatusIDUnit].nValue == 50: # open sections
@@ -628,9 +641,8 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                    #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                    self.setAlarmArmingStatus("5alarmModeChange", StatusIDUnit, "Normal")
+                if timeDiffSeconds >= 50:
+                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
@@ -648,15 +660,13 @@ class BasePlugin:
                         if self.Matrix[row][4] == "On":
                             # found a device in zone to be armed
                             zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
-                            #UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                            self.setAlarmArmingStatus("checkOpenSections", zoneNrUnit, "Open Sections")
+                            UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found a device in zone to be armed
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
-                        #UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                        self.setAlarmArmingStatus("checkOpenSections", zoneNrUnit, "Open Sections")
+                        UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
 
     
     def getSwitchIDXLastUpdate(self, idx):
@@ -708,16 +718,7 @@ class BasePlugin:
                        "SelectorStyle": "1"}
             Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
             UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
-        
-        if (self.ALARM_SENSOR_TIME not in Devices):
-            Options = {"LevelActions": "||||",
-                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
-                       "LevelOffHidden": "false",
-                       "SelectorStyle": "1"}
-            Domoticz.Device(Name="Sensor Active Time", Unit=self.ALARM_SENSOR_TIME, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
-            UpdateDevice(self.ALARM_SENSOR_TIME, 30, "30")
-        
-        
+    
         Options = {"LevelActions": "||||",
                        "LevelNames": "Disarmed|Armed Home|Armed Away",
                        "LevelOffHidden": "false",
