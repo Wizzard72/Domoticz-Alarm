@@ -620,14 +620,13 @@ class BasePlugin:
             timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
         timeDiffSeconds = timeDiff.seconds
         Domoticz.Log("timeDiffSeconds = "+str(timeDiffSeconds)+" "+Devices[ArmingStatusUnit].LastUpdate+" "+str(ArmingStatusUnit))
-        if timeDiffSeconds >= self.exitDelay:
-            #if newStatus == 0: # Normal
+        if timeDiffSeconds >= self.exitDelay or newStatus == 0:
+            if newStatus == 0: # Normal
                 # Reset Siren and Alarm Status
                 #UpdateDevice(StatusIDUnit, 10, "10") # Arming
                 #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                #self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
-            #el
-            if newStatus == 10: # Armed Home
+                self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
+            elif newStatus == 10: # Armed Home
                 # Use 
                 self.setAlarmArmingStatus("2alarmModeChange", ArmingStatusUnit, "Arming")
                 # check open sections
