@@ -283,24 +283,31 @@ class BasePlugin:
         for zone_nr in range(self.TotalZones):
             zoneUnitNr = self.ALARM_ARMING_MODE_UNIT + zone_nr
             if zoneUnitNr == Unit:
+                # reset Matrix for the zone
+                for row in range(self.MatrixRowTotal):
+                    if Level == 10 or Level == 20: # Armed Home
+                        changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Normal", 0)
                 if Level == 0:
                     Domoticz.Log("Set Security Panel to Normal")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(0)
+                    self.mainAlarm()
                 elif Level == 10:
                     Domoticz.Log("Set Security Panel to Armed Home")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(1)
+                    self.mainAlarm()
                 elif Level == 20:
                     Domoticz.Log("Set Security Panel to Armed Away")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(2)
+                    self.mainAlarm()
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
