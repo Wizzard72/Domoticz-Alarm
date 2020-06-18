@@ -561,16 +561,15 @@ class BasePlugin:
             
     def alarmModeChange(self, zoneNr, newStatus):
         strName = "alarmModeChange - "
-        zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
+        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         StatusIDUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
-            UpdateDevice(zoneNrUnit, 10, "10") # Arming
-            UpdateDevice(zoneNrUnit, 0, "0") # Normal
+            #UpdateDevice(StatusIDUnit, 10, "10") # Arming
+            UpdateDevice(StatusIDUnit, 0, "0") # Normal
         elif newStatus == 10: # Armed Home
             # Use 
-            if Devices[ZoneNrUnit].nValue != 50:
-                UpdateDevice(zoneNrUnit, 10, "10") # Arming
+            UpdateDevice(StatusIDUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
             if Devices[StatusIDUnit].nValue == 50: # open sections
@@ -584,8 +583,7 @@ class BasePlugin:
                     #Domoticz.Log("")
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
-            if Devices[ZoneNrUnit].nValue != 50:
-                UpdateDevice(zoneNrUnit, 10, "10") # Arming
+            UpdateDevice(StatusIDUnit, 10, "10") # Arming
             # check open sections
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             if Devices[StatusIDUnit].nValue == 50: # open sections
