@@ -357,9 +357,9 @@ class BasePlugin:
                     else:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
         # reset Matrix for the zone
-        for row in range(self.MatrixRowTotal):
-            Domoticz.Log("Reset Matrix so there are no false positives ("+self.Matrix[row][3]+" - Normal - 0)")
-            self.changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Off", "Normal", 0)
+        #for row in range(self.MatrixRowTotal):
+        #    Domoticz.Log("Reset Matrix so there are no false positives ("+self.Matrix[row][3]+" - Normal - 0)")
+        #    self.changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Off", "Normal", 0)
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
