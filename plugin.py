@@ -550,8 +550,8 @@ class BasePlugin:
         # Main Alarm script
         # Poll all sensors
         self.getSecurityState()
-        self.pollZoneDevices(self.MatrixRowTotal)
-        #self.trippedSensorTimer(self.MatrixRowTotal)
+        #self.pollZoneDevices(self.MatrixRowTotal)
+        self.trippedSensorTimer(self.MatrixRowTotal)
         
         # Alarm Mode
         for zone in range(self.TotalZones):
