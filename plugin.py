@@ -227,6 +227,7 @@ class BasePlugin:
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.pollZoneDevices(self.MatrixRowTotal)
                     self.alarmModeChange(zone_nr, Level)
+                    Domoticz.Log("ALARM_ARMING_STATUS_UNIT = "+str(Devices[self.ALARM_ARMING_STATUS_UNIT].nValue))
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         if Devices[self.ALARM_ARMING_STATUS_UNIT].nValue == 0:
                             self.setSecurityState(1)
