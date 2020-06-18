@@ -600,11 +600,11 @@ class BasePlugin:
             # Reset Siren and Alarm Status
             #UpdateDevice(StatusIDUnit, 10, "10") # Arming
             #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-            self.setAlarmArmingStatus("alarmModeChange", StatusIDUnit, "Normal")
+            self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
         elif newStatus == 10: # Armed Home
             # Use 
             #UpdateDevice(StatusIDUnit, 10, "10") # Arming
-            self.setAlarmArmingStatus("alarmModeChange", StatusIDUnit, "Arming")
+            self.setAlarmArmingStatus("2alarmModeChange", StatusIDUnit, "Arming")
             # check open sections
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
             if Devices[StatusIDUnit].nValue == 50: # open sections
@@ -615,12 +615,12 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.OpenSectionArmAnyWay:
                     #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                    self.setAlarmArmingStatus("alarmModeChange", StatusIDUnit, "Normal")
+                    self.setAlarmArmingStatus("3alarmModeChange", StatusIDUnit, "Normal")
                     #Domoticz.Log("")
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             #UpdateDevice(StatusIDUnit, 10, "10") # Arming
-            self.setAlarmArmingStatus("alarmModeChange", StatusIDUnit, "Arming")
+            self.setAlarmArmingStatus("4alarmModeChange", StatusIDUnit, "Arming")
             # check open sections
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             if Devices[StatusIDUnit].nValue == 50: # open sections
@@ -631,7 +631,7 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.OpenSectionArmAnyWay:
                     #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                    self.setAlarmArmingStatus("alarmModeChange", StatusIDUnit, "Normal")
+                    self.setAlarmArmingStatus("5alarmModeChange", StatusIDUnit, "Normal")
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
