@@ -558,44 +558,54 @@ class BasePlugin:
         self.getSecurityState()
         self.pollZoneDevices(self.MatrixRowTotal)
         self.trippedSensorTimer(self.MatrixRowTotal)
-        
-        # Alarm Mode
-        for zone in range(self.TotalZones):
-            AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
-            ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
-            # Exit Delay
-            try:
-                timeDiff = datetime.now() - datetime.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-            except TypeError:
-                timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-            timeDiffSeconds = timeDiff.seconds
-            if timeDiffSeconds >= self.exitDelay:
-                if Devices[ArmingStatusUnit].nValue == 50: # Open sections
+        for zone in range{self.TotalZones):
+            ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
+            if Devices[ArmingStatusUnit].nValue == 50: # open sections
                     try:
                         timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
                     except TypeError:
                         timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                     timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
-                        self.setAlarmArmingStatus("1mainAlarm", ArmingStatusUnit, "Normal")
-                        #UpdateDevice(StatusID, 0, "0")
-                else:
-                    if Devices[AlarmModeUnit].nValue == 10: # Armed Home
-                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
-                        if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                            self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
-                        else:
-                            self.setAlarmArmingStatus("mainAlarm", ArmingStatusUnit, "Exit Delay")
-                            #UpdateDevice(StatusID, 30, "30") # Normal
-                    elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
-                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-                        if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                            self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
-                        else:
-                            #UpdateDevice(StatusID, 30, "30") # Normal
-                            self.setAlarmArmingStatus("mainAlarm", ArmingStatusUnit, "Exit Delay")
+                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                        self.setAlarmArmingStatus("3alarmModeChange", ArmingStatusUnit, "Normal")
             else:
-                 self.setAlarmArmingStatus("2mainAlarm", ArmingStatusUnit, "Exit Delay")
+                # Alarm Mode
+                #for zone in range(self.TotalZones):
+                AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
+                #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
+                # Exit Delay
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= self.exitDelay:
+                    if Devices[ArmingStatusUnit].nValue == 50: # Open sections
+                        try:
+                            timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                        except TypeError:
+                            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                        timeDiffSeconds = timeDiff.seconds
+                        if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
+                            self.setAlarmArmingStatus("1mainAlarm", ArmingStatusUnit, "Normal")
+                            #UpdateDevice(StatusID, 0, "0")
+                    else:
+                        if Devices[AlarmModeUnit].nValue == 10: # Armed Home
+                            Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                            if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                                self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
+                            else:
+                                self.setAlarmArmingStatus("mainAlarm", ArmingStatusUnit, "Exit Delay")
+                                #UpdateDevice(StatusID, 30, "30") # Normal
+                        elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
+                            Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                            if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                                self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+                            else:
+                                #UpdateDevice(StatusID, 30, "30") # Normal
+                                self.setAlarmArmingStatus("mainAlarm", ArmingStatusUnit, "Exit Delay")
+                else:
+                    self.setAlarmArmingStatus("2mainAlarm", ArmingStatusUnit, "Exit Delay")
             
 
             
@@ -622,29 +632,12 @@ class BasePlugin:
                 self.setAlarmArmingStatus("2alarmModeChange", ArmingStatusUnit, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
-                if Devices[ArmingStatusUnit].nValue == 50: # open sections
-                    try:
-                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                    except TypeError:
-                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                    timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        self.setAlarmArmingStatus("3alarmModeChange", ArmingStatusUnit, "Normal")
             elif newStatus == 20: # Armed Way
                 # Use EntryDelay
                 #UpdateDevice(StatusIDUnit, 10, "10") # Arming
                 self.setAlarmArmingStatus("4alarmModeChange", ArmingStatusUnit, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
-                #if Devices[StatusIDUnit].nValue == 50: # open sections
-                #    try:
-                #        timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                #    except TypeError:
-                #        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                #    timeDiffSeconds = timeDiff.seconds
-                #    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                #        #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                #        self.setAlarmArmingStatus("5alarmModeChange", StatusIDUnit, "Normal")
         else:
                  self.setAlarmArmingStatus("5alarmModeChange", ArmingStatusUnit, "Exit Delay")
 
