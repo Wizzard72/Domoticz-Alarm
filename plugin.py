@@ -563,31 +563,33 @@ class BasePlugin:
             except TypeError:
                 timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
-            if Devices[StatusID].nValue == 50: # Open sections
-                try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
-                    self.setAlarmArmingStatus("mainAlarm", StatusID, "Normal")
-                    #UpdateDevice(StatusID, 0, "0")
-                    Domoticz.Log("Neee he")
+            if timeDiffSeconds >= Devices[exitDelay].nValue:
+                if Devices[StatusID].nValue == 50: # Open sections
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
+                        self.setAlarmArmingStatus("1mainAlarm", StatusID, "Normal")
+                        #UpdateDevice(StatusID, 0, "0")
+                else:
+                    if Devices[ZoneID].nValue == 10: # Armed Home
+                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                        if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                            self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
+                        else:
+                            self.setAlarmArmingStatus("mainAlarm", StatusID, "Exit Delay")
+                            #UpdateDevice(StatusID, 30, "30") # Normal
+                    elif Devices[ZoneID].nValue == 20: # Armed Away
+                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                        if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                            self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+                        else:
+                            #UpdateDevice(StatusID, 30, "30") # Normal
+                            self.setAlarmArmingStatus("mainAlarm", StatusID, "Exit Delay")
             else:
-                if Devices[ZoneID].nValue == 10: # Armed Home
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
-                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
-                    else:
-                        self.setAlarmArmingStatus("mainAlarm", StatusID, "Exit Delay")
-                        #UpdateDevice(StatusID, 30, "30") # Normal
-                elif Devices[ZoneID].nValue == 20: # Armed Away
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
-                    else:
-                        #UpdateDevice(StatusID, 30, "30") # Normal
-                        self.setAlarmArmingStatus("mainAlarm", StatusID, "Exit Delay")
+                 self.setAlarmArmingStatus("2mainAlarm", StatusID, "Exit Delay")
             
 
             
