@@ -611,35 +611,34 @@ class BasePlugin:
                 self.setAlarmArmingStatus("1alarmModeChange", StatusIDUnit, "Normal")
             elif newStatus == 10: # Armed Home
                 # Use 
-                #UpdateDevice(StatusIDUnit, 10, "10") # Arming
                 self.setAlarmArmingStatus("2alarmModeChange", StatusIDUnit, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
-                if Devices[StatusIDUnit].nValue == 50: # open sections
-                    try:
-                        timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                    except TypeError:
-                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                    timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                        self.setAlarmArmingStatus("3alarmModeChange", StatusIDUnit, "Normal")
-                        #Domoticz.Log("")
+                #if Devices[StatusIDUnit].nValue == 50: # open sections
+                #    try:
+                #        timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                #    except TypeError:
+                #        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                #    timeDiffSeconds = timeDiff.seconds
+                #    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                #        #UpdateDevice(StatusIDUnit, 0, "0") # Normal
+                #        self.setAlarmArmingStatus("3alarmModeChange", StatusIDUnit, "Normal")
+                #        #Domoticz.Log("")
             elif newStatus == 20: # Armed Way
                 # Use EntryDelay
                 #UpdateDevice(StatusIDUnit, 10, "10") # Arming
                 self.setAlarmArmingStatus("4alarmModeChange", StatusIDUnit, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
-                if Devices[StatusIDUnit].nValue == 50: # open sections
-                    try:
-                        timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                    except TypeError:
-                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                    timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        #UpdateDevice(StatusIDUnit, 0, "0") # Normal
-                        self.setAlarmArmingStatus("5alarmModeChange", StatusIDUnit, "Normal")
+                #if Devices[StatusIDUnit].nValue == 50: # open sections
+                #    try:
+                #        timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                #    except TypeError:
+                #        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                #    timeDiffSeconds = timeDiff.seconds
+                #    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                #        #UpdateDevice(StatusIDUnit, 0, "0") # Normal
+                #        self.setAlarmArmingStatus("5alarmModeChange", StatusIDUnit, "Normal")
         else:
                  self.setAlarmArmingStatus("2mainAlarm", StatusIDUnit, "Exit Delay")
 
@@ -657,16 +656,14 @@ class BasePlugin:
                 if zoneModeTxt == "Armed Home":
                     if self.Matrix[row][2] == "Armed Home":
                         if self.Matrix[row][4] == "On":
-                            # found a device in zone to be armed
+                            # found open section (device)
                             zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
-                            #UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
                             self.setAlarmArmingStatus("checkOpenSections", zoneNrUnit, "Open Sections")
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
-                        # found a device in zone to be armed
+                        # found open section (device)
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
-                        #UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
                         self.setAlarmArmingStatus("checkOpenSections", zoneNrUnit, "Open Sections")
 
     
