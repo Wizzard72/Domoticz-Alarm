@@ -444,7 +444,7 @@ class BasePlugin:
                         UpdateDevice(zoneNrUnit, 40, "40") # Alert
                     elif trippedZoneCheck == 0:
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                        UpdateDevice(zoneNrUnit, 0, "0") # Normal
+                        #UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
@@ -474,7 +474,7 @@ class BasePlugin:
                         UpdateDevice(zoneNrUnit, 40, "40") # Alert
                     elif trippedZoneCheck == 0:
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                        UpdateDevice(zoneNrUnit, 0, "0") # Normal
+                        #UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
@@ -616,7 +616,7 @@ class BasePlugin:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 30: # 30 seconds after Open Section Notification enable alarm anyway
-                    UpdateDevice(StatusID, 0, "0")
+                    #UpdateDevice(StatusID, 0, "0")
                     Domoticz.Log("Neee he")
             else:
                 if Devices[ZoneID].nValue == 10: # Armed Home
@@ -641,7 +641,7 @@ class BasePlugin:
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
-            UpdateDevice(zoneNrUnit, 0, "0") # Normal
+            #UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif newStatus == 10: # Armed Home
             # Use 
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
@@ -654,7 +654,7 @@ class BasePlugin:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 50:
-                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
+                    #UpdateDevice(StatusIDUnit, 0, "0") # Normal
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
@@ -667,7 +667,7 @@ class BasePlugin:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 50:
-                    UpdateDevice(StatusIDUnit, 0, "0") # Normal
+                    #UpdateDevice(StatusIDUnit, 0, "0") # Normal
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
