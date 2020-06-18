@@ -350,7 +350,7 @@ class BasePlugin:
                     if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                         if Devices[zoneNrUnit].nValue < 20: # Tripped value
-                            self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Tripped")
+                            self.setAlarmArmingStatus("1trippedSensor", zoneNrUnit, "Tripped")
                             #UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                         if self.Matrix[row][5] == "New":
                             sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
@@ -368,11 +368,11 @@ class BasePlugin:
                     zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     if Devices[zoneNrUnit].nValue != 50:
                         if trippedZoneCheck >= self.ActivePIRSirenHome:
-                            self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Alert")
+                            self.setAlarmArmingStatus("2trippedSensor", zoneNrUnit, "Alert")
                             #UpdateDevice(zoneNrUnit, 40, "40") # Alert
                         elif trippedZoneCheck == 0:
                             #UpdateDevice(zoneNrUnit, 0, "0") # Normal
-                            self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Normal")
+                            self.setAlarmArmingStatus("3trippedSensor", zoneNrUnit, "Normal")
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
@@ -384,7 +384,7 @@ class BasePlugin:
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                         if Devices[zoneNrUnit].nValue < 20: # Tripped value
-                            self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Tripped")
+                            self.setAlarmArmingStatus("4trippedSensor", zoneNrUnit, "Tripped")
                             #UpdateDevice(zoneNrUnit, 20, "20") # Tripped
                         if self.Matrix[row][5] == "New":
                             sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
@@ -401,11 +401,11 @@ class BasePlugin:
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                         if Devices[zoneNrUnit].nValue != 50:
                             if trippedZoneCheck >= self.ActivePIRSirenAway:
-                                self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Alert")
+                                self.setAlarmArmingStatus("5trippedSensor", zoneNrUnit, "Alert")
                                 #UpdateDevice(zoneNrUnit, 40, "40") # Alert
                             elif trippedZoneCheck == 0:
                                 #UpdateDevice(zoneNrUnit, 0, "0") # Normal
-                                self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Normal")
+                                self.setAlarmArmingStatus("6trippedSensor", zoneNrUnit, "Normal")
         
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
