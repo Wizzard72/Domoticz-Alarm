@@ -641,7 +641,7 @@ class BasePlugin:
                 #        #UpdateDevice(StatusIDUnit, 0, "0") # Normal
                 #        self.setAlarmArmingStatus("5alarmModeChange", StatusIDUnit, "Normal")
         else:
-                 self.setAlarmArmingStatus("2mainAlarm", ArmingStatusUnit, "Exit Delay")
+                 self.setAlarmArmingStatus("5alarmModeChange", ArmingStatusUnit, "Exit Delay")
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
