@@ -98,6 +98,7 @@ class BasePlugin:
     ActivePIRSirenHome = 0
     ActivePIRSirenAway = 0
     SensorActiveTime = 0 #seconds
+    OpenSectionArmAnyWay = 30
 
     
     def __init__(self):
@@ -439,7 +440,6 @@ class BasePlugin:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                 if Devices[zoneNrUnit].nValue != 50:
-                    Domoticz.Log("YEPPP")
                     if trippedZoneCheck >= self.ActivePIRSirenHome:
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                         UpdateDevice(zoneNrUnit, 40, "40") # Alert
@@ -470,7 +470,7 @@ class BasePlugin:
                 if trippedZoneCheck != 0:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                if Devices[zoneNrUnit] != 50:
+                if Devices[zoneNrUnit].nValue != 50:
                     if trippedZoneCheck >= self.ActivePIRSirenAway:
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                         UpdateDevice(zoneNrUnit, 40, "40") # Alert
@@ -618,8 +618,8 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= 30: # 30 seconds after Open Section Notification enable alarm anyway
-                    #UpdateDevice(StatusID, 0, "0")
+                if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
+                    UpdateDevice(StatusID, 0, "0")
                     Domoticz.Log("Neee he")
             else:
                 if Devices[ZoneID].nValue == 10: # Armed Home
