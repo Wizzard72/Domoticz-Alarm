@@ -191,10 +191,11 @@ class BasePlugin:
         for zone in range(self.TotalZones):
             zoneNrUnitID = self.ALARM_ARMING_STATUS_UNIT+zone
             if zoneNrUnitID == Unit:
-                if Level == 0:
-                    self.deactivateSiren()
-                elif Level == 40:
-                    self.activateSiren()
+                self.controlSiren(self.TotalZones)
+                #if Level == 0:
+                #    self.deactivateSiren()
+                #elif Level == 40:
+                #    self.activateSiren()
         
         if self.ALARM_ENTRY_DELAY == Unit:
             if Level == 0:
@@ -326,31 +327,7 @@ class BasePlugin:
         # Main alarm
         self.mainAlarm()
         # Siren
-        countAlarm = 0
-        for zone in range(self.TotalZones):
-            zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
-            #timeDiff = 0
-            if Devices[zoneNr].nValue == 40:
-                try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                timeDiffSeconds = timeDiff.seconds
-                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
-                if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
-                    self.activateSiren()
-                    countAlarm = countAlarm + 1
-                    Domoticz.Log("Turn ON Siren")
-                else:
-                    self.deactivateSiren()
-                    if countAlarm >= 1:
-                        countAlarm = countAlarm - 1
-                    else:
-                        countAlarm = 0
-                    Domoticz.Log("Turn OFF Siren")
-            elif Devices[zoneNr].nValue == 0:
-                if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
-                    self.deactivateSiren()
+        self.controlSiren(self.TotalZones)
 
         for x in range(self.MatrixRowTotal):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
@@ -567,6 +544,33 @@ class BasePlugin:
                 else:
                     Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState)
     
+    
+    def controlSiren(self, TotalZones):
+        countAlarm = 0
+        for zone in range(TotalZones):
+            zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
+            #timeDiff = 0
+            if Devices[zoneNr].nValue == 40:
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
+                if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
+                    self.activateSiren()
+                    countAlarm = countAlarm + 1
+                    Domoticz.Log("Turn ON Siren")
+                else:
+                    self.deactivateSiren()
+                    if countAlarm >= 1:
+                        countAlarm = countAlarm - 1
+                    else:
+                        countAlarm = 0
+                    Domoticz.Log("Turn OFF Siren")
+            elif Devices[zoneNr].nValue == 0:
+                if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
+                    self.deactivateSiren()
     
     def activateSiren(self):
         strName = "activateSiren - "
