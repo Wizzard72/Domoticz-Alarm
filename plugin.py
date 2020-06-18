@@ -225,7 +225,7 @@ class BasePlugin:
                 elif Level == 10:
                     Domoticz.Log("Set Security Panel to Armed Home")
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
-                    self.pollZoneDevices(self.MatrixRowTotal):
+                    self.pollZoneDevices(self.MatrixRowTotal)
                     self.alarmModeChange(zone_nr, Level)
                     if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(1)
