@@ -437,12 +437,14 @@ class BasePlugin:
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
-                if trippedZoneCheck >= self.ActivePIRSirenHome:
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                    UpdateDevice(zoneNrUnit, 40, "40") # Alert
-                elif trippedZoneCheck == 0:
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                    UpdateDevice(zoneNrUnit, 0, "0") # Normal
+                zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                if Devices[zoneNrUnit] != 50:
+                    if trippedZoneCheck >= self.ActivePIRSirenHome:
+                        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                        UpdateDevice(zoneNrUnit, 40, "40") # Alert
+                    elif trippedZoneCheck == 0:
+                        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                        UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
@@ -465,12 +467,14 @@ class BasePlugin:
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
-                if trippedZoneCheck >= self.ActivePIRSirenAway:
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                    UpdateDevice(zoneNrUnit, 40, "40") # Alert
-                elif trippedZoneCheck == 0:
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                    UpdateDevice(zoneNrUnit, 0, "0") # Normal
+                zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                if Devices[zoneNrUnit] != 50:
+                    if trippedZoneCheck >= self.ActivePIRSirenAway:
+                        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                        UpdateDevice(zoneNrUnit, 40, "40") # Alert
+                    elif trippedZoneCheck == 0:
+                        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                        UpdateDevice(zoneNrUnit, 0, "0") # Normal
         
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
