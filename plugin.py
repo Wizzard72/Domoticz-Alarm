@@ -604,7 +604,7 @@ class BasePlugin:
         except TypeError:
             timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
         timeDiffSeconds = timeDiff.seconds
-        Domoticz.Log("timeDiffSeconds = "+str(timeDiffSeconds))
+        Domoticz.Log("timeDiffSeconds = "+str(timeDiffSeconds)+" "+Devices[ArmingStatusUnit].LastUpdate)
         if timeDiffSeconds >= self.exitDelay:
             #if newStatus == 0: # Normal
                 # Reset Siren and Alarm Status
