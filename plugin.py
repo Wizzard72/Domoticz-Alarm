@@ -290,11 +290,6 @@ class BasePlugin:
         for zone_nr in range(self.TotalZones):
             zoneUnitNr = self.ALARM_ARMING_MODE_UNIT + zone_nr
             if zoneUnitNr == Unit:
-                # reset Matrix for the zone
-                for row in range(self.MatrixRowTotal):
-                    if Level == 10 or Level == 20: # Armed Home
-                        Domoticz.Log("Reset Matrix so there are no false positives ("+self.Matrix[row][3]+" - Normal - 0")
-                        self.changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Normal", 0)
                 if Level == 0:
                     Domoticz.Log("Set Security Panel to Normal")
                     UpdateDevice(zoneUnitNr, Level, str(Level))
@@ -361,6 +356,12 @@ class BasePlugin:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
                     else:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
+        # reset Matrix for the zone
+        for row in range(self.MatrixRowTotal):
+            if Level == 10 or Level == 20: # Armed Home
+                Domoticz.Log("Reset Matrix so there are no false positives ("+self.Matrix[row][3]+" - Normal - 0)")
+                self.changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Off", "Normal", 0)
+        
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
@@ -539,16 +540,17 @@ class BasePlugin:
         self.Matrix[LastRow][6] = TimeChanged
         Domoticz.Debug(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
-    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed=0):
+    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed=0, ChangedTime=0):
         strName = "changeRowinMatrix - "
         for row in range(TotalRows):
             if self.Matrix[row][3] == DeviceIdx:
                 self.Matrix[row][4] = DeviceState
                 if Changed != 0:
                     self.Matrix[row][5] = Changed
-                    Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed)
-                else:
-                    Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState)
+                    #Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed)
+                if ChangedTime != 0:
+                    self.Matrix[row][6] = ChangedTime
+                    #Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Changedtime = "+ChangedTime)
     
     
     def controlSiren(self, TotalZones):
