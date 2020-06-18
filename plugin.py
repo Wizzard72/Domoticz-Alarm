@@ -237,6 +237,11 @@ class BasePlugin:
                     if self.ALARM_ARMING_MODE_UNIT == Unit or Devices[self.ALARM_ARMING_STATUS_UNIT].nValue != 50:
                         self.setSecurityState(2)
                     #self.mainAlarm()
+                    
+        for zone_nr in range(self.TotalZones):
+            ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone_nr
+            if ArmingStatusUnit == Unit:
+                Domoticz.Log("Yep: "+Level)
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
