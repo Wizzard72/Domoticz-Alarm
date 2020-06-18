@@ -604,19 +604,6 @@ class BasePlugin:
             except TypeError:
                 timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
-
-            if Devices[ZoneID].nValue == 10: # Armed Home
-                Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
-                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
-                else:
-                    UpdateDevice(StatusID, 30, "30") # Normal
-            elif Devices[ZoneID].nValue == 20: # Armed Away
-                Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
-                else:
-                    UpdateDevice(StatusID, 30, "30") # Normal
             if Devices[StatusID].nValue == 50: # Open sections
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')
@@ -625,6 +612,20 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 30: # 30 seconds after Open Section Notification enable alarm anyway
                     UpdateDevice(StatusID, 0, "0")
+            else:
+                if Devices[ZoneID].nValue == 10: # Armed Home
+                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
+                    else:
+                        UpdateDevice(StatusID, 30, "30") # Normal
+                elif Devices[ZoneID].nValue == 20: # Armed Away
+                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+                    else:
+                        UpdateDevice(StatusID, 30, "30") # Normal
+            
 
             
     def alarmModeChange(self, zoneNr, newStatus):
