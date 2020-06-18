@@ -257,7 +257,7 @@ class BasePlugin:
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
         # Main alarm
-        #self.mainAlarm()
+        self.mainAlarm()
         # Siren
         #self.controlSiren(self.TotalZones)
 
