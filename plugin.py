@@ -444,8 +444,7 @@ class BasePlugin:
                         #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                         UpdateDevice(zoneNrUnit, 40, "40") # Alert
                     elif trippedZoneCheck == 0:
-                        Domoticz.Log("")
-                        zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                         UpdateDevice(zoneNrUnit, 0, "0") # Normal
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
