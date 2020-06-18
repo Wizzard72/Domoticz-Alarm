@@ -563,7 +563,7 @@ class BasePlugin:
             except TypeError:
                 timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
-            if timeDiffSeconds >= Devices[self.exitDelay].nValue:
+            if timeDiffSeconds >= self.exitDelay:
                 if Devices[StatusID].nValue == 50: # Open sections
                     try:
                         timeDiff = datetime.now() - datetime.strptime(Devices[StatusID].LastUpdate,'%Y-%m-%d %H:%M:%S')
