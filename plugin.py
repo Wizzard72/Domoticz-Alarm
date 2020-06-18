@@ -650,14 +650,14 @@ class BasePlugin:
                             # found a device in zone to be armed
                             zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                             #UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                            self.setAlarmArmingStatus("checkOpenSections", ZoneNrUnit, "Open Sections")
+                            self.setAlarmArmingStatus("checkOpenSections", zoneNrUnit, "Open Sections")
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found a device in zone to be armed
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         #UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                        self.setAlarmArmingStatus("checkOpenSections", ZoneNrUnit, "Open Sections")
+                        self.setAlarmArmingStatus("checkOpenSections", zoneNrUnit, "Open Sections")
 
     
     def getSwitchIDXLastUpdate(self, idx):
