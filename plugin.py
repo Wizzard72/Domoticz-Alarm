@@ -394,19 +394,18 @@ class BasePlugin:
                             trippedZone = str(self.Matrix[row][1])
                         else:
                             trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
-            if Devices[zoneNrUnit].nValue != 50:
-                for zone in range(TotalZones):
-                    trippedZoneCheck = trippedZone.count(str(zone))
-                    if trippedZoneCheck != 0:
-                        Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
-                    zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                    if Devices[zoneNrUnit].nValue != 50:
-                        if trippedZoneCheck >= self.ActivePIRSirenAway:
-                            self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Alert")
-                            #UpdateDevice(zoneNrUnit, 40, "40") # Alert
-                        elif trippedZoneCheck == 0:
-                            #UpdateDevice(zoneNrUnit, 0, "0") # Normal
-                            self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Normal")
+                    for zone in range(TotalZones):
+                        trippedZoneCheck = trippedZone.count(str(zone))
+                        if trippedZoneCheck != 0:
+                            Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
+                        zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                        if Devices[zoneNrUnit].nValue != 50:
+                            if trippedZoneCheck >= self.ActivePIRSirenAway:
+                                self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Alert")
+                                #UpdateDevice(zoneNrUnit, 40, "40") # Alert
+                            elif trippedZoneCheck == 0:
+                                #UpdateDevice(zoneNrUnit, 0, "0") # Normal
+                                self.setAlarmArmingStatus("trippedSensor", zoneNrUnit, "Normal")
         
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
