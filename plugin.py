@@ -286,6 +286,7 @@ class BasePlugin:
                 # reset Matrix for the zone
                 for row in range(self.MatrixRowTotal):
                     if Level == 10 or Level == 20: # Armed Home
+                        Domoticz.Log("Reset Matrix so there are no false positives ("+self.Matrix[row][3]+" - Normal - 0")
                         self.changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Normal", 0)
                 if Level == 0:
                     Domoticz.Log("Set Security Panel to Normal")
