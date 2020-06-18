@@ -556,7 +556,7 @@ class BasePlugin:
         for zone in range(TotalZones):
             zoneNr = self.ALARM_ARMING_STATUS_UNIT+zone
             #timeDiff = 0
-            if Devices[zoneNr].nValue == 40:
+            if Devices[zoneNr].nValue == 40: # Alert
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[zoneNr].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 except TypeError:
@@ -674,13 +674,16 @@ class BasePlugin:
         for row in range(TotalDevices):
             if self.Matrix[row][1] == zoneNr:
                 # Armed Home then only check Devices in Armed Home
+                Domoticz.Log("1JAAA HOOR")
                 if zoneModeTxt == "Armed Home":
+                    Domoticz.Log("2JAAA HOOR")
                     if self.Matrix[row][2] == "Armed Home":
+                        Domoticz.Log("3JAAA HOOR")
                         if self.Matrix[row][4] == "On":
                             # found a device in zone to be armed
                             zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                             UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
-                            Domoticz.Log("JAAA HOOR")
+                            Domoticz.Log("4JAAA HOOR")
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
