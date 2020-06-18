@@ -657,6 +657,7 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= 50:
                     #UpdateDevice(StatusIDUnit, 0, "0") # Normal
+                    Domoticz.Log("")
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             UpdateDevice(zoneNrUnit, 10, "10") # Arming
