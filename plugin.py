@@ -679,14 +679,14 @@ class BasePlugin:
                     Domoticz.Log("2JAAA HOOR")
                     if self.Matrix[row][2] == "Armed Home":
                         Domoticz.Log("3JAAA HOOR")
-                        if self.Matrix[row][4] == "On":
+                        if self.Matrix[row][4] == "On,Open" or self.Matrix[row][4] == "Unlocked":
                             # found a device in zone to be armed
                             zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                             UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
                             Domoticz.Log("4JAAA HOOR")
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
-                    if self.Matrix[row][4] == "On":
+                    if self.Matrix[row][4] == "On,Closed" or self.Matrix[row][4] == "Locked":
                         # found a device in zone to be armed
                         zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         UpdateDevice(zoneNrUnit, 50, "50") # Open Sections
