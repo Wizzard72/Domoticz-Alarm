@@ -599,9 +599,9 @@ class BasePlugin:
         StatusIDUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         # Exit Delay
         try:
-            timeDiff = datetime.now() - datetime.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')
+            timeDiff = datetime.now() - datetime.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
         except TypeError:
-            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ZoneID].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[StatusIDUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
         timeDiffSeconds = timeDiff.seconds
         if timeDiffSeconds >= self.exitDelay:
             if newStatus == 0: # Normal
