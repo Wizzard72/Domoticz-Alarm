@@ -99,7 +99,7 @@ class BasePlugin:
     ActivePIRSirenAway = 0
     SensorActiveTime = 0 #seconds
     OpenSectionArmAnyWay = 30
-    OpenSectionTotal = 0
+    OpenSectionTotal = {}
     ArmingStatusMode = {}
 
 
@@ -153,6 +153,7 @@ class BasePlugin:
         
         for zone in range(self.TotalZones):
             self.setZoneStatus(self.TotalZones, zone, "Normal")
+            self.OpenSectionTotal[zone] = 0
             
         
         for x in range(TotalRows):
@@ -613,13 +614,16 @@ class BasePlugin:
             elif self.ArmingStatusMode[zone] == "Alert":
                 self.controlSiren(self.TotalZones)
             elif self.ArmingStatusMode[zone] == "Open Sections":
-                try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                    self.setAlarmArmingStatus("1mainAlarm", zone, "Exit Delay")
+                if self.OpenSectionTotal[zone] >= 1:
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                        self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
+                else:
+                    self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
             
                 
             
@@ -674,12 +678,14 @@ class BasePlugin:
                             # found open section (device)
                             ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                             self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
+                            self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found open section (device)
                         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
+                        self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
 
     
     def getSwitchIDXLastUpdate(self, idx):
