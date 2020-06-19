@@ -580,6 +580,7 @@ class BasePlugin:
         strName = "mainAlarm - "
         # Main Alarm script
         # Poll all sensors
+        # Normal - Arming - Open Section - Exit Delay - Tripped - Alert
         self.getSecurityState()
         self.pollZoneDevices(self.MatrixRowTotal)
         self.trippedSensorTimer(self.MatrixRowTotal)
@@ -587,14 +588,21 @@ class BasePlugin:
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
             AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
-            if self.ArmingStatusMode[zone] == "Open Sections":
-                    try:
-                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                    except TypeError:
-                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                    timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        self.setAlarmArmingStatus("1mainAlarm", zone, "Exit Delay")
+            if self.ArmingStatusMode[zone] == "Normal":
+                # Actual arm the building
+                if Devices[AlarmModeUnit].nValue == 10: # Armed Home
+                    # Do the actual arming
+                    Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
+                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
+                elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
+                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+            elif self.ArmingStatusMode[zone] == "Arming":
+                self.setAlarmArmingStatus("1mainAlarm", zone, "Open Sections")
+            elfi self.ArmingStatusMode[zone] == "Tripped":
+                Domoticz.Log("Tripped")
             elif self.ArmingStatusMode[zone] == "Exit Delay":
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
                 #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
@@ -606,17 +614,18 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.exitDelay:
                     self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
-            elif self.ArmingStatusMode[zone] == "Normal":
-                # Actual arm the building
-                if Devices[AlarmModeUnit].nValue == 10: # Armed Home
-                    # Do the actual arming
-                    Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
-                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
-                elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-                    if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
+            elif self.ArmingStatusMode[zone] = "Alert":
+                self.controlSiren(self.TotalZones)
+            elif self.ArmingStatusMode[zone] == "Open Sections":
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                        self.setAlarmArmingStatus("1mainAlarm", zone, "Exit Delay")
+            
+                
             #else:
             #    # Alarm Mode
             #    #for zone in range(self.TotalZones):
