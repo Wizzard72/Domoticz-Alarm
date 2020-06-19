@@ -512,7 +512,7 @@ class BasePlugin:
                 self.deactivateSiren(self.TotalZones, zone)
             
     
-    def activateSiren(self, TotalZones, zoneNr:
+    def activateSiren(self, TotalZones, zoneNr):
         strName = "activateSiren - "
         ZoneAlerts = 0
         for zone in range(TotalZones):
