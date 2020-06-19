@@ -518,7 +518,7 @@ class BasePlugin:
         for zone in range(TotalZones):
             if self.ArmingStatusMode[zone] == "Alert":
                 ZoneAlerts = ZoneAlerts + 1
-        if ZoneAlerts > 0
+        if ZoneAlerts > 0:
             UpdateDevice(self.ALARM_MAIN_UNIT, 1, "On")
         
     def deactivateSiren(self, TotalZones, zoneNr):
@@ -527,7 +527,7 @@ class BasePlugin:
         for zone in range(TotalZones):
             if self.ArmingStatusMode[zone] == "Alert":
                 ZoneAlerts = ZoneAlerts + 1
-        if ZoneAlerts = 0
+        if ZoneAlerts = 0:
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
             for zone in range(TotalZones):
                 self.setZoneStatus(self.TotalZones, Zone, "Normal")
