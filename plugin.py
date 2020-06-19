@@ -498,7 +498,7 @@ class BasePlugin:
             timeDiffSeconds = timeDiff.seconds
             endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
             if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
-                self.activateSiren()
+                self.activateSiren(self.TotalZones, zone)
                 countAlarm = countAlarm + 1
                 Domoticz.Log("Turn ON Siren")
             else:
@@ -508,17 +508,29 @@ class BasePlugin:
                 else:
                     countAlarm = 0
                 Domoticz.Log("Turn OFF Siren")
-            if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
-                self.deactivateSiren()
-                self.setAlarmArmingStatus("controlSiren", zone, "Normal")
+            if countAlarm == 0:
+                self.deactivateSiren(self.TotalZones, zone)
+            
     
-    def activateSiren(self):
+    def activateSiren(self, TotalZones, zoneNr:
         strName = "activateSiren - "
-        UpdateDevice(self.ALARM_MAIN_UNIT, 1, "On")
+        TotalZoneAlerts = 0
+        for zone in range(TotalZones):
+            if self.ArmingStatusMode[zone] == "Alert":
+                TotalZoneAlerts = TotalZoneAlerts + 1
+        if TotalZoneAlerts > 0
+            UpdateDevice(self.ALARM_MAIN_UNIT, 1, "On")
         
-    def deactivateSiren(self):
+    def deactivateSiren(self, TotalZones, zoneNr):
         strName = "deactivateSiren - "
-        UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+        TotalZoneAlerts = 0
+        for zone in range(TotalZones):
+            if self.ArmingStatusMode[zone] == "Alert":
+                TotalZoneAlerts = TotalZoneAlerts + 1
+        if TotalZoneAlerts = 0
+            UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+            for zone in range(TotalZones):
+                self.setZoneStatus(self.TotalZones, Zone, "Normal")
     
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
         ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
