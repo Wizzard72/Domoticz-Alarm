@@ -99,6 +99,16 @@ class BasePlugin:
     ActivePIRSirenAway = 0
     SensorActiveTime = 0 #seconds
     OpenSectionArmAnyWay = 30
+    ArmingStatusMode0 = 0
+    ArmingStatusMode1 = 1
+    ArmingStatusMode2 = 2
+    ArmingStatusMode3 = 3
+    ArmingStatusMode4 = 4
+    ArmingStatusMode5 = 5
+    ArmingStatusMode6 = 6
+    ArmingStatusMode7 = 7
+    ArmingStatusMode8 = 8
+    ArmingStatusMode9 = 9
 
     
     def __init__(self):
@@ -527,9 +537,11 @@ class BasePlugin:
         Domoticz.Log("Location = "+Location)
         if ZoneMode == "Normal" or ZoneMode == 0:
             UpdateDevice(ZoneNr, 0, "0")
+            self.(ArmingStatusMode+ZoneNr) = "Normal"
             Domoticz.Log("Set Arming Status to Normal")
         elif ZoneMode == "Arming" or ZoneMode == 10:
             UpdateDevice(ZoneNr, 10, "10")
+            self.(ArmingStatusMode+ZoneNr) = "Arming"
             Domoticz.Log("Set Arming Status to Arming")
         elif ZoneMode == "Tripped" or ZoneMode == 20:
             UpdateDevice(ZoneNr, 20, "20")
