@@ -565,6 +565,7 @@ class BasePlugin:
             Domoticz.Log("Set Arming Status to Open Sections")
 
     def setZoneStatus(self, TotalZones, ZoneNr, ZoneStatus):
+        Domoticz.Log("TotalZones = "+str(TotalZones)+" ZoneNr = "+str(ZoneNr)+" ZoneStatus = "+ZoneStatus)
         for zone in range(TotalZones):
             if zone == ZoneNr :
                 self.ArmingStatusMode[zone] = ZoneStatus
