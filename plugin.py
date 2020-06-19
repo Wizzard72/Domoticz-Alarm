@@ -502,13 +502,17 @@ class BasePlugin:
                 self.activateSiren(self.TotalZones, zone)
                 countAlarm = countAlarm + 1
                 Domoticz.Log("Turn ON Siren")
-            else:
-                #self.deactivateSiren()
-                if countAlarm >= 1:
-                    countAlarm = countAlarm - 1
-                else:
-                    countAlarm = 0
-                Domoticz.Log("Turn OFF Siren = "+str(countAlarm))
+            elif timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue:
+                countAlarm = countAlarm + 1
+            elif timeDiffSeconds > endSirenTimeSeconds:
+                countAlarm = countAlarm + 0
+            #else:
+            #    #self.deactivateSiren()
+            #    if countAlarm >= 1:
+            #        countAlarm = countAlarm - 1
+            #    else:
+            #        countAlarm = 0
+            Domoticz.Log("countAlarm = "+str(countAlarm))
             if countAlarm == 0:
                 self.setAlarmArmingStatus("controlSiren", zone, "Normal")
                 self.deactivateSiren(self.TotalZones, zone)
