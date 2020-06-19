@@ -597,6 +597,7 @@ class BasePlugin:
             else:
                 # Alarm Mode
                 #for zone in range(self.TotalZones):
+                Domotic.Log("Not Open Sections")
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
                 #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
                 # Exit Delay
@@ -607,15 +608,14 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.exitDelay:
                     #if Devices[ArmingStatusUnit].nValue == 50: # Open sections
-                    if self.ArmingStatusMode[zone] == "Open Sections":
-                        try:
-                            timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                        except TypeError:
-                            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                        timeDiffSeconds = timeDiff.seconds
-                        if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
-                            self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
-                            #UpdateDevice(StatusID, 0, "0")
+                    #if self.ArmingStatusMode[zone] == "Open Sections":
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
+                        self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
                     else:
                         if Devices[AlarmModeUnit].nValue == 10: # Armed Home
                             Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
@@ -623,15 +623,14 @@ class BasePlugin:
                                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                             else:
                                 self.setAlarmArmingStatus("3mainAlarm", zone, "Exit Delay")
-                                #UpdateDevice(StatusID, 30, "30") # Normal
                         elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
                             Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
                             if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
                             else:
-                                #UpdateDevice(StatusID, 30, "30") # Normal
                                 self.setAlarmArmingStatus("4mainAlarm", zone, "Exit Delay")
                 else:
+                    Domoticz.Log("Exit Delay")
                     self.setAlarmArmingStatus("5mainAlarm", zone, "Exit Delay")
             
 
