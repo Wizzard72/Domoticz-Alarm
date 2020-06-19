@@ -526,7 +526,7 @@ class BasePlugin:
                     else:
                         countAlarm = 0
                     Domoticz.Log("Turn OFF Siren")
-            elif self.ArmingStatusMode[zone] == "Normal
+            elif self.ArmingStatusMode[zone] == "Normal":
             #elif Devices[ArmingStatusUnit].nValue == 0:
                 if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
                     self.deactivateSiren()
