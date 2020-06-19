@@ -568,6 +568,7 @@ class BasePlugin:
         for zone in range(TotalZones):
             if zone == ZoneNr :
                 self.ArmingStatusMode[zone] = ZoneStatus
+                Domoticz.Log("ArmingStatusMode = "+str(self.ArmingStatusMode[zone]))
                 break
         
     
