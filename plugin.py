@@ -601,7 +601,7 @@ class BasePlugin:
                         self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
             elif self.ArmingStatusMode[zone] == "Arming":
                 self.setAlarmArmingStatus("1mainAlarm", zone, "Open Sections")
-            elfi self.ArmingStatusMode[zone] == "Tripped":
+            elif self.ArmingStatusMode[zone] == "Tripped":
                 Domoticz.Log("Tripped")
             elif self.ArmingStatusMode[zone] == "Exit Delay":
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
