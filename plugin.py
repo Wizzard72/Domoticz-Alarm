@@ -22,6 +22,7 @@
                 </ul>
             <li>The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"</li>
             <li>Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".</li>
+            <li>The active sensors met be activated longer than the setting "Interval in seconds"</li>
         </ul>
         <br/>
         Open Sections are detected and reported per zone in the Arming Status Selector Switch. After 50 seconds it's armed anyway.<br/>
