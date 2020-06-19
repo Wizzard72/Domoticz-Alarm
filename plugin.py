@@ -502,7 +502,7 @@ class BasePlugin:
                 countAlarm = countAlarm + 1
                 Domoticz.Log("Turn ON Siren")
             else:
-                self.deactivateSiren()
+                #self.deactivateSiren()
                 if countAlarm >= 1:
                     countAlarm = countAlarm - 1
                 else:
@@ -510,6 +510,7 @@ class BasePlugin:
                 Domoticz.Log("Turn OFF Siren")
             if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
                 self.deactivateSiren()
+                self.setAlarmArmingStatus("controlSiren", zone, "Normal")
     
     def activateSiren(self):
         strName = "activateSiren - "
@@ -593,20 +594,15 @@ class BasePlugin:
                 if timeDiffSeconds >= self.exitDelay:
                     self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
             elif self.ArmingStatusMode[zone] == "Alert":
+                self.controlSiren(self.TotalZones)
+            elif self.ArmingStatusMode[zone] == "Open Sections":
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                self.controlSiren(self.TotalZones)
-            elif self.ArmingStatusMode[zone] == "Open Sections":
-                    try:
-                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                    except TypeError:
-                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                    timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        self.setAlarmArmingStatus("1mainAlarm", zone, "Exit Delay")
+                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                    self.setAlarmArmingStatus("1mainAlarm", zone, "Exit Delay")
             
                 
             
