@@ -420,7 +420,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                Domoticz.Log("self.SensorActiveTime = "+self.SensorActiveTime)
+                Domoticz.Log("self.SensorActiveTime = "+str(self.SensorActiveTime))
                 if timeDiffSeconds >= (self.SensorActiveTime + self.entryDelay):
                     self.Matrix[row][5] = "Normal"
                     self.Matrix[row][6] = 0
