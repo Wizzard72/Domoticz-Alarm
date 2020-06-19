@@ -607,6 +607,7 @@ class BasePlugin:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.exitDelay:
+                    Domoticz.Log("WAAAAAR")
                     #if Devices[ArmingStatusUnit].nValue == 50: # Open sections
                     #if self.ArmingStatusMode[zone] == "Open Sections":
                     try:
