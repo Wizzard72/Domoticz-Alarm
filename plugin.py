@@ -357,54 +357,38 @@ class BasePlugin:
             trippedSensor = 0
             trippedZone = ""
             for row in range(TotalRows):
-                ArmingStatusUnit = 0
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
-                #if Devices[ArmingStatusUnit].nValue != 50:
-                if self.ArmingStatusMode[self.Matrix[row][1]] != "Open Sections":
-                    if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
-                        Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                        if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
-                        #if Devices[ArmingStatusUnit].nValue < 20: # Tripped value
-                            self.setAlarmArmingStatus("1trippedSensor", ArmingStatusUnit, "Tripped")
-                        if self.Matrix[row][5] == "New":
-                            if self.ArmingStatusMode[self.Matrix[row][1]] != "Open Sections":
-                            #if Devices[ArmingStatusUnit].nValue != 50:
-                                sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                                self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
-                        trippedSensor = trippedSensor + 1
-                        if trippedZone == "":
-                            trippedZone = str(self.Matrix[row][1])
-                        else:
-                            trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])        
+                if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
+                    Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                    if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
+                        self.setAlarmArmingStatus("1trippedSensor", ArmingStatusUnit, "Tripped")
+                    if self.Matrix[row][5] == "New":
+                        sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                        self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                    trippedSensor = trippedSensor + 1
+                    if trippedZone == "":
+                        trippedZone = str(self.Matrix[row][1])
+                    else:
+                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])        
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                if self.ArmingStatusMode[zone] != "Open Sections":
-                #if Devices[ArmingStatusUnit].nValue != 50:
-                    if trippedZoneCheck >= self.ActivePIRSirenHome:
-                        self.setAlarmArmingStatus("2trippedSensor", ArmingStatusUnit, "Alert")
-                    #elif trippedZoneCheck == 0:
-                    #    self.setAlarmArmingStatus("3trippedSensor", ArmingStatusUnit, "Normal")
+                if trippedZoneCheck >= self.ActivePIRSirenHome:
+                    self.setAlarmArmingStatus("2trippedSensor", ArmingStatusUnit, "Alert")
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
             for row in range(TotalRows):
-                ArmingStatusUnit = 0
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
-                if self.ArmingStatusMode[self.Matrix[row][1]] != "Open Sections":
-                #if Devices[ArmingStatusUnit].nValue != 50:
-                    if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
-                        Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                        if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
-                        #if Devices[ArmingStatusUnit].nValue < 20: # Tripped value
-                            self.setAlarmArmingStatus("4trippedSensor", ArmingStatusUnit, "Tripped")
+                if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
+                    Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                    if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
+                        self.setAlarmArmingStatus("4trippedSensor", ArmingStatusUnit, "Tripped")
                         if self.Matrix[row][5] == "New":
-                            if self.ArmingStatusMode[self.Matrix[row][1]] != "Open Sections":
-                            #if Devices[ArmingStatusUnit].nValue != 50:
-                                sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                                self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                            sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                            self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                         trippedSensor = trippedSensor + 1
                         if trippedZone == "":
                             trippedZone = str(self.Matrix[row][1])
@@ -415,13 +399,9 @@ class BasePlugin:
                 if trippedZoneCheck != 0:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                     ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                    if self.ArmingStatusMode[zone] != "Open Sections":
-                    #if Devices[ArmingStatusUnit].nValue != 50:
-                        if trippedZoneCheck >= self.ActivePIRSirenAway:
-                            self.setAlarmArmingStatus("5trippedSensor", ArmingStatusUnit, "Alert")
-                        #elif trippedZoneCheck == 0:
-                        #    self.setAlarmArmingStatus("6trippedSensor", ArmingStatusUnit, "Normal")
-        
+                    if trippedZoneCheck >= self.ActivePIRSirenAway:
+                        self.setAlarmArmingStatus("5trippedSensor", ArmingStatusUnit, "Alert")
+                                
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
         for row in range(TotalRows):
