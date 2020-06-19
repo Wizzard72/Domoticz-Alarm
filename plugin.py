@@ -593,7 +593,7 @@ class BasePlugin:
                 if timeDiffSeconds >= self.exitDelay:
                     self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
             elif self.ArmingStatusMode[zone] == "Alert":
-                 try:
+                try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
