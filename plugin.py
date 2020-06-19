@@ -607,7 +607,6 @@ class BasePlugin:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.exitDelay:
-                    Domoticz.Log("WAAAAAR")
                     #if Devices[ArmingStatusUnit].nValue == 50: # Open sections
                     #if self.ArmingStatusMode[zone] == "Open Sections":
                     try:
@@ -618,6 +617,7 @@ class BasePlugin:
                     if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
                         self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
                     else:
+                        Domoticz.Log("WAAAAAR")
                         if Devices[AlarmModeUnit].nValue == 10: # Armed Home
                             # Do the actual arming
                             Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
