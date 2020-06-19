@@ -618,7 +618,8 @@ class BasePlugin:
                         self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
                     else:
                         if Devices[AlarmModeUnit].nValue == 10: # Armed Home
-                            Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                            # Do the actual arming
+                            Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
                             if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                             else:
