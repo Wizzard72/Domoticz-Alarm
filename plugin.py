@@ -99,16 +99,16 @@ class BasePlugin:
     ActivePIRSirenAway = 0
     SensorActiveTime = 0 #seconds
     OpenSectionArmAnyWay = 30
-    ArmingStatusMode0 = 0
-    ArmingStatusMode1 = 1
-    ArmingStatusMode2 = 2
-    ArmingStatusMode3 = 3
-    ArmingStatusMode4 = 4
-    ArmingStatusMode5 = 5
-    ArmingStatusMode6 = 6
-    ArmingStatusMode7 = 7
-    ArmingStatusMode8 = 8
-    ArmingStatusMode9 = 9
+    ArmingStatusMode = []
+    #ArmingStatusMode1 = 1
+    #ArmingStatusMode2 = 2
+    #ArmingStatusMode3 = 3
+    #ArmingStatusMode4 = 4
+    #ArmingStatusMode5 = 5
+    #ArmingStatusMode6 = 6
+    #ArmingStatusMode7 = 7
+    #ArmingStatusMode8 = 8
+    #ArmingStatusMode9 = 9
 
     
     def __init__(self):
@@ -157,6 +157,10 @@ class BasePlugin:
         
         # create devices
         self.createDevices(self.TotalZones)
+        
+        for zone in range(self.TotalZones):
+            self.setZoneStatus(self.TotalZones, zone, "Normal")
+            
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
@@ -537,25 +541,34 @@ class BasePlugin:
         Domoticz.Log("Location = "+Location)
         if ZoneMode == "Normal" or ZoneMode == 0:
             UpdateDevice(ZoneNr, 0, "0")
-            self.(ArmingStatusMode+ZoneNr) = "Normal"
+            self.setZoneStatus(ZoneNr, "Normal")
             Domoticz.Log("Set Arming Status to Normal")
         elif ZoneMode == "Arming" or ZoneMode == 10:
             UpdateDevice(ZoneNr, 10, "10")
-            self.(ArmingStatusMode+ZoneNr) = "Arming"
+            self.setZoneStatus(ZoneNr, "Arming")
             Domoticz.Log("Set Arming Status to Arming")
         elif ZoneMode == "Tripped" or ZoneMode == 20:
             UpdateDevice(ZoneNr, 20, "20")
+            self.setZoneStatus(ZoneNr, "Tripped")
             Domoticz.Log("Set Arming Status to Tripped")
         elif ZoneMode == "Exit Delay" or ZoneMode == 30:
             UpdateDevice(ZoneNr, 30, "30")
+            self.setZoneStatus(ZoneNr, "Exit Delay")
             Domoticz.Log("Set Arming Status to Exit Delay")
         elif ZoneMode == "Alert" or ZoneMode == 40:
             UpdateDevice(ZoneNr, 40, "40")
+            self.setZoneStatus(ZoneNr, "Alert")
             Domoticz.Log("Set Arming Status to Alert")
         elif ZoneMode == "Open Sections" or ZoneMode == 50:
             UpdateDevice(ZoneNr, 50, "50")
+            self.setZoneStatus(ZoneNr, "Open Sections")
             Domoticz.Log("Set Arming Status to Open Sections")
 
+    def setZoneStatus(self, TotalZones, ZoneNr, ZoneStatus):
+        for zone in range(TotalZones):
+            if zone == ZoneNr :
+                self.ArmingStatusMode[zone] = ZoneStatus
+                break
         
     
     def mainAlarm(self):
