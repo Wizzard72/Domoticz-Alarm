@@ -507,7 +507,7 @@ class BasePlugin:
                     countAlarm = countAlarm - 1
                 else:
                     countAlarm = 0
-                Domoticz.Log("Turn OFF Siren")
+                Domoticz.Log("Turn OFF Siren = "+str(CountAlarm))
             if countAlarm == 0:
                 self.deactivateSiren(self.TotalZones, zone)
             
