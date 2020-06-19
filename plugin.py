@@ -509,6 +509,7 @@ class BasePlugin:
                     countAlarm = 0
                 Domoticz.Log("Turn OFF Siren = "+str(countAlarm))
             if countAlarm == 0:
+                self.setZoneStatus(self.TotalZones, Zone, "Normal")
                 self.deactivateSiren(self.TotalZones, zone)
             
     
@@ -529,8 +530,7 @@ class BasePlugin:
                 ZoneAlerts = ZoneAlerts + 1
         if ZoneAlerts == 0:
             UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
-            for zone in range(TotalZones):
-                self.setZoneStatus(self.TotalZones, Zone, "Normal")
+            
     
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
         ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
