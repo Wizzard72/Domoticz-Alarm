@@ -597,7 +597,7 @@ class BasePlugin:
             else:
                 # Alarm Mode
                 #for zone in range(self.TotalZones):
-                Domotic.Log("Not Open Sections")
+                Domoticz.Log("Not Open Sections")
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
                 #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
                 # Exit Delay
