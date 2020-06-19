@@ -588,7 +588,7 @@ class BasePlugin:
                         timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                     timeDiffSeconds = timeDiff.seconds
                     if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        self.setAlarmArmingStatus("3alarmModeChange", ArmingStatusUnit, "Normal")
+                        self.setAlarmArmingStatus("1mainAlarm", ArmingStatusUnit, "Normal")
             else:
                 # Alarm Mode
                 #for zone in range(self.TotalZones):
@@ -608,7 +608,7 @@ class BasePlugin:
                             timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                         timeDiffSeconds = timeDiff.seconds
                         if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
-                            self.setAlarmArmingStatus("1mainAlarm", ArmingStatusUnit, "Normal")
+                            self.setAlarmArmingStatus("2mainAlarm", ArmingStatusUnit, "Normal")
                             #UpdateDevice(StatusID, 0, "0")
                     else:
                         if Devices[AlarmModeUnit].nValue == 10: # Armed Home
@@ -616,7 +616,7 @@ class BasePlugin:
                             if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                             else:
-                                self.setAlarmArmingStatus("mainAlarm", ArmingStatusUnit, "Exit Delay")
+                                self.setAlarmArmingStatus("3mainAlarm", ArmingStatusUnit, "Exit Delay")
                                 #UpdateDevice(StatusID, 30, "30") # Normal
                         elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
                             Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
@@ -624,9 +624,9 @@ class BasePlugin:
                                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
                             else:
                                 #UpdateDevice(StatusID, 30, "30") # Normal
-                                self.setAlarmArmingStatus("mainAlarm", ArmingStatusUnit, "Exit Delay")
+                                self.setAlarmArmingStatus("4mainAlarm", ArmingStatusUnit, "Exit Delay")
                 else:
-                    self.setAlarmArmingStatus("2mainAlarm", ArmingStatusUnit, "Exit Delay")
+                    self.setAlarmArmingStatus("5mainAlarm", ArmingStatusUnit, "Exit Delay")
             
 
             
