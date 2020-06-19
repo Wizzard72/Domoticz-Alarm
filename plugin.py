@@ -99,6 +99,7 @@ class BasePlugin:
     ActivePIRSirenAway = 0
     SensorActiveTime = 0 #seconds
     OpenSectionArmAnyWay = 30
+    OpenSectionTotal = 0
     ArmingStatusMode = {}
 
 
@@ -509,7 +510,7 @@ class BasePlugin:
                     countAlarm = 0
                 Domoticz.Log("Turn OFF Siren = "+str(countAlarm))
             if countAlarm == 0:
-                self.setZoneStatus(self.TotalZones, Zone, "Normal")
+                self.setZoneStatus(self.TotalZones, zone, "Normal")
                 self.deactivateSiren(self.TotalZones, zone)
             
     
