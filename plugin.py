@@ -491,29 +491,25 @@ class BasePlugin:
         for zone in range(TotalZones):
             ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
             #timeDiff = 0
-            if self.ArmingStatusMode[zone] == "Alert":
-            #if Devices[ArmingStatusUnit].nValue == 40: # Alert
-                try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                timeDiffSeconds = timeDiff.seconds
-                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
-                if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
-                    self.activateSiren()
-                    countAlarm = countAlarm + 1
-                    Domoticz.Log("Turn ON Siren")
+            try:
+                timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+            except TypeError:
+                timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+            timeDiffSeconds = timeDiff.seconds
+            endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
+            if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
+                self.activateSiren()
+                countAlarm = countAlarm + 1
+                Domoticz.Log("Turn ON Siren")
+            else:
+                self.deactivateSiren()
+                if countAlarm >= 1:
+                    countAlarm = countAlarm - 1
                 else:
-                    self.deactivateSiren()
-                    if countAlarm >= 1:
-                        countAlarm = countAlarm - 1
-                    else:
-                        countAlarm = 0
-                    Domoticz.Log("Turn OFF Siren")
-            elif self.ArmingStatusMode[zone] == "Normal":
-            #elif Devices[ArmingStatusUnit].nValue == 0:
-                if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
-                    self.deactivateSiren()
+                    countAlarm = 0
+                Domoticz.Log("Turn OFF Siren")
+            if Devices[self.ALARM_MAIN_UNIT].nValue == 1 and countAlarm == 0:
+                self.deactivateSiren()
     
     def activateSiren(self):
         strName = "activateSiren - "
@@ -597,6 +593,11 @@ class BasePlugin:
                 if timeDiffSeconds >= self.exitDelay:
                     self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
             elif self.ArmingStatusMode[zone] == "Alert":
+                 try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
                 self.controlSiren(self.TotalZones)
             elif self.ArmingStatusMode[zone] == "Open Sections":
                     try:
@@ -608,46 +609,6 @@ class BasePlugin:
                         self.setAlarmArmingStatus("1mainAlarm", zone, "Exit Delay")
             
                 
-            #else:
-            #    # Alarm Mode
-            #    #for zone in range(self.TotalZones):
-            #    Domoticz.Log("Not Open Sections")
-            #    AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
-            #    #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
-            #    # Exit Delay
-            #    try:
-            #        timeDiff = datetime.now() - datetime.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-            #    except TypeError:
-            #        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-            #    timeDiffSeconds = timeDiff.seconds
-            #    if timeDiffSeconds >= self.exitDelay:
-            #        #if Devices[ArmingStatusUnit].nValue == 50: # Open sections
-            #        #if self.ArmingStatusMode[zone] == "Open Sections":
-            #        try:
-            #            timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-            #        except TypeError:
-            #            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-            #        timeDiffSeconds = timeDiff.seconds
-            #        if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
-            #            self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
-            #        else:
-            #            Domoticz.Log("WAAAAAR")
-            #            if Devices[AlarmModeUnit].nValue == 10: # Armed Home
-            #                # Do the actual arming
-            #                Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
-            #                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-            #                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
-            #                else:
-            #                    self.setAlarmArmingStatus("3mainAlarm", zone, "Exit Delay")
-            #            elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
-            #                Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-            #                if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
-            #                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
-            #                else:
-            #                    self.setAlarmArmingStatus("4mainAlarm", zone, "Exit Delay")
-            #    else:
-            #        Domoticz.Log("Exit Delay")
-            #        self.setAlarmArmingStatus("5mainAlarm", zone, "Exit Delay")
             
 
             
