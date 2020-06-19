@@ -235,7 +235,6 @@ class BasePlugin:
                     UpdateDevice(AlarmModeUnit, Level, str(Level))
                     self.pollZoneDevices(self.MatrixRowTotal)
                     self.alarmModeChange(zone_nr, Level)
-                    Domoticz.Log("ALARM_ARMING_STATUS_UNIT = "+str(self.ALARM_ARMING_STATUS_UNIT))
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(1)
                     #self.mainAlarm()
@@ -246,11 +245,7 @@ class BasePlugin:
                     if self.ALARM_ARMING_MODE_UNIT == Unit:
                         self.setSecurityState(2)
                     #self.mainAlarm()
-                    
-        for zone_nr in range(self.TotalZones):
-            ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone_nr
-            if ArmingStatusUnit == Unit:
-                Domoticz.Log("Yep: "+Level)
+
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
@@ -272,7 +267,7 @@ class BasePlugin:
         #self.controlSiren(self.TotalZones)
 
         for x in range(self.MatrixRowTotal):
-            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
+            Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
              
          
     def pollZoneDevices(self, TotalRows):
@@ -297,10 +292,6 @@ class BasePlugin:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
                     else:
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
-        # reset Matrix for the zone
-        #for row in range(self.MatrixRowTotal):
-        #    Domoticz.Log("Reset Matrix so there are no false positives ("+self.Matrix[row][3]+" - Normal - 0)")
-        #    self.changeRowinMatrix(self.MatrixRowTotal, self.Matrix[row][3], "Off", "Normal", 0)
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
@@ -425,7 +416,6 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(self.Matrix[row][6],'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                Domoticz.Log("self.SensorActiveTime = "+str(self.SensorActiveTime))
                 if timeDiffSeconds >= (self.SensorActiveTime + self.entryDelay):
                     self.Matrix[row][5] = "Normal"
                     self.Matrix[row][6] = 0
@@ -507,16 +497,10 @@ class BasePlugin:
                 countAlarm = countAlarm + 1
             elif timeDiffSeconds > endSirenTimeSeconds:
                 countAlarm = countAlarm + 0
-            #else:
-            #    #self.deactivateSiren()
-            #    if countAlarm >= 1:
-            #        countAlarm = countAlarm - 1
-            #    else:
-            #        countAlarm = 0
-            Domoticz.Log("countAlarm = "+str(countAlarm))
             if countAlarm == 0:
                 self.setAlarmArmingStatus("controlSiren", zone, "Normal")
                 self.deactivateSiren(self.TotalZones, zone)
+                Domoticz.Log("Turn OFF Siren")
             
     
     def activateSiren(self, TotalZones, zoneNr):
@@ -540,7 +524,7 @@ class BasePlugin:
     
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
         ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
-        Domoticz.Log("Location = "+Location)
+        Domoticz.Debug("Location = "+Location)
         if ZoneMode == "Normal" or ZoneMode == 0:
             UpdateDevice(ZoneUnitNr, 0, "0")
             self.setZoneStatus(self.TotalZones, ZoneNr, "Normal")
@@ -567,11 +551,10 @@ class BasePlugin:
             Domoticz.Log("Set Arming Status to Open Sections")
 
     def setZoneStatus(self, TotalZones, ZoneNr, ZoneStatus):
-        Domoticz.Log("TotalZones = "+str(TotalZones)+" ZoneNr = "+str(ZoneNr)+" ZoneStatus = "+ZoneStatus)
+        Domoticz.Debug("TotalZones = "+str(TotalZones)+" ZoneNr = "+str(ZoneNr)+" ZoneStatus = "+ZoneStatus)
         for zone in range(TotalZones):
             if zone == ZoneNr :
                 self.ArmingStatusMode[zone] = ZoneStatus
-                Domoticz.Log("ArmingStatusMode ("+str(ZoneNr)+") = "+str(self.ArmingStatusMode[zone]))
                 break
         
     
@@ -598,8 +581,8 @@ class BasePlugin:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
             elif self.ArmingStatusMode[zone] == "Arming":
                 self.setAlarmArmingStatus("1mainAlarm", zone, "Open Sections")
-            elif self.ArmingStatusMode[zone] == "Tripped":
-                Domoticz.Log("Tripped")
+            #elif self.ArmingStatusMode[zone] == "Tripped":
+            #    Domoticz.Log("Tripped")
             elif self.ArmingStatusMode[zone] == "Exit Delay":
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
                 #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
@@ -639,7 +622,6 @@ class BasePlugin:
         except TypeError:
             timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
         timeDiffSeconds = timeDiff.seconds
-        Domoticz.Log("timeDiffSeconds = "+str(timeDiffSeconds)+" "+Devices[ArmingStatusUnit].LastUpdate+" "+str(ArmingStatusUnit))
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
             self.setAlarmArmingStatus("1alarmModeChange", zoneNr, "Normal")
