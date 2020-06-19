@@ -263,6 +263,7 @@ class BasePlugin:
     def onHeartbeat(self):
         strName = "onHeartbeat: "
         Domoticz.Debug(strName+"called")
+        self.SensorActiveTime = Devices[self.ALARM_SENSOR_TIME].nValue
         # Main alarm
         self.mainAlarm()
         # Siren
