@@ -589,7 +589,7 @@ class BasePlugin:
                         timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                     timeDiffSeconds = timeDiff.seconds
                     if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        self.setAlarmArmingStatus("1mainAlarm", ArmingStatusUnit, "Normal")
+                        self.setAlarmArmingStatus("1mainAlarm", zone, "Normal")
             else:
                 # Alarm Mode
                 #for zone in range(self.TotalZones):
@@ -609,7 +609,7 @@ class BasePlugin:
                             timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                         timeDiffSeconds = timeDiff.seconds
                         if timeDiffSeconds >= self.OpenSectionArmAnyWay: # 30 seconds after Open Section Notification enable alarm anyway
-                            self.setAlarmArmingStatus("2mainAlarm", ArmingStatusUnit, "Normal")
+                            self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
                             #UpdateDevice(StatusID, 0, "0")
                     else:
                         if Devices[AlarmModeUnit].nValue == 10: # Armed Home
@@ -617,7 +617,7 @@ class BasePlugin:
                             if timeDiffSeconds >= Devices[self.ALARM_EXIT_DELAY].nValue:
                                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                             else:
-                                self.setAlarmArmingStatus("3mainAlarm", ArmingStatusUnit, "Exit Delay")
+                                self.setAlarmArmingStatus("3mainAlarm", zone, "Exit Delay")
                                 #UpdateDevice(StatusID, 30, "30") # Normal
                         elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
                             Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
@@ -625,9 +625,9 @@ class BasePlugin:
                                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
                             else:
                                 #UpdateDevice(StatusID, 30, "30") # Normal
-                                self.setAlarmArmingStatus("4mainAlarm", ArmingStatusUnit, "Exit Delay")
+                                self.setAlarmArmingStatus("4mainAlarm", zone, "Exit Delay")
                 else:
-                    self.setAlarmArmingStatus("5mainAlarm", ArmingStatusUnit, "Exit Delay")
+                    self.setAlarmArmingStatus("5mainAlarm", zone, "Exit Delay")
             
 
             
@@ -644,23 +644,23 @@ class BasePlugin:
         Domoticz.Log("timeDiffSeconds = "+str(timeDiffSeconds)+" "+Devices[ArmingStatusUnit].LastUpdate+" "+str(ArmingStatusUnit))
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
-            self.setAlarmArmingStatus("1alarmModeChange", ArmingStatusUnit, "Normal")
+            self.setAlarmArmingStatus("1alarmModeChange", zoneNr, "Normal")
         elif newStatus == 10: # Armed Home
             # Use
             if timeDiffSeconds >= self.exitDelay or newStatus == 0:
-                self.setAlarmArmingStatus("2alarmModeChange", ArmingStatusUnit, "Arming")
+                self.setAlarmArmingStatus("2alarmModeChange", zoneNr, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
             else:
-                 self.setAlarmArmingStatus("5alarmModeChange", ArmingStatusUnit, "Exit Delay")
+                 self.setAlarmArmingStatus("5alarmModeChange", zoneNr, "Exit Delay")
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             if timeDiffSeconds >= self.exitDelay or newStatus == 0:
-                self.setAlarmArmingStatus("4alarmModeChange", ArmingStatusUnit, "Arming")
+                self.setAlarmArmingStatus("4alarmModeChange", zoneNr, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             else:
-                 self.setAlarmArmingStatus("5alarmModeChange", ArmingStatusUnit, "Exit Delay")
+                 self.setAlarmArmingStatus("5alarmModeChange", zoneNr, "Exit Delay")
         
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
@@ -679,13 +679,13 @@ class BasePlugin:
                         if self.Matrix[row][4] == "On":
                             # found open section (device)
                             ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
-                            self.setAlarmArmingStatus("checkOpenSections", ArmingStatusUnit, "Open Sections")
+                            self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found open section (device)
                         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
-                        self.setAlarmArmingStatus("checkOpenSections", ArmingStatusUnit, "Open Sections")
+                        self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
 
     
     def getSwitchIDXLastUpdate(self, idx):
