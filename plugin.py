@@ -366,6 +366,7 @@ class BasePlugin:
                     if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                        self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Tripped")
                     trippedSensor = trippedSensor + 1
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
@@ -377,7 +378,7 @@ class BasePlugin:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                 if trippedZoneCheck >= self.ActivePIRSirenHome:
-                    self.setAlarmArmingStatus("2trippedSensor", ArmingStatusUnit, "Alert")
+                    self.setAlarmArmingStatus("2trippedSensor", zone, "Alert")
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
@@ -390,6 +391,7 @@ class BasePlugin:
                         if self.Matrix[row][5] == "New":
                             sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                             self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                            self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Tripped")
                         trippedSensor = trippedSensor + 1
                         if trippedZone == "":
                             trippedZone = str(self.Matrix[row][1])
@@ -401,7 +403,7 @@ class BasePlugin:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
                     ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     if trippedZoneCheck >= self.ActivePIRSirenAway:
-                        self.setAlarmArmingStatus("5trippedSensor", ArmingStatusUnit, "Alert")
+                        self.setAlarmArmingStatus("5trippedSensor", zone, "Alert")
                                 
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
