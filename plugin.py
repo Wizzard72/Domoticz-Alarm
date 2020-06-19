@@ -614,7 +614,7 @@ class BasePlugin:
                 timeDiffSeconds = timeDiff.seconds
                 if timeDiffSeconds >= self.exitDelay:
                     self.setAlarmArmingStatus("2mainAlarm", zone, "Normal")
-            elif self.ArmingStatusMode[zone] = "Alert":
+            elif self.ArmingStatusMode[zone] == "Alert":
                 self.controlSiren(self.TotalZones)
             elif self.ArmingStatusMode[zone] == "Open Sections":
                     try:
