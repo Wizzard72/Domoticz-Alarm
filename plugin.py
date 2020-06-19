@@ -99,7 +99,7 @@ class BasePlugin:
     ActivePIRSirenAway = 0
     SensorActiveTime = 0 #seconds
     OpenSectionArmAnyWay = 30
-    ArmingStatusMode = []
+    ArmingStatusMode = {}
     #ArmingStatusMode1 = 1
     #ArmingStatusMode2 = 2
     #ArmingStatusMode3 = 3
