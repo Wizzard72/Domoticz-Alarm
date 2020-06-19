@@ -585,6 +585,7 @@ class BasePlugin:
         self.trippedSensorTimer(self.MatrixRowTotal)
         for zone in range(self.TotalZones):
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
+            AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
             if self.ArmingStatusMode[zone] == "Open Sections":
                     try:
