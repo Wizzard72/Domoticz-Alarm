@@ -1,4 +1,5 @@
 Alarm System for Domoticz
+Version 1.0.0 for domoticz version 2002.2 and above.
 
 There was no real alarm system for Domoticz. Some scripts and blocky's are available, but they do not meet my expectations. 
 So I created this plugin.
