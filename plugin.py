@@ -286,10 +286,10 @@ class BasePlugin:
         for row in range(TotalRows):
             deviceIDX = self.Matrix[row][3]
             switchStatusIdx = self.getSwitchIDXStatus(deviceIDX)
-            if switchStatusIdx in "On,Open" or switchStatusIdx == "Unlocked":
+            if switchStatusIdx == "On"  or switchStatusIdx == "Open" or switchStatusIdx == "Unlocked":
                 if self.Matrix[row][4] not in "On,Normal":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
-            elif switchStatusIdx in "Off,Closed" or switchStatusIdx == "Locked":
+            elif switchStatusIdx == "Off" or switchStatusIdx == "Closed" or switchStatusIdx == "Locked":
                 if self.Matrix[row][4] not in "Off":
                     if self.Matrix[row][2] == "Armed Away":
                         self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
