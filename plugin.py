@@ -575,7 +575,9 @@ class BasePlugin:
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
             if self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
-                if Devices[AlarmModeUnit].nValue == 10: # Armed Home
+                if Devices[AlarmModeUnit].nValue == 0: # Disarmed
+                    self.controlSiren(self.TotalZones)
+                elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
                     # Do the actual arming
                     Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
