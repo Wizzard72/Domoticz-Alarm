@@ -69,4 +69,6 @@ Update plugin to latest version:
   
         git pull
       
-        sudo systemctl restart domoticz.service
+        Disable the Alarm System for Domoticz plugin
+        
+        Enable the Alarm System for Domoticz plugin
