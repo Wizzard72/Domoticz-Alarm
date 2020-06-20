@@ -579,7 +579,7 @@ class BasePlugin:
                     self.controlSiren(self.TotalZones)
                 elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
                     # Do the actual arming
-                    Domoticz.Log(strName+"Zone "+str(zone)+" is Armed Home")
+                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home")
                 elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
