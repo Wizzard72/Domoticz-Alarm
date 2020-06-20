@@ -45,7 +45,7 @@
         <param field="Mode2" label="Zone Armed Home" width="600px" required="true" default="idx,idx,idx;idx,idx,idx"/>
         <param field="Mode3" label="Zone Armed Away" width="600px" required="true" default="idx,idx,idx;idx,idx,idx"/>
         <param field="Mode4" label="Siren active for (s)" width="150" required="true" default="50"/>
-        <param field="Mode5" label="Interval in seconds" width="200px" required="true" default="15"/>
+        <param field="Mode5" label="Poll Interval in seconds" width="200px" required="true" default="15"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="None" value="0"  default="true" />
