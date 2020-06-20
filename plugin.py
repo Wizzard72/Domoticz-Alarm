@@ -6,6 +6,7 @@
 <plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
+        Version 1.0.0 for domoticz version 2002.2 and above.
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
         <h3>Configuration</h3><br/>
