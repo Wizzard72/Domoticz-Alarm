@@ -70,9 +70,9 @@ Update plugin to latest version:
   
         git pull
       
-        Disable the Alarm System for Domoticz plugin
+        In Domoticz Hardware page: Disable the Alarm System for Domoticz plugin
         
-        Enable the Alarm System for Domoticz plugin
+        In Domoticz Hardware page: Enable the Alarm System for Domoticz plugin
 
 
 Versions:
