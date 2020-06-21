@@ -504,7 +504,7 @@ class BasePlugin:
             elif timeDiffSeconds > endSirenTimeSeconds:
                 countAlarm = countAlarm + 0
             if countAlarm == 0:
-                if Devices[ALARM_MAIN_UNIT].sValue == "On":
+                if Devices[self.ALARM_MAIN_UNIT].sValue == "On":
                     self.setAlarmArmingStatus("controlSiren", zone, "Normal")
                     self.deactivateSiren(self.TotalZones, zone)
                     Domoticz.Log("Turn OFF Siren")
