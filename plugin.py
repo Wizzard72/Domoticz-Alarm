@@ -497,7 +497,7 @@ class BasePlugin:
             timeDiffSeconds = timeDiff.seconds
             endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
             if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
-                Domoticz.Log(strName+"Alarm is waiting for Entry Delay (timeDiff Seconds "+str(controlSiren)+">= "+str(Devices[self.ALARM_ENTRY_DELAY].nValue)+" and timeDiffSeconds <= "+str(endSirenTimeSeconds))
+                Domoticz.Log(strName+"Alarm is waiting for Entry Delay (timeDiff Seconds "+str(timeDiffSeconds)+">= "+str(Devices[self.ALARM_ENTRY_DELAY].nValue)+" and timeDiffSeconds <= "+str(endSirenTimeSeconds))
                 self.activateSiren(self.TotalZones, zone)
                 countAlarm = countAlarm + 1
                 Domoticz.Log("Turn ON Siren")
