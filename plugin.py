@@ -1,9 +1,12 @@
 # Alarm System for Domoticz Plugin
 #
 # Author: Wizzard72
+# Versions:
+#   1.0.0: First release
+#   1.0.1: Bug fix release
 #
 """
-<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.0.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
+<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.0.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
         Version 1.0.0 for domoticz version 2002.2 and above.
@@ -501,9 +504,10 @@ class BasePlugin:
             elif timeDiffSeconds > endSirenTimeSeconds:
                 countAlarm = countAlarm + 0
             if countAlarm == 0:
-                self.setAlarmArmingStatus("controlSiren", zone, "Normal")
-                self.deactivateSiren(self.TotalZones, zone)
-                Domoticz.Log("Turn OFF Siren")
+                if Devices[ALARM_MAIN_UNIT].sValue == "On":
+                    self.setAlarmArmingStatus("controlSiren", zone, "Normal")
+                    self.deactivateSiren(self.TotalZones, zone)
+                    Domoticz.Log("Turn OFF Siren")
             
     
     def activateSiren(self, TotalZones, zoneNr):
