@@ -485,6 +485,7 @@ class BasePlugin:
     
     
     def controlSiren(self, TotalZones):
+        strName = "controlSiren - "
         countAlarm = 0
         for zone in range(TotalZones):
             ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
@@ -496,12 +497,15 @@ class BasePlugin:
             timeDiffSeconds = timeDiff.seconds
             endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
             if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
+                Domoticz.Log(strName+"Alarm is waiting for Entry Delay (timeDiff Seconds "+str(controlSiren)+">= "+str(Devices[self.ALARM_ENTRY_DELAY].nValue)+" and timeDiffSeconds <= "+str(endSirenTimeSeconds))
                 self.activateSiren(self.TotalZones, zone)
                 countAlarm = countAlarm + 1
                 Domoticz.Log("Turn ON Siren")
             elif timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue:
+                Domoticz.Log(strName+"timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue ("+str(timeDiffSeconds)+" < "+str(Devices[self.ALARM_ENTRY_DELAY].nValue))
                 countAlarm = countAlarm + 1
             elif timeDiffSeconds > endSirenTimeSeconds:
+                Domoticz.Log(strName+"timeDiffSeconds > Devices[self.ALARM_ENTRY_DELAY].nValue ("+str(timeDiffSeconds)+" > "+str(Devices[self.ALARM_ENTRY_DELAY].nValue))
                 countAlarm = countAlarm + 0
             if countAlarm == 0:
                 if Devices[self.ALARM_MAIN_UNIT].sValue == "On":
