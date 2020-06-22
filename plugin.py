@@ -273,18 +273,11 @@ class BasePlugin:
         #self.controlSiren(self.TotalZones)
 
         for x in range(self.MatrixRowTotal):
-            Domoticz.Log(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
+            Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
              
          
     def pollZoneDevices(self, TotalRows):
         strName = "pollZoneDevices - "
-        #APIjson = DomoticzAPI("type=scenes")
-        #try:
-        #    nodes = APIjson["result"]
-        #except:
-        #    nodes = []
-        
-        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
         switchStatusIdx = ""
         for row in range(TotalRows):
             deviceIDX = self.Matrix[row][3]
@@ -506,17 +499,13 @@ class BasePlugin:
                 timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
             timeDiffSeconds = timeDiff.seconds
             endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
-            Domoticz.Log(strName+"Time Arming Status zone " +str(zone)+" : "+str(Devices[ArmingStatusUnit].LastUpdate))
             if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
-                Domoticz.Log(strName+"Alarm is waiting for Entry Delay (timeDiff Seconds "+str(timeDiffSeconds)+">= "+str(Devices[self.ALARM_ENTRY_DELAY].nValue)+" and timeDiffSeconds <= "+str(endSirenTimeSeconds))
                 self.activateSiren(self.TotalZones, zone)
                 countAlarm = countAlarm + 1
                 Domoticz.Log("Turn ON Siren")
             elif timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue:
-                Domoticz.Log(strName+"timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue ("+str(timeDiffSeconds)+" < "+str(Devices[self.ALARM_ENTRY_DELAY].nValue))
                 countAlarm = countAlarm + 1
             elif timeDiffSeconds > endSirenTimeSeconds:
-                Domoticz.Log(strName+"timeDiffSeconds > Devices[self.ALARM_ENTRY_DELAY].nValue ("+str(timeDiffSeconds)+" > "+str(Devices[self.ALARM_ENTRY_DELAY].nValue))
                 countAlarm = countAlarm + 0
             if countAlarm == 0:
                 if Devices[self.ALARM_MAIN_UNIT].sValue == "On":
@@ -594,7 +583,6 @@ class BasePlugin:
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
             if self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
-                Domoticz.Log(strName+"Devices["+str(AlarmModeUnit)+"].nValue = "+str(Devices[AlarmModeUnit].nValue))
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     self.controlSiren(self.TotalZones)
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
