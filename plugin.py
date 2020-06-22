@@ -494,7 +494,7 @@ class BasePlugin:
         strName = "controlSiren - "
         countAlarm = 0
         for zone in range(TotalZones):
-            if self.ArmingStatusMode == "Normal":
+            if self.ArmingStatusMode[zone] == "Normal":
                 self.deactivateSiren(self.TotalZones, zone)
                 Domoticz.Log("Turn OFF Siren")
             else:
