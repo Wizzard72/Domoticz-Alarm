@@ -494,27 +494,31 @@ class BasePlugin:
         strName = "controlSiren - "
         countAlarm = 0
         for zone in range(TotalZones):
-            ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-            #timeDiff = 0
-            try:
-                timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-            except TypeError:
-                timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-            timeDiffSeconds = timeDiff.seconds
-            endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
-            if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
-                self.activateSiren(self.TotalZones, zone)
-                countAlarm = countAlarm + 1
-                Domoticz.Log("Turn ON Siren")
-            elif timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue:
-                countAlarm = countAlarm + 1
-            elif timeDiffSeconds > endSirenTimeSeconds:
-                countAlarm = countAlarm + 0
-            if countAlarm == 0:
-                if Devices[self.ALARM_MAIN_UNIT].sValue == "On":
-                    self.setAlarmArmingStatus("controlSiren", zone, "Normal")
-                    self.deactivateSiren(self.TotalZones, zone)
-                    Domoticz.Log("Turn OFF Siren")
+            if self.ArmingStatusMode == "Normal":
+                self.deactivateSiren(self.TotalZones, zone)
+                Domoticz.Log("Turn OFF Siren")
+            else:
+                ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                #timeDiff = 0
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
+                if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
+                    self.activateSiren(self.TotalZones, zone)
+                    countAlarm = countAlarm + 1
+                    Domoticz.Log("Turn ON Siren")
+                elif timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue:
+                    countAlarm = countAlarm + 1
+                elif timeDiffSeconds > endSirenTimeSeconds:
+                    countAlarm = countAlarm + 0
+                if countAlarm == 0:
+                    if Devices[self.ALARM_MAIN_UNIT].sValue == "On":
+                        self.setAlarmArmingStatus("controlSiren", zone, "Normal")
+                        self.deactivateSiren(self.TotalZones, zone)
+                        Domoticz.Log("Turn OFF Siren")
             
     
     def activateSiren(self, TotalZones, zoneNr):
