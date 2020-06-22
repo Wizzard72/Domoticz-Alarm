@@ -357,7 +357,7 @@ class BasePlugin:
             for row in range(TotalRows):
                 #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if self.Matrix[row][5] == "New":
-                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], self.Matrix[row][4], "Normal", 0):
+                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], self.Matrix[row][4], "Normal", 0)
                     #self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Normal")
         # Runs only when Armed Home or Armed Away
         elif AlarmMode == "Armed Home":
