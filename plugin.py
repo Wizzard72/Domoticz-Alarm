@@ -584,7 +584,7 @@ class BasePlugin:
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
             AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
-            if self.ArmingStatusMode[zone] == "Normal":
+            if self.ArmingStatusMode[zone] == "Disarmed":
                 # Actual arm the building
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     self.controlSiren(self.TotalZones)
