@@ -545,9 +545,10 @@ class BasePlugin:
             self.setZoneStatus(self.TotalZones, ZoneNr, "Arming")
             Domoticz.Log("Set Arming Status to Arming")
         elif ZoneMode == "Tripped" or ZoneMode == 20:
-            UpdateDevice(ZoneUnitNr, 20, "20")
-            self.setZoneStatus(self.TotalZones, ZoneNr, "Tripped")
-            Domoticz.Log("Set Arming Status to Tripped")
+            if Devices[ZoneUnitNr].sValue != "Alert":
+                UpdateDevice(ZoneUnitNr, 20, "20")
+                self.setZoneStatus(self.TotalZones, ZoneNr, "Tripped")
+                Domoticz.Log("Set Arming Status to Tripped")
         elif ZoneMode == "Exit Delay" or ZoneMode == 30:
             UpdateDevice(ZoneUnitNr, 30, "30")
             self.setZoneStatus(self.TotalZones, ZoneNr, "Exit Delay")
