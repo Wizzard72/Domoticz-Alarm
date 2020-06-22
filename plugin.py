@@ -567,7 +567,7 @@ class BasePlugin:
     def setZoneStatus(self, TotalZones, ZoneNr, ZoneStatus):
         Domoticz.Debug("TotalZones = "+str(TotalZones)+" ZoneNr = "+str(ZoneNr)+" ZoneStatus = "+ZoneStatus)
         for zone in range(TotalZones):
-            if zone == ZoneNr :
+            if zone == ZoneNr:
                 self.ArmingStatusMode[zone] = ZoneStatus
                 break
         
@@ -588,7 +588,7 @@ class BasePlugin:
                 # Actual arm the building
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     Domoticz.Log("Yeah")
-                    self.setZoneStatus(self.TotalZones, zone, "Normal")
+                    self.setAlarmArmingStatus("mainAlarm", zone, "Normal")
                     self.controlSiren(self.TotalZones)
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
                 elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
