@@ -371,7 +371,9 @@ class BasePlugin:
                     if trippedZone == "":
                         trippedZone = str(self.Matrix[row][1])
                     else:
-                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])        
+                        trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
+                else:
+                    self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Normal")
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
