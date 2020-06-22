@@ -294,10 +294,11 @@ class BasePlugin:
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
             elif switchStatusIdx == "Off" or switchStatusIdx == "Closed" or switchStatusIdx == "Locked":
                 if self.Matrix[row][4] not in "Off":
-                    if self.Matrix[row][2] == "Armed Away":
-                        self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
-                    else:
-                        self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
+                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
+                    #if self.Matrix[row][2] == "Armed Away":
+                    #   self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
+                    #else:
+                    #    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
@@ -407,11 +408,12 @@ class BasePlugin:
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
         for row in range(TotalRows):
-            if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "On" and self.Matrix[row][5] == "New":
+            #if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "On" and self.Matrix[row][5] == "New":
+            if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][5] == "New":
                 self.Matrix[row][5] = "Tripped"
                 self.Matrix[row][6] = TimeChanged
                 Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+self.Matrix[row][4]+" Changed = "+self.Matrix[row][5]+" Time Changed = "+str(TimeChanged))
-    
+                break
     
     def trippedSensorTimer(self, TotalRows):
         strName = "trippedSensorTimer"
