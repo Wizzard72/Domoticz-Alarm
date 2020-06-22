@@ -253,6 +253,12 @@ class BasePlugin:
                         self.setSecurityState(2)
 
 
+        for zone_nr in range(self.TotalZones):
+            ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone_nr
+            if ArmingStatusUnit == Unit:
+                if Level == 0: # Normal
+                    self.setAlarmArmingStatus("mainAlarm", zone_nr, "Normal")
+                    self.mainAlarm()
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
