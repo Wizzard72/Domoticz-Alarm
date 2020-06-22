@@ -356,8 +356,9 @@ class BasePlugin:
         if AlarmMode == "Disarmed":
             for row in range(TotalRows):
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
-                if self.Matrix[row][5] == "New":
-                    self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Normal")
+                if self.Matrix[row][5] == "New"
+                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], self.Matrix[row][4], "Normal", 0):
+                    #self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Normal")
         # Runs only when Armed Home or Armed Away
         elif AlarmMode == "Armed Home":
             trippedSensor = 0
@@ -480,7 +481,7 @@ class BasePlugin:
         self.Matrix[LastRow][6] = TimeChanged
         Domoticz.Debug(strName+"Add row ("+str(NewRow)+"): ZoneNr = "+str(ZoneNr)+" ArmMode = "+ArmMode+" DeviceIdx = "+str(DeviceIdx)+" DeviceState = "+DeviceState+" Changed = "+Changed+" Time Changed = "+str(TimeChanged))
     
-    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed=0, ChangedTime=0):
+    def changeRowinMatrix(self, TotalRows, DeviceIdx, DeviceState, Changed=0, ChangedTime=9999):
         strName = "changeRowinMatrix - "
         for row in range(TotalRows):
             if self.Matrix[row][3] == DeviceIdx:
@@ -488,7 +489,7 @@ class BasePlugin:
                 if Changed != 0:
                     self.Matrix[row][5] = Changed
                     #Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed)
-                if ChangedTime != 0:
+                if ChangedTime != 9999:
                     self.Matrix[row][6] = ChangedTime
                     #Domoticz.Debug(strName+"Changed row "+str(row)+" to: DeviceState = "+DeviceState+" Changed = "+Changed+" Changedtime = "+ChangedTime)
     
