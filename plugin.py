@@ -552,7 +552,7 @@ class BasePlugin:
         Domoticz.Debug("Location = "+Location)
         Domoticz.Log("Arming Status = "+Devices[ArmingStatusUnit].sValue)
         if ZoneMode == "Normal" or ZoneMode == 0:
-            if Devices[ArmingStatusUnit].sValue != "Normal":
+            if Devices[ArmingStatusUnit].sValue != "0": #Devices[ArmingStatusUnit].sValue != "Normal" or 
                 Domoticz.Log("ArmingStatusUnit = "+str(ArmingStatusUnit))
                 UpdateDevice(ArmingStatusUnit, 0, "0")
                 self.setZoneStatus(self.TotalZones, ZoneNr, "Normal")
