@@ -587,6 +587,7 @@ class BasePlugin:
             if self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
+                    Domoticz.Log("Yeah")
                     self.setZoneStatus(self.TotalZones, zone, "Normal")
                     self.controlSiren(self.TotalZones)
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
