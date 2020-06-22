@@ -570,8 +570,8 @@ class BasePlugin:
         for zone in range(TotalZones):
             if zone == ZoneNr:
                 self.ArmingStatusMode[zone] = ZoneStatus
-                ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + zone
-                UpdateDevice(ZoneUnitNr, 0, "0")
+                #ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + zone
+                #UpdateDevice(ZoneUnitNr, 0, "0")
                 break
         
     
