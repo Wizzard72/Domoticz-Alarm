@@ -551,7 +551,7 @@ class BasePlugin:
         #ZoneUnitNr = ALARM_ARMING_MODE_UNIT + ZoneNr
         Domoticz.Debug("Location = "+Location)
         if ZoneMode == "Normal" or ZoneMode == 0:
-            Domoticz.Log("Yeah2")
+            Domoticz.Log("ArmingStatusUnit = "+str(ArmingStatusUnit))
             UpdateDevice(ArmingStatusUnit, 0, "0")
             self.setZoneStatus(self.TotalZones, ZoneNr, "Normal")
             Domoticz.Log("Set Arming Status to Normal")
