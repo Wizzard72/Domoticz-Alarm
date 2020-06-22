@@ -584,8 +584,9 @@ class BasePlugin:
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
             AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
-            if self.ArmingStatusMode[zone] == "Disarmed":
+            if self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
+                Domoticz.Log(strName+"Devices["+str(AlarmModeUnit)+"].nValue = "+str(Devices[AlarmModeUnit].nValue))
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     self.controlSiren(self.TotalZones)
                 elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
