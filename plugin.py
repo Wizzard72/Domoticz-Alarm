@@ -496,7 +496,6 @@ class BasePlugin:
         for zone in range(TotalZones):
             if self.ArmingStatusMode[zone] == "Normal":
                 self.deactivateSiren(self.TotalZones, zone)
-                Domoticz.Log("Turn OFF Siren")
             else:
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                 #timeDiff = 0
@@ -509,16 +508,13 @@ class BasePlugin:
                 if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
                     self.activateSiren(self.TotalZones, zone)
                     countAlarm = countAlarm + 1
-                    Domoticz.Log("Turn ON Siren")
                 elif timeDiffSeconds < Devices[self.ALARM_ENTRY_DELAY].nValue:
                     countAlarm = countAlarm + 1
                 elif timeDiffSeconds > endSirenTimeSeconds:
                     countAlarm = countAlarm + 0
                 if countAlarm == 0:
-                    if Devices[self.ALARM_MAIN_UNIT].sValue == "On":
-                        self.setAlarmArmingStatus("controlSiren", zone, "Normal")
-                        self.deactivateSiren(self.TotalZones, zone)
-                        Domoticz.Log("Turn OFF Siren")
+                    self.setAlarmArmingStatus("controlSiren", zone, "Normal")
+                    self.deactivateSiren(self.TotalZones, zone)
             
     
     def activateSiren(self, TotalZones, zoneNr):
@@ -528,7 +524,9 @@ class BasePlugin:
             if self.ArmingStatusMode[zone] == "Alert":
                 ZoneAlerts = ZoneAlerts + 1
         if ZoneAlerts > 0:
-            UpdateDevice(self.ALARM_MAIN_UNIT, 1, "On")
+            if Devices[self.ALARM_MAIN_UNIT].sValue != "On":
+                UpdateDevice(self.ALARM_MAIN_UNIT, 1, "On")
+                Domoticz.Log("Turn ON Siren")
         
     def deactivateSiren(self, TotalZones, zoneNr):
         strName = "deactivateSiren - "
@@ -537,7 +535,9 @@ class BasePlugin:
             if self.ArmingStatusMode[zone] == "Alert":
                 ZoneAlerts = ZoneAlerts + 1
         if ZoneAlerts == 0:
-            UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+            if Devices[self.ALARM_MAIN_UNIT].sValue != "Off":
+                UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
+                Domoticz.Log("Turn OFF Siren")
             
     
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
