@@ -570,8 +570,19 @@ class BasePlugin:
         for zone in range(TotalZones):
             if zone == ZoneNr:
                 self.ArmingStatusMode[zone] = ZoneStatus
-                #ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + zone
-                #UpdateDevice(ZoneUnitNr, 0, "0")
+                ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + zone
+                if ZoneStatus == "Normal":
+                    UpdateDevice(ZoneUnitNr, 0, "0")
+                elif ZoneStatus == "Arming":
+                    UpdateDevice(ZoneUnitNr, 10, "10")
+                elif ZoneStatus == "Tripped":
+                    UpdateDevice(ZoneUnitNr, 20, "20")
+                elif ZoneStatus == "Exit Delay":
+                    UpdateDevice(ZoneUnitNr, 30, "30")
+                elif ZoneStatus == "Alert":
+                    UpdateDevice(ZoneUnitNr, 40, "40")
+                elif ZoneStatus == "Open Sections":
+                    UpdateDevice(ZoneUnitNr, 50, "50")
                 break
         
     
