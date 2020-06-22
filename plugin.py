@@ -550,6 +550,7 @@ class BasePlugin:
         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
         #ZoneUnitNr = ALARM_ARMING_MODE_UNIT + ZoneNr
         Domoticz.Debug("Location = "+Location)
+        Domoticz.Log("Arming Status = "+Devices[ArmingStatusUnit].sValue)
         if ZoneMode == "Normal" or ZoneMode == 0:
             if Devices[ArmingStatusUnit].sValue != "Normal":
                 Domoticz.Log("ArmingStatusUnit = "+str(ArmingStatusUnit))
