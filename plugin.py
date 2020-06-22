@@ -537,6 +537,7 @@ class BasePlugin:
     
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
         ZoneUnitNr = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
+        #ZoneUnitNr = ALARM_ARMING_MODE_UNIT + ZoneNr
         Domoticz.Debug("Location = "+Location)
         if ZoneMode == "Normal" or ZoneMode == 0:
             UpdateDevice(ZoneUnitNr, 0, "0")
@@ -569,6 +570,8 @@ class BasePlugin:
         for zone in range(TotalZones):
             if zone == ZoneNr:
                 self.ArmingStatusMode[zone] = ZoneStatus
+                ZoneUnitNr = ALARM_ARMING_MODE_UNIT + zone
+                UpdateDevice(ZoneUnitNr, 0, "0")
                 break
         
     
