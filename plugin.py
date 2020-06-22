@@ -360,8 +360,9 @@ class BasePlugin:
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
                     Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                    if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped" or self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
-                        self.setAlarmArmingStatus("1trippedSensor", self.Matrix[row][1], "Tripped")
+                    if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
+                        if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
+                            self.setAlarmArmingStatus("1trippedSensor", self.Matrix[row][1], "Tripped")
                     if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
@@ -387,8 +388,9 @@ class BasePlugin:
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
                     Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                    if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped" or self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
-                        self.setAlarmArmingStatus("4trippedSensor", self.Matrix[row][1], "Tripped")
+                    if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
+                        if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
+                            self.setAlarmArmingStatus("4trippedSensor", self.Matrix[row][1], "Tripped")
                     if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
