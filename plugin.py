@@ -662,6 +662,7 @@ class BasePlugin:
         timeDiffSeconds = timeDiff.seconds
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
+            Domoticz.Log("Hier zou het moeten goed gaan")
             self.setAlarmArmingStatus("1alarmModeChange", zoneNr, "Normal")
         elif newStatus == 10: # Armed Home
             # Use
