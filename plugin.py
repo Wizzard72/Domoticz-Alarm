@@ -353,8 +353,13 @@ class BasePlugin:
     def trippedSensor(self, TotalZones, TotalRows, AlarmMode):
         strName = "trippedSensor - "
         # Check Sensor with state New
+        if AlarmMode == "Disarmed":
+            for row in range(TotalRows):
+                ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
+                if self.Matrix[row][5] == "New":
+                    self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Normal")
         # Runs only when Armed Home or Armed Away
-        if AlarmMode == "Armed Home":
+        elif AlarmMode == "Armed Home":
             trippedSensor = 0
             trippedZone = ""
             for row in range(TotalRows):
@@ -591,6 +596,7 @@ class BasePlugin:
                 Domoticz.Log(strName+"Devices["+str(AlarmModeUnit)+"].nValue = "+str(Devices[AlarmModeUnit].nValue))
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     self.controlSiren(self.TotalZones)
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
                 elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
                     # Do the actual arming
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
