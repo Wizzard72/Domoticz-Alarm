@@ -713,10 +713,10 @@ class BasePlugin:
                         #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
         #Moet nog aangepast worden:
         if countArmedHome == 0:
-            for zone in range(self.TotalRows):
+            for zone in range(self.TotalZones):
                 self.setAlarmArmingStatus("checkOpenSections", zone, "Exit Delay")
         if CountArmedAway == 0:
-            for zone in range(self.TotalRows):
+            for zone in range(self.TotalZones):
                 self.setAlarmArmingStatus("checkOpenSections", zone, "Exit Delay")
     
     def getSwitchIDXLastUpdate(self, idx):
