@@ -707,7 +707,7 @@ class BasePlugin:
         elif zoneMode == 20:
             zoneModeTxt = "Armed Away"
         countArmedHome = 0
-        CountArmedAway = 0
+        countArmedAway = 0
         for zone in range(self.TotalZones):
             self.OpenSectionTotal[zone] = 0
         for row in range(TotalDevices):
@@ -728,8 +728,8 @@ class BasePlugin:
                         # found open section (device)
                         #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
-                        CountArmedAway = CountArmedAway + 1
-                        self.OpenSectionTotal[zoneNr] = CountArmedAway
+                        countArmedAway = countArmedAway + 1
+                        self.OpenSectionTotal[zoneNr] = countArmedAway
                         #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
         #Moet nog aangepast worden:
         for zone in range(self.TotalZones):
