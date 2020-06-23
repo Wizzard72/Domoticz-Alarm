@@ -673,7 +673,7 @@ class BasePlugin:
         elif newStatus == 20: # Armed Way
             # Use EntryDelay
             if timeDiffSeconds >= self.exitDelay or newStatus == 0:
-                self.setAlarmArmingStatus("4alarmModeChange", zoneNr, "Arming")
+                #self.setAlarmArmingStatus("4alarmModeChange", zoneNr, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             else:
@@ -688,6 +688,8 @@ class BasePlugin:
             zoneModeTxt = "Armed Home"
         elif zoneMode == 20:
             zoneModeTxt = "Armed Away"
+        countArmedHome = 0
+        CountArmedAway = 0
         for row in range(TotalDevices):
             if self.Matrix[row][1] == zoneNr:
                 # Armed Home then only check Devices in Armed Home
@@ -697,15 +699,25 @@ class BasePlugin:
                             # found open section (device)
                             ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                             self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
-                            self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
+                            countArmedHome = countArmedHome + 1
+                            self.OpenSectionTotal[zoneNr] = countArmedHome
+                            #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found open section (device)
                         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
-                        self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
-
+                        CountArmedAway = CountArmedAway + 1
+                        self.OpenSectionTotal[zoneNr] = CountArmedAway
+                        #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
+        #Moet nog aangepast worden:
+        if countArmedHome == 0:
+            for zone in range(self.TotalRows):
+                self.setAlarmArmingStatus("checkOpenSections", zone, "Exit Delay")
+        if CountArmedAway == 0:
+            for zone in range(self.TotalRows):
+                self.setAlarmArmingStatus("checkOpenSections", zone, "Exit Delay")
     
     def getSwitchIDXLastUpdate(self, idx):
         strName = "getSwitchIDXLastUpdate"
