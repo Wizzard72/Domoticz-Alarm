@@ -692,6 +692,8 @@ class BasePlugin:
             zoneModeTxt = "Armed Away"
         countArmedHome = 0
         CountArmedAway = 0
+        for zone in range{self.TotalZones):
+            self.OpenSectionTotal[zone] = 0
         for row in range(TotalDevices):
             if self.Matrix[row][1] == zoneNr:
                 # Armed Home then only check Devices in Armed Home
