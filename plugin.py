@@ -638,7 +638,7 @@ class BasePlugin:
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
         # This is the worker for alarmModeChange()
         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
-        Domoticz.Debug("Location = "+Location)
+        Domoticz.Log("Location = "+Location)
         Domoticz.Log("Arming Status = "+Devices[ArmingStatusUnit].sValue)
         if ZoneMode == "Off" or ZoneMode == 0:
             if Devices[ArmingStatusUnit].sValue != "0": #Devices[ArmingStatusUnit].sValue != "Normal" or 
