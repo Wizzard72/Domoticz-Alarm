@@ -177,7 +177,9 @@ class BasePlugin:
             self.ActivePIRSirenHome = 2
             self.ActivePIRSirenAway = 2
         
-        
+        for zone in range{self.TotalZones):
+            self.ArmingStatusMode[zone] = 0
+
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
         self.secpassword = self.getsecpasspword()
 
@@ -282,7 +284,9 @@ class BasePlugin:
 
         for x in range(self.MatrixRowTotal):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
-             
+        
+        for x in range(self.TotalZones):
+            Domoticz.Log(strName+"ArmingStatusMode["+str(zone)+"] = "+str(ArmingStatusMode[zone]))
          
     def pollZoneDevices(self, TotalRows):
         strName = "pollZoneDevices - "
