@@ -526,7 +526,11 @@ class BasePlugin:
                 elif timeDiffSeconds > endSirenTimeSeconds:
                     countAlarm = countAlarm + 0
                 if countAlarm == 0:
-                    self.setAlarmArmingStatus("controlSiren", zone, "Normal")
+                    AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
+                    if Devices[AlarmModeUnit].sValue == "Armed Home" or Devices[AlarmModeUnit].sValue == "Armed Away":
+                        self.setAlarmArmingStatus("controlSiren", zone, "Normal")
+                    else:
+                        self.setAlarmArmingStatus("controlSiren", zone, "Off")
                     self.deactivateSiren(self.TotalZones, zone)
             
     
