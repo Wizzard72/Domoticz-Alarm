@@ -180,6 +180,9 @@ class BasePlugin:
         for zone in range(self.TotalZones):
             self.ArmingStatusMode[zone] = 0
 
+        self.exitDelay = Devices[ALARM_EXIT_DELAY].nValue
+        self.entryDelay = Devices[ALARM_ENTRY_DELAY].nValue
+        
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
         self.secpassword = self.getsecpasspword()
 
