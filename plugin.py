@@ -87,6 +87,7 @@ class BasePlugin:
     ALARM_ENTRY_DELAY = 2
     ALARM_EXIT_DELAY = 3
     ALARM_SENSOR_TIME = 5
+    ALARM_OPEN_SECTION_TIMEOUT = 8
     ALARM_ARMING_MODE_UNIT = 10
     ALARM_ARMING_STATUS_UNIT = 20
     ALARM_PIR_Zone_UNIT = 30
@@ -104,7 +105,7 @@ class BasePlugin:
     ActivePIRSirenHome = 0
     ActivePIRSirenAway = 0
     SensorActiveTime = 0 #seconds
-    OpenSectionArmAnyWay = 30
+    OpenSectionArmAnyWay = 0
     OpenSectionTotal = {}
     ArmingStatusMode = {}
 
@@ -183,6 +184,7 @@ class BasePlugin:
 
         self.exitDelay = Devices[self.ALARM_EXIT_DELAY].nValue
         self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue
+        self.OpenSectionArmAnyWay = Devices[self.ALARM_SENSOR_TIME].nValue
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
         self.secpassword = self.getsecpasspword()
@@ -771,7 +773,8 @@ class BasePlugin:
                        "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
-            Domoticz.Device(Name="Entry Delay", Unit=self.ALARM_ENTRY_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            Description = "Entry Delay gives you a short time to disarm your Alarm System for Domoticz when entering your home."
+            Domoticz.Device(Name="Entry Delay", Unit=self.ALARM_ENTRY_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
             UpdateDevice(self.ALARM_ENTRY_DELAY, 0, "0")
             
         if (self.ALARM_EXIT_DELAY not in Devices):
@@ -779,7 +782,8 @@ class BasePlugin:
                        "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
-            Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            Description = "The Exit Delay setting gives you a short period of time to leave your home once you’ve armed Alarm System for Domoticz."
+            Domoticz.Device(Name="Exit Delay", Unit=self.ALARM_EXIT_DELAY, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
             UpdateDevice(self.ALARM_EXIT_DELAY, 0, "0")
         
         if (self.ALARM_SENSOR_TIME not in Devices):
@@ -787,8 +791,18 @@ class BasePlugin:
                        "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
-            Domoticz.Device(Name="Sensor Active Time", Unit=self.ALARM_SENSOR_TIME, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Image=9).Create()
+            Description = "The time a triggered sensor is active in memory so we can track various sensors if they are triggered."
+            Domoticz.Device(Name="Sensor Active Time", Unit=self.ALARM_SENSOR_TIME, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
             UpdateDevice(self.ALARM_SENSOR_TIME, 30, "30")
+            
+        if (self.ALARM_OPEN_SECTION_TIMEOUT not in Devices):
+            Options = {"LevelActions": "||||",
+                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelOffHidden": "false",
+                       "SelectorStyle": "1"}
+            Description = "The timeout for open sections to proceed to the next step."
+            Domoticz.Device(Name="Sensor Active Time", Unit=self.ALARM_OPEN_SECTION_TIMEOUT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
+            UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, 30, "30")   
         
         
         Options = {"LevelActions": "||||",
