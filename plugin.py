@@ -699,6 +699,7 @@ class BasePlugin:
                 break
             
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
+        Domoticz.Log("AAAANNN Tal Keer?")
         strName = "checkOpenSections - "
         if zoneMode == 0:
             zoneModeTxt = "Disarmed"
@@ -734,7 +735,7 @@ class BasePlugin:
         #Moet nog aangepast worden:
         for zone in range(self.TotalZones):
             Domoticz.Log(strName+"Total count in zone "+str(zone)+" of Open Section Devices = "+str(self.OpenSectionTotal[zone]))
-            if self.OpenSectionTotal[zone] == 0:
+            if self.OpenSectionTotal[zone] == 0 and self.ArmingStatusMode[zone] != "Open Sections":
                 # Exit Delay
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + int(zone)
                 try:
