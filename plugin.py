@@ -551,37 +551,37 @@ class BasePlugin:
         #ZoneUnitNr = ALARM_ARMING_MODE_UNIT + ZoneNr
         Domoticz.Debug("Location = "+Location)
         Domoticz.Log("Arming Status = "+Devices[ArmingStatusUnit].sValue)
-        if ZoneMode == "Normal" or ZoneMode == 0:
+        if ZoneMode == "Off" or ZoneMode == 0:
             if Devices[ArmingStatusUnit].sValue != "0": #Devices[ArmingStatusUnit].sValue != "Normal" or 
                 Domoticz.Log("ArmingStatusUnit = "+str(ArmingStatusUnit))
                 UpdateDevice(ArmingStatusUnit, 0, "0")
-                self.setZoneStatus(self.TotalZones, ZoneNr, "Normal")
-                Domoticz.Log("Set Arming Status to Normal")
-        elif ZoneMode == "Arming" or ZoneMode == 10:
+                self.setZoneStatus(self.TotalZones, ZoneNr, "Off")
+                Domoticz.Log("Set Arming Status to Off")
+        elif ZoneMode == "Open Sections" or ZoneMode == 10:
             if Devices[ArmingStatusUnit].sValue != "10": # Devices[ArmingStatusUnit].sValue != "Arming"
                 UpdateDevice(ArmingStatusUnit, 10, "10")
-                self.setZoneStatus(self.TotalZones, ZoneNr, "Arming")
-                Domoticz.Log("Set Arming Status to Arming")
-        elif ZoneMode == "Tripped" or ZoneMode == 20:
-            if Devices[ArmingStatusUnit].sValue != "20": # Devices[ArmingStatusUnit].sValue != "Tripped"
-                UpdateDevice(ArmingStatusUnit, 20, "20")
-                self.setZoneStatus(self.TotalZones, ZoneNr, "Tripped")
-                Domoticz.Log("Set Arming Status to Tripped")
-        elif ZoneMode == "Exit Delay" or ZoneMode == 30:
-            if Devices[ArmingStatusUnit].sValue != "30": # Devices[ArmingStatusUnit].sValue != "Exit Delay"
-                UpdateDevice(ArmingStatusUnit, 30, "30")
-                self.setZoneStatus(self.TotalZones, ZoneNr, "Exit Delay")
-                Domoticz.Log("Set Arming Status to Exit Delay")
-        elif ZoneMode == "Alert" or ZoneMode == 40:
-            if Devices[ArmingStatusUnit].sValue != "40": # Devices[ArmingStatusUnit].sValue != "Alert"
-                UpdateDevice(ArmingStatusUnit, 40, "40")
-                self.setZoneStatus(self.TotalZones, ZoneNr, "Alert")
-                Domoticz.Log("Set Arming Status to Alert")
-        elif ZoneMode == "Open Sections" or ZoneMode == 50:
-            if Devices[ArmingStatusUnit].sValue != "50": # Devices[ArmingStatusUnit].sValue != "Open Sections"
-                UpdateDevice(ArmingStatusUnit, 50, "50")
                 self.setZoneStatus(self.TotalZones, ZoneNr, "Open Sections")
                 Domoticz.Log("Set Arming Status to Open Sections")
+        elif ZoneMode == "Exit Delay" or ZoneMode == 20:
+            if Devices[ArmingStatusUnit].sValue != "20": # Devices[ArmingStatusUnit].sValue != "Tripped"
+                UpdateDevice(ArmingStatusUnit, 20, "20")
+                self.setZoneStatus(self.TotalZones, ZoneNr, "Exit Delay")
+                Domoticz.Log("Set Arming Status to Exit Delay")
+        elif ZoneMode == "Normal" or ZoneMode == 30:
+            if Devices[ArmingStatusUnit].sValue != "30": # Devices[ArmingStatusUnit].sValue != "Exit Delay"
+                UpdateDevice(ArmingStatusUnit, 30, "30")
+                self.setZoneStatus(self.TotalZones, ZoneNr, "Normal")
+                Domoticz.Log("Set Arming Status to Normal")
+        elif ZoneMode == "Tripped" or ZoneMode == 40:
+            if Devices[ArmingStatusUnit].sValue != "40": # Devices[ArmingStatusUnit].sValue != "Alert"
+                UpdateDevice(ArmingStatusUnit, 40, "40")
+                self.setZoneStatus(self.TotalZones, ZoneNr, "Tripped")
+                Domoticz.Log("Set Arming Status to Tripped")
+        elif ZoneMode == "Alert" or ZoneMode == 50:
+            if Devices[ArmingStatusUnit].sValue != "50": # Devices[ArmingStatusUnit].sValue != "Open Sections"
+                UpdateDevice(ArmingStatusUnit, 50, "50")
+                self.setZoneStatus(self.TotalZones, ZoneNr, "Alert")
+                Domoticz.Log("Set Arming Status to Alert")
 
     def setZoneStatus(self, TotalZones, ZoneNr, ZoneStatus):
         Domoticz.Debug("TotalZones = "+str(TotalZones)+" ZoneNr = "+str(ZoneNr)+" ZoneStatus = "+ZoneStatus)
@@ -604,11 +604,15 @@ class BasePlugin:
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
             AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
-            if self.ArmingStatusMode[zone] == "Normal":
+            if self.ArmingStatusMode[zone] == "Off":
+                self.controlSiren(self.TotalZones)
+                self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
+            elif self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     Domoticz.Log("Yeah")
-                    self.setAlarmArmingStatus("mainAlarm", zone, "Normal")
+                    if self.ArmingStatusMode[zone] == "Normal":
+                        self.setAlarmArmingStatus("mainAlarm", zone, "Off")
                     self.controlSiren(self.TotalZones)
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
                 elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
@@ -618,13 +622,8 @@ class BasePlugin:
                 elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
-            elif self.ArmingStatusMode[zone] == "Arming":
-                self.setAlarmArmingStatus("1mainAlarm", zone, "Open Sections")
-            #elif self.ArmingStatusMode[zone] == "Tripped":
-            #    Domoticz.Log("Tripped")
             elif self.ArmingStatusMode[zone] == "Exit Delay":
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
-                #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone
                 # Exit Delay
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
@@ -646,9 +645,6 @@ class BasePlugin:
                         self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
                 else:
                     self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
-            
-                
-            
 
             
     def alarmModeChange(self, zoneNr, newStatus):
@@ -790,7 +786,7 @@ class BasePlugin:
        
         
         Options = {"LevelActions": "||||",
-                       "LevelNames": "Normal|Arming|Tripped|Exit Delay|Alert|Open Sections",
+                       "LevelNames": "Off|Normal|Open Sections|Exit Delay|Tripped|Alert",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
         Description = "The Arming Status options."
