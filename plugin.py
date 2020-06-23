@@ -289,7 +289,7 @@ class BasePlugin:
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
         for zone in range(self.TotalZones):
-            Domoticz.Log(strName+"self.ArmingStatusMode["+str(zone)+"] = "+str(self.ArmingStatusMode[zone]))
+            Domoticz.Debug(strName+"self.ArmingStatusMode["+str(zone)+"] = "+str(self.ArmingStatusMode[zone]))
          
     def pollZoneDevices(self, TotalRows):
         strName = "pollZoneDevices - "
@@ -572,7 +572,6 @@ class BasePlugin:
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
             AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
-            Domoticz.Log("self.ArmingStatusMode[zone] = "+str(self.ArmingStatusMode[zone]))
             # OFF
             if self.ArmingStatusMode[zone] == "Off":
                 self.controlSiren(self.TotalZones)
@@ -604,7 +603,6 @@ class BasePlugin:
             elif self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
-                    Domoticz.Log("Yeah")
                     if self.ArmingStatusMode[zone] == "Normal":
                         self.setAlarmArmingStatus("mainAlarm", zone, "Off")
                     self.controlSiren(self.TotalZones)
@@ -635,10 +633,8 @@ class BasePlugin:
         except TypeError:
             timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
         timeDiffSeconds = timeDiff.seconds
-        Domoticz.Log("timeDiffSeconds = "+str(timeDiffSeconds)+" >= "+str(self.exitDelay))
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
-            Domoticz.Log("Hier zou het moeten goed gaan")
             self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Off")
         elif newStatus == 10: # Armed Home
             # Check Exit Delay
@@ -658,11 +654,9 @@ class BasePlugin:
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
         # This is the worker for alarmModeChange()
         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
-        Domoticz.Log("Location = "+Location)
-        Domoticz.Log("Arming Status = "+Devices[ArmingStatusUnit].sValue)
+        Domoticz.Debug("Location = "+Location)
         if ZoneMode == "Off" or ZoneMode == 0:
             if Devices[ArmingStatusUnit].sValue != "0": #Devices[ArmingStatusUnit].sValue != "Normal" or 
-                Domoticz.Log("ArmingStatusUnit = "+str(ArmingStatusUnit))
                 UpdateDevice(ArmingStatusUnit, 0, "0")
                 self.setZoneStatus(self.TotalZones, ZoneNr, "Off")
                 Domoticz.Log("Set Arming Status to Off")
