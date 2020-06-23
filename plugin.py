@@ -606,6 +606,7 @@ class BasePlugin:
             ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
             AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
             #if Devices[ArmingStatusUnit].nValue == 50: # open sections
+            Domoticz.Log("self.ArmingStatusMode[zone] = "+str(self.ArmingStatusMode[zone]))
             if self.ArmingStatusMode[zone] == "Off":
                 self.controlSiren(self.TotalZones)
                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
