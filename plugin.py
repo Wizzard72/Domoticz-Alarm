@@ -156,9 +156,9 @@ class BasePlugin:
         # create devices
         self.createDevices(self.TotalZones)
         
-        for zone in range(self.TotalZones):
-            self.setZoneStatus(self.TotalZones, zone, "Normal")
-            self.OpenSectionTotal[zone] = 0
+        #for zone in range(self.TotalZones):
+        #    self.setZoneStatus(self.TotalZones, zone, "Normal")
+        #    self.OpenSectionTotal[zone] = 0
             
         
         for x in range(TotalRows):
