@@ -177,7 +177,7 @@ class BasePlugin:
             self.ActivePIRSirenHome = 2
             self.ActivePIRSirenAway = 2
         
-        for zone in range{self.TotalZones):
+        for zone in range(self.TotalZones):
             self.ArmingStatusMode[zone] = 0
 
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
