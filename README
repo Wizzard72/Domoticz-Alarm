@@ -1,5 +1,8 @@
 Alarm System for Domoticz
-Version 1.0.0 for domoticz version 2002.2 and above.
+Versions:
+    1.0.0: First release
+    1.0.1: Bug fix release
+    1.1.0: Bug fix release and reorder the Alarm Status Selector Switch levels, New Selector Switch for Open Section Timeout
 
 There was no real alarm system for Domoticz. Some scripts and blocky's are available, but they do not meet my expectations. 
 So I created this plugin.
