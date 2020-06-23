@@ -671,14 +671,16 @@ class BasePlugin:
             else:
                  self.setAlarmArmingStatus("5alarmModeChange", zoneNr, "Exit Delay")
         elif newStatus == 20: # Armed Way
-            # Use EntryDelay
+            self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
+            # Use Exit Delay
+            for zone in range[self.TotalZones):
+                if self.
             if timeDiffSeconds >= self.exitDelay or newStatus == 0:
-                #self.setAlarmArmingStatus("4alarmModeChange", zoneNr, "Arming")
-                # check open sections
-                self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
-            else:
-                 self.setAlarmArmingStatus("5alarmModeChange", zoneNr, "Exit Delay")
-        
+            #    # check open sections
+            #    self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
+            #else:
+            #     self.setAlarmArmingStatus("5alarmModeChange", zoneNr, "Exit Delay")
+            
 
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
         strName = "checkOpenSections - "
@@ -714,7 +716,17 @@ class BasePlugin:
         #Moet nog aangepast worden:
         for zone in range(self.TotalZones):
             if self.OpenSectionTotal[zone] == 0:
-                self.setAlarmArmingStatus("checkOpenSections", zone, "Exit Delay")
+                # Exit Delay
+                ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + int(zone)
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= self.exitDelay or newStatus == 0:
+                    self.setAlarmArmingStatus("checkOpenSections", zone, "Normal")
+                elif timeDiffSeconds < self.exitDelay:
+                    self.setAlarmArmingStatus("checkOpenSections", zone, "Exit Delay")
 
     
     def getSwitchIDXLastUpdate(self, idx):
