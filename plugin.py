@@ -616,7 +616,7 @@ class BasePlugin:
                 elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away")
-            # TRIPPED
+            # TRIPPED (for future use)
             #elif self.ArmingStatusMode[zone] == "Tripped":
             # ALERT
             elif self.ArmingStatusMode[zone] == "Alert":
@@ -627,32 +627,15 @@ class BasePlugin:
     def alarmModeChange(self, zoneNr, newStatus):
         # Changes in the Alarm Mode will be handled here
         strName = "alarmModeChange - "
-        #zoneNrUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + int(zoneNr)
-        # Exit Delay
-        try:
-            timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-        except TypeError:
-            timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-        timeDiffSeconds = timeDiff.seconds
         if newStatus == 0: # Normal
             # Reset Siren and Alarm Status
             self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Off")
         elif newStatus == 10: # Armed Home
             # Check Exit Delay
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
-            #if timeDiffSeconds >= self.exitDelay: # or newStatus == 0:
-            #    # check open sections
-            #    self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
-            #else:
-            #     self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Exit Delay")
         elif newStatus == 20: # Armed Way
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
-            #if timeDiffSeconds >= self.exitDelay:
-            #    # check open sections
-            #    self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
-            #else:
-            #    self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Exit Delay")
             
             
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
