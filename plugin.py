@@ -285,7 +285,7 @@ class BasePlugin:
         for x in range(self.MatrixRowTotal):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
         
-        for x in range(self.TotalZones):
+        for zone in range(self.TotalZones):
             Domoticz.Log(strName+"ArmingStatusMode["+str(zone)+"] = "+str(ArmingStatusMode[zone]))
          
     def pollZoneDevices(self, TotalRows):
