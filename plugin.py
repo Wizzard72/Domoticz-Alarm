@@ -665,7 +665,6 @@ class BasePlugin:
         elif newStatus == 10: # Armed Home
             # Use
             if timeDiffSeconds >= self.exitDelay or newStatus == 0:
-                self.setAlarmArmingStatus("2alarmModeChange", zoneNr, "Arming")
                 # check open sections
                 self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
             else:
@@ -673,9 +672,9 @@ class BasePlugin:
         elif newStatus == 20: # Armed Way
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             # Use Exit Delay
-            for zone in range(self.TotalZones):
-                if self.
-            if timeDiffSeconds >= self.exitDelay or newStatus == 0:
+            #for zone in range(self.TotalZones):
+            #    if self.
+            #if timeDiffSeconds >= self.exitDelay or newStatus == 0:
             #    # check open sections
             #    self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             #else:
