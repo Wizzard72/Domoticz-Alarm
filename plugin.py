@@ -673,7 +673,7 @@ class BasePlugin:
         elif newStatus == 20: # Armed Way
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             # Use Exit Delay
-            for zone in range[self.TotalZones):
+            for zone in range(self.TotalZones):
                 if self.
             if timeDiffSeconds >= self.exitDelay or newStatus == 0:
             #    # check open sections
