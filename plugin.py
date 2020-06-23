@@ -4,13 +4,13 @@
 # Versions:
 #   1.0.0: First release
 #   1.0.1: Bug fix release
-#   1.1.0: Bug fix release and reorder the Alarm Status Selector Switch levels
+#   1.1.0: Bug fix release and reorder the Alarm Status Selector Switch levels, New Selector Switch for Open Section Timeout
 #
 """
 <plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.0.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        Current Version:    1.1.0: Bug fix release and reorder the Alarm Status Selector Switch levels
+        Current Version:    1.1.0: Bug fix release and reorder the Alarm Status Selector Switch levels, New Selector Switch for Open Section Timeout
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
         <h3>Configuration</h3><br/>
