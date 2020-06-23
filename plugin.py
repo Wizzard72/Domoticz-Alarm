@@ -639,17 +639,19 @@ class BasePlugin:
             self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Off")
         elif newStatus == 10: # Armed Home
             # Check Exit Delay
-            if timeDiffSeconds >= self.exitDelay: # or newStatus == 0:
-                # check open sections
-                self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
-            else:
-                 self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Exit Delay")
+            self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
+            #if timeDiffSeconds >= self.exitDelay: # or newStatus == 0:
+            #    # check open sections
+            #    self.checkOpenSections(self.MatrixRowTotal, zoneNr, 10)
+            #else:
+            #     self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Exit Delay")
         elif newStatus == 20: # Armed Way
-            if timeDiffSeconds >= self.exitDelay:
-                # check open sections
-                self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
-            else:
-                self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Exit Delay")
+            self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
+            #if timeDiffSeconds >= self.exitDelay:
+            #    # check open sections
+            #    self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
+            #else:
+            #    self.setAlarmArmingStatus("alarmModeChange", zoneNr, "Exit Delay")
             
             
     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
@@ -730,6 +732,7 @@ class BasePlugin:
                         #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
         #Moet nog aangepast worden:
         for zone in range(self.TotalZones):
+            Domoticz.Log(strName+"Total count in zone "+str(zone)+" of Open Section Devices = "+str(self.OpenSectionTotal[zone]))
             if self.OpenSectionTotal[zone] == 0:
                 # Exit Delay
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + int(zone)
