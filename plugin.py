@@ -635,7 +635,7 @@ class BasePlugin:
             self.checkOpenSections(self.MatrixRowTotal, zoneNr, 20)
             
             
-     def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
+    def setAlarmArmingStatus(self, Location, ZoneNr, ZoneMode):
         # This is the worker for alarmModeChange()
         ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + ZoneNr
         Domoticz.Debug("Location = "+Location)
