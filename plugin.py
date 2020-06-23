@@ -258,7 +258,7 @@ class BasePlugin:
             ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zone_nr
             if ArmingStatusUnit == Unit:
                 if Level == 0: # Normal
-                    self.setAlarmArmingStatus("mainAlarm", zone_nr, "Normal")
+                    self.setAlarmArmingStatus("mainAlarm", zone_nr, "Off")
                     self.mainAlarm()
         
                 
