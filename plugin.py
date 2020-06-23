@@ -587,6 +587,7 @@ class BasePlugin:
                     timeDiffSeconds = timeDiff.seconds
                     if timeDiffSeconds >= self.OpenSectionArmAnyWay:
                         self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
+                        self.OpenSectionTotal[zone] = 0
                 #else:
                 #    self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
             # EXIT DELAY
@@ -726,8 +727,7 @@ class BasePlugin:
                     if self.Matrix[row][4] == "On":
                         # found open section (device)
                         #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
-                        self.alarmModeChange(zoneNr, "Open Sections")
-                        #self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
+                        self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
                         CountArmedAway = CountArmedAway + 1
                         self.OpenSectionTotal[zoneNr] = CountArmedAway
                         #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
