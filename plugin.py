@@ -579,15 +579,15 @@ class BasePlugin:
                 self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed")
             # OPEN SECTIONS 
             elif self.ArmingStatusMode[zone] == "Open Sections":
-                if self.OpenSectionTotal[zone] >= 1:
-                    try:
-                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                    except TypeError:
-                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                    timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                        self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
-                        self.OpenSectionTotal[zone] = 0
+                #if self.OpenSectionTotal[zone] >= 1:
+                try:
+                    timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                except TypeError:
+                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                timeDiffSeconds = timeDiff.seconds
+                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                    self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
+                    self.OpenSectionTotal[zone] = 0
                 #else:
                 #    self.setAlarmArmingStatus("mainAlarm", zone, "Exit Delay")
             # EXIT DELAY
