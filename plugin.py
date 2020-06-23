@@ -731,7 +731,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.exitDelay or newStatus == 0:
+                if timeDiffSeconds >= self.exitDelay:
                     self.setAlarmArmingStatus("checkOpenSections", zone, "Normal")
                 elif timeDiffSeconds < self.exitDelay:
                     self.setAlarmArmingStatus("checkOpenSections", zone, "Exit Delay")
