@@ -801,7 +801,7 @@ class BasePlugin:
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
             Description = "The timeout for open sections to proceed to the next step and arm the alarm anyway and correlate them."
-            Domoticz.Device(Name="Sensor Active Time", Unit=self.ALARM_OPEN_SECTION_TIMEOUT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
+            Domoticz.Device(Name="Open Sections Timeout", Unit=self.ALARM_OPEN_SECTION_TIMEOUT, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=Description, Image=9).Create()
             UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, 30, "30")   
         
         
