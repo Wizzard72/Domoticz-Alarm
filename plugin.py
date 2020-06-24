@@ -398,9 +398,9 @@ class BasePlugin:
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
                     Domoticz.Log("Total tripped sensors for zone "+str(zone)+" = "+str(trippedZoneCheck))
-                ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-                if trippedZoneCheck >= self.ActivePIRSirenHome:
-                    self.setAlarmArmingStatus("2trippedSensor", zone, "Alert")
+                    ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                    if trippedZoneCheck >= self.ActivePIRSirenHome:
+                        self.setAlarmArmingStatus("2trippedSensor", zone, "Alert")
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
