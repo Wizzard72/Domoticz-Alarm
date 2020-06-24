@@ -32,7 +32,7 @@
         <br/>
         Open Sections are detected and reported per zone in the Arming Status Selector Switch. After 50 seconds it's armed anyway.<br/>
         <br/>
-        Exit and Entry Delay can be set through the Selector Switches. They are for all the zones configured<br/>
+        Exit and Entry Delay can be set through the Selector Switches. The values configured are applicable to all zones.<br/>
     </description>
     <params>
         <param field="Address" label="Domoticz IP Address" width="200px" required="true" default="192.168.x.x"/>
