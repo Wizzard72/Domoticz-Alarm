@@ -35,7 +35,7 @@
         Exit and Entry Delay can be set through the Selector Switches. They are for all the zones configured<br/>
     </description>
     <params>
-        <param field="Address" label="Domoticz IP Address" width="200px" required="true" default="localhost"/>
+        <param field="Address" label="Domoticz IP Address" width="200px" required="true" default="192.168.x.x"/>
         <param field="Port" label="Domoticz Port Number" width="40px" required="true" default="8080"/>
         <param field="Username" label="Username" width="200px" required="true" default=""/>
         <param field="Password" label="Password" width="200px" required="true" default="" password="true"/>
