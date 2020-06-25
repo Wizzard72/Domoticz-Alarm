@@ -62,7 +62,8 @@ Fill in all fields:
     * Zone Armed Away:                  Devices (idx numbers) that trigger the Alarm when activated. If the Alarm is in Armed
                                         Away state, it not only checks the devices for this zone, but also for the Armed Home
                                         Zone (Armed Away + Armed Home).
-    * Siren active for (s):             Configure how long the siren is on.
+    * Siren active for (s):             Configure how long the siren is turned on. When the arming mode status is turned to Off,
+                                        the siren is turned off aswel.
     * Poll Interval in seconds:         This settings controls how often the sensors are checked.
     * Debug:                            Debug information
 
