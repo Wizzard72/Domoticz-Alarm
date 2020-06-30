@@ -408,7 +408,7 @@ class BasePlugin:
             for row in range(TotalRows):
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if self.Matrix[row][1] == ZoneNr:
-                    Domoticz.Log("HIERRRR")
+                    Domoticz.Log("HIERRRR = zonenr = "+str(ZoneNr))
                     if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
