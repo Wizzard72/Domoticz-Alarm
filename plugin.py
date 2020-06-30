@@ -611,6 +611,7 @@ class BasePlugin:
             # NORMAL
             elif self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
+                Domoticz.Log("Status Normal: Devices[AlarmModeUnit].nValue = "+str(Devices[AlarmModeUnit].nValue))
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     if self.ArmingStatusMode[zone] == "Normal":
                         self.setAlarmArmingStatus("mainAlarm", zone, "Off")
