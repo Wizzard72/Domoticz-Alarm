@@ -626,7 +626,19 @@ class BasePlugin:
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away", zone)
             # TRIPPED (for future use)
-            #elif self.ArmingStatusMode[zone] == "Tripped":
+            elif self.ArmingStatusMode[zone] == "Tripped":
+                if Devices[AlarmModeUnit].nValue == 0: # Disarmed
+                    if self.ArmingStatusMode[zone] == "Normal":
+                        self.setAlarmArmingStatus("mainAlarm", zone, "Off")
+                    self.controlSiren(self.TotalZones)
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed", zone)
+                elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
+                    # Do the actual arming
+                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home", zone)
+                elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
+                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away", zone)
             # ALERT
             elif self.ArmingStatusMode[zone] == "Alert":
                 self.controlSiren(self.TotalZones)
