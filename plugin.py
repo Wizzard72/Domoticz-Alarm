@@ -403,8 +403,9 @@ class BasePlugin:
                     ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     if trippedZoneCheck >= self.ActivePIRSirenHome:
                         self.setAlarmArmingStatus("2trippedSensor", zone, "Alert")
-                elif trippedZoneCheck == 0:
-                    self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
+                #elif trippedZoneCheck == 0:
+                #    if self.Matrix[row][6] == 0
+                #        self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
@@ -432,8 +433,8 @@ class BasePlugin:
                     ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     if trippedZoneCheck >= self.ActivePIRSirenAway:
                         self.setAlarmArmingStatus("5trippedSensor", zone, "Alert")
-                elif trippedZoneCheck == 0:
-                    self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
+                #elif trippedZoneCheck == 0:
+                #    self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
                                 
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
