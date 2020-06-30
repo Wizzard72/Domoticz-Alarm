@@ -405,6 +405,7 @@ class BasePlugin:
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
+            Domoticz.Log("HIERRRR")
             for row in range(TotalRows):
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if self.Matrix[row][1] == ZoneNr:
