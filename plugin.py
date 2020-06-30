@@ -824,7 +824,7 @@ class BasePlugin:
         
         if (self.ALARM_SENSOR_TIME not in Devices):
             Options = {"LevelActions": "||||",
-                       "LevelNames": "30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelNames": "0 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
             Description = "The time a triggered sensor is active in memory so we can track various sensors if they are triggered."
