@@ -408,7 +408,6 @@ class BasePlugin:
             for row in range(TotalRows):
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if self.Matrix[row][1] == ZoneNr:
-                    Domoticz.Log("HIERRRR = zonenr = "+str(ZoneNr))
                     if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
@@ -538,7 +537,6 @@ class BasePlugin:
                     countAlarm = countAlarm + 0
                 if countAlarm == 0:
                     AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
-                    Domoticz.Log("Devices[AlarmModeUnit].sValue = "+str(Devices[AlarmModeUnit].sValue))
                     if Devices[AlarmModeUnit].nValue == 10 or Devices[AlarmModeUnit].nValue == 20:
                         self.setAlarmArmingStatus("controlSiren", zone, "Normal")
                     else:
@@ -612,7 +610,6 @@ class BasePlugin:
             # NORMAL
             elif self.ArmingStatusMode[zone] == "Normal":
                 # Actual arm the building
-                Domoticz.Log("Status Normal: Devices[AlarmModeUnit].nValue = "+str(Devices[AlarmModeUnit].nValue))
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     if self.ArmingStatusMode[zone] == "Normal":
                         self.setAlarmArmingStatus("mainAlarm", zone, "Off")
@@ -703,7 +700,6 @@ class BasePlugin:
                 break
             
     def checkOpenSections(self, TotalDevices, zoneNr, zoneMode):
-        Domoticz.Log("AAAANNN Tal Keer?")
         strName = "checkOpenSections - "
         if zoneMode == 0:
             zoneModeTxt = "Disarmed"
