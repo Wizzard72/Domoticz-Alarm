@@ -439,7 +439,7 @@ class BasePlugin:
                     except TypeError:
                         timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                     timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= (int(Parameters["Mode4"] + self.entryDelay):
+                    if timeDiffSeconds >= (int(Parameters["Mode4"]) + self.entryDelay):
                         self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
                                 
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
