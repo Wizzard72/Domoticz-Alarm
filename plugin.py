@@ -486,7 +486,7 @@ class BasePlugin:
         for row in range(TotalRows):
             if self.Matrix[row][0] == 0:
                 LastRow = row
-                break
+                #break
                 
         # Add to Matrix
         NewRow = LastRow+1
