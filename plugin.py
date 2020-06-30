@@ -402,6 +402,15 @@ class BasePlugin:
                     ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     if trippedZoneCheck >= self.ActivePIRSirenHome:
                         self.setAlarmArmingStatus("2trippedSensor", zone, "Alert")
+                elif trippedZoneCheck == 0:
+                    ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= (self.OpenSectionArmAnyWay):
+                        self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
                 #elif trippedZoneCheck == 0:
                 #    if self.Matrix[row][6] == 0
                 #        self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
@@ -439,7 +448,7 @@ class BasePlugin:
                     except TypeError:
                         timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                     timeDiffSeconds = timeDiff.seconds
-                    if timeDiffSeconds >= (int(Parameters["Mode4"]) + self.entryDelay):
+                    if timeDiffSeconds >= (self.OpenSectionArmAnyWay):
                         self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
                                 
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
