@@ -815,7 +815,7 @@ class BasePlugin:
             
         if (self.ALARM_EXIT_DELAY not in Devices):
             Options = {"LevelActions": "||||",
-                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelNames": "30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
             Description = "The Exit Delay setting gives you a short period of time to leave your home once you’ve armed Alarm System for Domoticz."
