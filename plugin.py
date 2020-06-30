@@ -536,6 +536,7 @@ class BasePlugin:
                     countAlarm = countAlarm + 0
                 if countAlarm == 0:
                     AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
+                    Domoticz.Log("Devices[AlarmModeUnit].sValue = "+str(Devices[AlarmModeUnit].sValue))
                     if Devices[AlarmModeUnit].sValue == "Armed Home" or Devices[AlarmModeUnit].sValue == "Armed Away":
                         self.setAlarmArmingStatus("controlSiren", zone, "Normal")
                     else:
