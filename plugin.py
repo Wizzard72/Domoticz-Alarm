@@ -519,6 +519,7 @@ class BasePlugin:
                 self.deactivateSiren(self.TotalZones, zone)
             else:
                 ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT+zone
                 #timeDiff = 0
                 try:
                     timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
