@@ -385,10 +385,10 @@ class BasePlugin:
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
                             if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
                                 self.setAlarmArmingStatus("1trippedSensor", self.Matrix[row][1], "Tripped")
-                        if self.Matrix[row][5] == "New":
-                            sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
-                            self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
-                            self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Tripped")
+                        #if self.Matrix[row][5] == "New":
+                        sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
+                        self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
+                        self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Tripped")
                         trippedSensor = trippedSensor + 1
                         if trippedZone == "":
                             trippedZone = str(self.Matrix[row][1])
