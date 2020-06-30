@@ -184,7 +184,7 @@ class BasePlugin:
             self.ArmingStatusMode[zone] = 0
 
         self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue
-        self.OpenSectionArmAnyWay = Devices[self.ALARM_SENSOR_TIME].nValue
+        self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue
         
         Domoticz.Heartbeat(int(Parameters["Mode5"]))
         self.secpassword = self.getsecpasspword()
@@ -218,17 +218,37 @@ class BasePlugin:
         
         
         if self.ALARM_SENSOR_TIME == Unit:
+            if Level == 0:
+                Level = 0
+            else:
+                Level = Level + 20
             self.SensorActiveTime = Level
             Domoticz.Debug(strName+"Sensor Active Time = "+str(self.SensorActiveTime))
             UpdateDevice(self.ALARM_SENSOR_TIME, Level, str(Level))
         
         if self.ALARM_ENTRY_DELAY == Unit:
+            if Level == 0:
+                Level = 0
+            else:
+                Level = Level + 20  
             self.entryDelay = Level #seconds
             Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
             UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
-            
+        
+        if self.ALARM_OPEN_SECTION_TIMEOUT == Unit:
+            if Level == 0:
+                Level = 0
+            else:
+                Level = Level + 20  
+            self.entryDelay = Level #seconds
+            Domoticz.Debug(strName+"Open Sections = "+str(self.entryDelay))
+            UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, Level, str(Level))
                 
         if self.ALARM_EXIT_DELAY == Unit:
+            if Level == 0:
+                Level = 0
+            else:
+                Level = Level + 20
             self.exitDelay = Level #seconds
             Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
             UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
