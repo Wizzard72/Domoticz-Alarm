@@ -806,7 +806,7 @@ class BasePlugin:
             
         if (self.ALARM_ENTRY_DELAY not in Devices):
             Options = {"LevelActions": "||||",
-                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelNames": "0 second|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
             Description = "Entry Delay gives you a short time to disarm your Alarm System for Domoticz when entering your home."
@@ -833,7 +833,7 @@ class BasePlugin:
             
         if (self.ALARM_OPEN_SECTION_TIMEOUT not in Devices):
             Options = {"LevelActions": "||||",
-                       "LevelNames": "0 second|10 seconds|20 seconds|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
+                       "LevelNames": "0 second|30 seconds|40 seconds|50 seconds|60 seconds|70 seconds|80 seconds|90 seconds",
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
             Description = "The timeout for open sections to proceed to the next step and arm the alarm anyway and correlate them."
