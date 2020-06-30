@@ -183,7 +183,6 @@ class BasePlugin:
         for zone in range(self.TotalZones):
             self.ArmingStatusMode[zone] = 0
 
-        self.exitDelay = Devices[self.ALARM_EXIT_DELAY].nValue
         self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue
         self.OpenSectionArmAnyWay = Devices[self.ALARM_SENSOR_TIME].nValue
         
@@ -438,7 +437,7 @@ class BasePlugin:
                     try:
                         timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
                     except TypeError:
-                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate],'%Y-%m-%d %H:%M:%S')[0:6]))
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                     timeDiffSeconds = timeDiff.seconds
                     if timeDiffSeconds >= (int(Parameters["Mode4"] + self.entryDelay):
                         self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
