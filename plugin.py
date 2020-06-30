@@ -433,8 +433,15 @@ class BasePlugin:
                     ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
                     if trippedZoneCheck >= self.ActivePIRSirenAway:
                         self.setAlarmArmingStatus("5trippedSensor", zone, "Alert")
-                #elif trippedZoneCheck == 0:
-                #    self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
+                elif trippedZoneCheck == 0:
+                    ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(ArmingStatusUnit,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(ArmingStatusUnit],'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= (int(Parameters["Mode4"] + self.entryDelay):
+                       self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
                                 
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
