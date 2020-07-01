@@ -218,42 +218,24 @@ class BasePlugin:
         
         
         if self.ALARM_SENSOR_TIME == Unit:
-            if Level == 0:
-                LevelNew = 0
-            else:
-                LevelNew = Level + 20
-            self.SensorActiveTime = LevelNew
+            self.SensorActiveTime = Level + 20
             Domoticz.Debug(strName+"Sensor Active Time = "+str(self.SensorActiveTime))
-            UpdateDevice(self.ALARM_SENSOR_TIME, LevelNew, str(LevelNew))
+            UpdateDevice(self.ALARM_SENSOR_TIME, Level, str(Level))
         
         if self.ALARM_ENTRY_DELAY == Unit:
-            if Level == 0:
-                LevelNew = 0
-            else:
-                LevelNew = Level + 20  
-            self.entryDelay = LevelNew #seconds
-            Domoticz.Log("Level = "+str(Level))
-            Domoticz.Log("LevelNew = "+str(LevelNew))
+            self.entryDelay = Level + 20 #seconds
             Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
-            UpdateDevice(self.ALARM_ENTRY_DELAY, LevelNew, str(LevelNew))
+            UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
         
-        if self.ALARM_OPEN_SECTION_TIMEOUT == Unit:
-            if Level == 0:
-                LevelNew = 0
-            else:
-                LevelNew = Level + 20  
-            self.entryDelay = LevelNew #seconds
+        if self.ALARM_OPEN_SECTION_TIMEOUT == Unit: 
+            self.entryDelay = Level + 20 #seconds
             Domoticz.Debug(strName+"Open Sections = "+str(self.entryDelay))
-            UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, LevelNew, str(LevelNew))
+            UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, Level, str(Level))
                 
         if self.ALARM_EXIT_DELAY == Unit:
-            if Level == 0:
-                LevelNew = 0
-            else:
-                LevelNew = Level + 20
-            self.exitDelay = LevelNew #seconds
+            self.exitDelay = Level + 20 #seconds
             Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
-            UpdateDevice(self.ALARM_EXIT_DELAY, LevelNew, str(LevelNew))
+            UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Leve))
             
         
         for zone_nr in range(self.TotalZones):
