@@ -232,8 +232,8 @@ class BasePlugin:
             else:
                 LevelNew = Level + 20  
             self.entryDelay = LevelNew #seconds
-            Domoticz.Log("Level = "+Level)
-            Domoticz.Log("LevelNew = "+LevelNew)
+            Domoticz.Log("Level = "+str(Level))
+            Domoticz.Log("LevelNew = "+str(LevelNew))
             Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
             UpdateDevice(self.ALARM_ENTRY_DELAY, LevelNew, str(LevelNew))
         
