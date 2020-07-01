@@ -15,7 +15,7 @@
         Current Version:    1.1.2: Bug fix should fix "Issue: Sensor Active Time & Open Sections Timeout not saving settings #8"<br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
-        <h3>Configuration</h3><br/>
+        <h3>Configuration</h3>
         <br/>
         Alarm zones:<br/>
         <ul style="list-style-type:square">
