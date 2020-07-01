@@ -9,7 +9,7 @@
 #   1.1.2: Bug fix should fix "Issue: Sensor Active Time & Open Sections Timeout not saving settings #8"
 #
 """
-<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.0.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
+<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.1.2" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
         Current Version:    1.1.2: Bug fix should fix "Issue: Sensor Active Time & Open Sections Timeout not saving settings #8"
