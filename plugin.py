@@ -6,12 +6,13 @@
 #   1.0.1: Bug fix release
 #   1.1.0: Bug fix release and reorder the Alarm Status Selector Switch levels, New Selector Switch for Open Section Timeout
 #   1.1.1: Bug fix should fix "Issue: Rearming the zone doesn't seem to work #6"
+#   1.1.2: Bug fix should fix "Issue: Sensor Active Time & Open Sections Timeout not saving settings #8"
 #
 """
 <plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.0.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        Current Version:    1.1.1: Bug fix should fix "Issue: Rearming the zone doesn't seem to work #6"
+        Current Version:    1.1.2: Bug fix should fix "Issue: Sensor Active Time & Open Sections Timeout not saving settings #8"
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
         <h3>Configuration</h3><br/>
