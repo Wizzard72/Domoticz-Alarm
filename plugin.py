@@ -424,7 +424,7 @@ class BasePlugin:
                 if self.Matrix[row][1] == ZoneNr:
                     if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                        self.setTriggeredDevice(self, self.Matrix[row][1], self.Matrix[row][3])
+                        self.setTriggeredDevice(self.Matrix[row][1], self.Matrix[row][3])
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
                             if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
                                 self.setAlarmArmingStatus("1trippedSensor", self.Matrix[row][1], "Tripped")
@@ -466,7 +466,7 @@ class BasePlugin:
                 if self.Matrix[row][1] == ZoneNr:
                     if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
-                        self.setTriggeredDevice(self, self.Matrix[row][1], self.Matrix[row][3])
+                        self.setTriggeredDevice(self.Matrix[row][1], self.Matrix[row][3])
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
                             if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
                                 self.setAlarmArmingStatus("4trippedSensor", self.Matrix[row][1], "Tripped")
