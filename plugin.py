@@ -984,7 +984,7 @@ class BasePlugin:
                     Domoticz.Log("Found device = "+"Tripped Devices zone "+str(zoneNr)+")")
                     found_device = True
             if found_device == False:
-                    new_unit = find_available_unit_Open_Section_Device()
+                    new_unit = find_available_unit_Triggerd_Device()
                     Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Description=DescriptionTrippedDevice, Image=8).Create()
         
         
@@ -1128,6 +1128,12 @@ def find_available_unit_Arming_Status():
 
 def find_available_unit_Open_Section_Device():
     for num in range(40,49):
+        if num not in Devices:
+            return num
+    return None
+
+def find_available_unit_Triggered_Device():
+    for num in range(50,59):
         if num not in Devices:
             return num
     return None
