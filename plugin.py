@@ -171,7 +171,7 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    if self.doDeviceExist(devices) = True:
+                    if self.doDeviceExist(devices) == True:
                         self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         #Populate the Matrix with Armed Away Devices
