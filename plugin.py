@@ -258,6 +258,12 @@ class BasePlugin:
 
     def onCommand(self, Unit, Command, Level, Hue):
         if self.versionCheck is True:
+            Domoticz.Log("VersionCheck = TRUE")
+        elif self.versionCheck is False:
+            Domoticz.Log("VersionCheck = TRUE")
+        else:
+            Domoticz.Error("VersionCheck = ERROR")
+        if self.versionCheck is True:
             strName = "onCommand: "
             Domoticz.Debug(strName+"called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
         
