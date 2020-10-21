@@ -869,7 +869,7 @@ class BasePlugin:
             statusdoDeviceExist = True
         except:
             nodes = []
-            Domoticz.Error("Device not found")
+            Domoticz.Error("Device "+idx+" NOT does exist!")
             statusdoDeviceExist = False
             self.VersionCheck = False
         return statusdoDeviceExist
