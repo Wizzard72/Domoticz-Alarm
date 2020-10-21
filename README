@@ -13,6 +13,7 @@ This plugin creates an Alarm System in Domoticz. It depends on the devices alrea
 such as PIR, Door, other sensors.
         
 Configuration
+	* Add the Domoticz IP Address to the Settings Local Networks
         
 Alarm zones:
     * The first zone triggers the Security Panel

@@ -659,9 +659,11 @@ class BasePlugin:
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed", zone)
                 elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
                     # Do the actual arming
+                    self.controlSiren(self.TotalZones)
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home", zone)
                 elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
+                    self.controlSiren(self.TotalZones)
                     Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away", zone)
             # TRIPPED
