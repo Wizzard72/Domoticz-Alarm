@@ -979,9 +979,9 @@ class BasePlugin:
         for zoneNr in range(TotalZones):
             for item in Devices:
                 if zoneNr < 10:
-                    removeCharacters = -22
+                    removeCharacters = -20
                 else:
-                    removeCharacters = -23
+                    removeCharacters = -21
                 if Devices[item].Name[removeCharacters:] == "Open Sections zone "+str(zoneNr):
                     Domoticz.Log("Found device = "+"Open Sections zone "+str(zoneNr))
                     found_device = True
