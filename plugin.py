@@ -222,7 +222,9 @@ class BasePlugin:
         for zone in range(self.TotalZones):
             self.ArmingStatusMode[zone] = 0
             openSectionDevice = self.ALARM_OPEN_SECTION_DEVICE + zone
+            triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zone
             UpdateDevice(openSectionDevice, 1, "None")
+            UpdateDevice(triggeredDevice, 1, "None")
 
         self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue
         self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue
