@@ -174,6 +174,7 @@ class BasePlugin:
                     if self.doDeviceExist(devices) == True:
                         self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
+        
         #Populate the Matrix with Armed Away Devices
         zoneNr = 0
         ZoneArmedAway = Parameters["Mode3"].split(";")
@@ -181,7 +182,8 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "Normal", 0)
+                    if self.doDeviceExist(devices) == True:
+                        self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         
         self.TotalZones = zoneNr
@@ -193,7 +195,8 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
+                    if self.doDeviceExist(devices) == True:
+                        self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         
         
