@@ -286,7 +286,7 @@ class BasePlugin:
             Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
             UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             
-        if self.versionCheck:
+        if self.versionCheck == True:
             for zone_nr in range(self.TotalZones):
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone_nr
                 if AlarmModeUnit == Unit:
@@ -327,7 +327,7 @@ class BasePlugin:
         Domoticz.Debug(strName+"called")
 
     def onHeartbeat(self):
-        if self.versionCheck:
+        if self.versionCheck == True:
             strName = "onHeartbeat: "
             Domoticz.Debug(strName+"called")
             self.SensorActiveTime = Devices[self.ALARM_SENSOR_TIME].nValue
