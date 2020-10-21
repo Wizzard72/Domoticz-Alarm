@@ -529,9 +529,11 @@ class BasePlugin:
     def calculateMatixRows(self):
         ZoneArmedHome = Parameters["Mode2"].split(";")
         ZoneArmedAway = Parameters["Mode3"].split(";")
+        ZoneFireDevices = Parameters["Mode4"].split(";")
         countArmedHome = self.calculateAmountOfDevices(ZoneArmedHome)
         countArmedAway = self.calculateAmountOfDevices(ZoneArmedAway)
-        TotalRows = countArmedHome + countArmedAway
+        countFireDevices = self.calculateAmountOfDevices(ZoneFireDevices)
+        TotalRows = countArmedHome + countArmedAway + countFireDevices
         return TotalRows
         
     def calculateAmountOfDevices(self, AmountOfDevices):
