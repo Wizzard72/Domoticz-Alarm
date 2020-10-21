@@ -171,7 +171,7 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    if self.doDeviceExist(devices) == True:
+                    if self.doDeviceExist(devices) is True:
                         self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         
@@ -182,7 +182,7 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    if self.doDeviceExist(devices) == True:
+                    if self.doDeviceExist(devices) is True:
                         self.addToMatrix(TotalRows, zoneNr, "Armed Away", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         
@@ -195,7 +195,7 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    if self.doDeviceExist(devices) == True:
+                    if self.doDeviceExist(devices) is True:
                         self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         
@@ -286,7 +286,7 @@ class BasePlugin:
             Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
             UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
             
-        if self.versionCheck == True:
+        if self.versionCheck is True:
             for zone_nr in range(self.TotalZones):
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone_nr
                 if AlarmModeUnit == Unit:
@@ -327,7 +327,7 @@ class BasePlugin:
         Domoticz.Debug(strName+"called")
 
     def onHeartbeat(self):
-        if self.versionCheck == True:
+        if self.versionCheck is True:
             strName = "onHeartbeat: "
             Domoticz.Debug(strName+"called")
             self.SensorActiveTime = Devices[self.ALARM_SENSOR_TIME].nValue
@@ -646,7 +646,7 @@ class BasePlugin:
         # Main Alarm script
         # Poll all sensors
         # Open Section - Exit Delay - Normal - Tripped - Alert
-        if self.versionCheck == True:
+        if self.versionCheck is True:
             self.getSecurityState()
             self.pollZoneDevices(self.MatrixRowTotal)
             self.trippedSensorTimer(self.MatrixRowTotal)
