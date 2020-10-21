@@ -9,9 +9,10 @@
 #   1.1.2: Bug fix should fix "Issue: Sensor Active Time & Open Sections Timeout not saving settings #8"
 #   1.2.0: Open Sections will show which device is cousing it
 #   1.2.1: Bux fix for creating Open Section devices when plugin was already installed
+#   1.3.0: Added fire devices
 #
 """
-<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.2.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
+<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.3.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
         Current Version:    1.3.0: Added fire devices
