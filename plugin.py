@@ -171,7 +171,8 @@ class BasePlugin:
             devicesIdx = zone.split(",")
             for devices in devicesIdx:
                 if str(devices.lower()) not in "none,0":
-                    self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
+                    if not self.doDeviceExist(devices):
+                        self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         #Populate the Matrix with Armed Away Devices
         zoneNr = 0
@@ -853,16 +854,21 @@ class BasePlugin:
             UpdateDevice(triggeredDevice, 1, triggeredDeviceNameTotal)
             
             
-    def testDevices(self):
-        strName = "getSwitchIDXStatus"
+    def doDeviceExist(self, idx):
+        strName = "doDeviceExist"
+        statusdoDeviceExist = ""
         jsonQuery = "type=devices&rid="+idx
         APIjson = DomoticzAPI(jsonQuery)
         try:
             nodes = APIjson["result"]
+            Domoticz.Error("Device "+idx+" does not exist!")
+            statusdoDeviceExist = True
         except:
             nodes = []
             Domoticz.Log("Device not found")
+            statusdoDeviceExist = False
             self.VersionCheck = False
+        return statusdoDeviceExist
         
         
     def getSwitchIDXName(self, idx):
