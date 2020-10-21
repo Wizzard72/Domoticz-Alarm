@@ -351,7 +351,9 @@ class BasePlugin:
     def setVersionCheck(self, value, note):
         strName = "setVersionCheck - "
         if value is True:
-            Domoticz.Log("Plugin allowed to start (triggered by: "+note+")")
+            if self.versionCheck is not False:
+                self.versionCheck = True
+                Domoticz.Log("Plugin allowed to start (triggered by: "+note+")")
         elif value is False:
             self.versionCheck = False
             Domoticz.Error("Plugin NOT allowed to start (triggered by: "+note+")")
