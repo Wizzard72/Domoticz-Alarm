@@ -952,8 +952,8 @@ class BasePlugin:
                     removeCharacters = -22
                 else:
                     removeCharacters = -23
-                if Devices[item].Name[removeCharacters:] == "Arming Status (Zone "+str(zoneNr)+")":
-                    Domoticz.Log("Found device = "+"Arming Status (Zone "+str(zoneNr)+")")
+                if Devices[item].Name[removeCharacters:] == "Open Sections zone "+str(zoneNr)+")":
+                    Domoticz.Log("Found device = "+"Open Sections zone "+str(zoneNr)+")")
                     found_device = True
             if found_device == False:
                     #new_unit = find_available_unit_Arming_Status()
