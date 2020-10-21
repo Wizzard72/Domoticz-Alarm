@@ -470,8 +470,8 @@ class BasePlugin:
                         if self.Matrix[row][3] not in Devices[self.ALARM_TRIGGERED_DEVICE+self.Matrix[row][1]].sValue:
                             self.setTriggeredDevice(self.Matrix[row][1], self.Matrix[row][3])
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
-                            #if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
-                            self.setAlarmArmingStatus("4trippedSensor", self.Matrix[row][1], "Tripped")
+                            if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
+                                self.setAlarmArmingStatus("4trippedSensor", self.Matrix[row][1], "Tripped")
                         #if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
