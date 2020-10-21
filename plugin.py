@@ -837,7 +837,7 @@ class BasePlugin:
     def setTriggeredDevice(self, zoneNr, idx):
         Domoticz.Log("Report Triggered Device")
         triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zoneNr
-        triggeredDeviceName = self.getSwitchIDXName(idx)+" ("+idx+")"
+        triggeredDeviceName = self.getSwitchIDXName(idx)+" (idx="+idx+")"
         if Devices[triggeredDevice].sValue == "None":
             UpdateDevice(triggeredDevice, 1, triggeredDeviceName)
             #Here straight to Alert for Fire devices
