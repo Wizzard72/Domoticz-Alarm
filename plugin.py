@@ -100,6 +100,7 @@ class BasePlugin:
     ALARM_ARMING_STATUS_UNIT = 20
     ALARM_PIR_Zone_UNIT = 30
     ALARM_OPEN_SECTION_DEVICE = 40
+    ALARM_TRIGGERED_DEVICE = 50
     SecurityPanel = ""
     anybodyHome = ""
     entryDelay = 0
@@ -419,6 +420,7 @@ class BasePlugin:
                 if self.Matrix[row][1] == ZoneNr:
                     if (self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped") and self.Matrix[row][2] == "Armed Home":
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                        self.setTriggeredDevice(self, self.Matrix[row][1], self.Matrix[row][3])
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
                             if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
                                 self.setAlarmArmingStatus("1trippedSensor", self.Matrix[row][1], "Tripped")
@@ -460,6 +462,7 @@ class BasePlugin:
                 if self.Matrix[row][1] == ZoneNr:
                     if self.Matrix[row][5] == "New" or self.Matrix[row][5] == "Tripped":
                         Domoticz.Log("Found Tripped Sensor (idx = "+str(self.Matrix[row][3])+") in zone "+str(self.Matrix[row][1]))
+                        self.setTriggeredDevice(self, self.Matrix[row][1], self.Matrix[row][3])
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
                             if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
                                 self.setAlarmArmingStatus("4trippedSensor", self.Matrix[row][1], "Tripped")
@@ -667,6 +670,8 @@ class BasePlugin:
                 # reset the open section text device
                 openSectionDevice = self.ALARM_OPEN_SECTION_DEVICE + zone
                 UpdateDevice(openSectionDevice, 1, "None")
+                triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zone
+                UpdateDevice(triggeredDevice, 1, "None")
                 # Actual arm the building
                 if Devices[AlarmModeUnit].nValue == 0: # Disarmed
                     if self.ArmingStatusMode[zone] == "Normal":
@@ -819,7 +824,18 @@ class BasePlugin:
         else:
             openSectionDeviceNameTotal = Devices[openSectionDevice].sValue +","+ openSectionDeviceName
             UpdateDevice(openSectionDevice, 1, openSectionDeviceNameTotal)
-        
+
+    def setTriggeredDevice(self, zoneNr, idx):
+        Domoticz.Log("Report Triggered Device")
+        triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zoneNr
+        triggeredDeviceName = self.getSwitchIDXName(idx)
+        if Devices[triggeredDevice].sValue == "None":
+            UpdateDevice(triggeredDevice, 1, triggeredDeviceName)
+        else:
+            triggeredDeviceNameTotal = Devices[triggeredDevice].sValue +","+ triggeredDeviceName
+            UpdateDevice(triggeredDevice, 1, triggeredDeviceNameTotal)
+            
+            
     def testDevices(self):
         strName = "getSwitchIDXStatus"
         jsonQuery = "type=devices&rid="+idx
