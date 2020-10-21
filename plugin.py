@@ -162,6 +162,7 @@ class BasePlugin:
         self.MatrixRowTotal = TotalRows
         TotalColoms = 7
         self.createTheMatrix(TotalColoms, TotalRows)
+        #Populate the Matrix with Armed Home Devices
         ZoneArmedHome = Parameters["Mode2"].split(";")
         zoneNr = 0
         for zone in ZoneArmedHome:
@@ -170,6 +171,7 @@ class BasePlugin:
                 if str(devices.lower()) not in "none,0":
                     self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
+        #Populate the Matrix with Armed Away Devices
         zoneNr = 0
         ZoneArmedAway = Parameters["Mode3"].split(";")
         for zone in ZoneArmedAway:
@@ -180,6 +182,16 @@ class BasePlugin:
             zoneNr = zoneNr + 1
         
         self.TotalZones = zoneNr
+        
+        #Populate the Matrix with Fire6 Devices
+        ZoneFireDevices = Parameters["Mode4"].split(";")
+        for zone in ZoneFireDevices:
+            devicesIdx = zone.split(",")
+            for devices in devicesIdx:
+                if str(devices.lower()) not in "none,0":
+                    self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
+            zoneNr = zoneNr + 1
+        
         
         # create devices
         self.createDevices(self.TotalZones)
@@ -688,7 +700,6 @@ class BasePlugin:
             elif self.ArmingStatusMode[zone] == "Alert":
                 self.controlSiren(self.TotalZones)
             
-
             
     def alarmModeChange(self, zoneNr, newStatus):
         # Changes in the Alarm Mode will be handled here
