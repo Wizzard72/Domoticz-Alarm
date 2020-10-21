@@ -836,7 +836,7 @@ class BasePlugin:
     def setTriggeredDevice(self, zoneNr, idx):
         Domoticz.Log("Report Triggered Device")
         triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zoneNr
-        triggeredDeviceName = self.getSwitchIDXName(idx)
+        triggeredDeviceName = self.getSwitchIDXName(idx)+"("+idx+")"
         if Devices[triggeredDevice].sValue == "None":
             UpdateDevice(triggeredDevice, 1, triggeredDeviceName)
         else:
