@@ -820,7 +820,7 @@ class BasePlugin:
     def setOpenSectionDevice(self, zoneNr, idx):
         Domoticz.Log("Report OpenSections Device")
         openSectionDevice = self.ALARM_OPEN_SECTION_DEVICE + zoneNr
-        openSectionDeviceName = self.getSwitchIDXName(idx)
+        openSectionDeviceName = self.getSwitchIDXName(idx)+" (idx="+idx+")"
         if Devices[openSectionDevice].sValue == "None":
             UpdateDevice(openSectionDevice, 1, openSectionDeviceName)
         else:
