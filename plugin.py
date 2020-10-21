@@ -185,7 +185,8 @@ class BasePlugin:
         
         self.TotalZones = zoneNr
         
-        #Populate the Matrix with Fire6 Devices
+        #Populate the Matrix with Fire Devices
+        zoneNr = 0
         ZoneFireDevices = Parameters["Mode4"].split(";")
         for zone in ZoneFireDevices:
             devicesIdx = zone.split(",")
