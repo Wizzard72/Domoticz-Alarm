@@ -315,8 +315,8 @@ class BasePlugin:
                         self.mainAlarm()
                         if self.ALARM_ARMING_MODE_UNIT == Unit:
                             self.setSecurityState(2)
-    else
-        Domoticz.Error("Check Configuration")
+        else
+            Domoticz.Error("Check Configuration")
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
