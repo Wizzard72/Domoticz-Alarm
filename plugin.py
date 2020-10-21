@@ -315,7 +315,7 @@ class BasePlugin:
                         self.mainAlarm()
                         if self.ALARM_ARMING_MODE_UNIT == Unit:
                             self.setSecurityState(2)
-        else
+        else:
             Domoticz.Error("Check Configuration")
         
                 
@@ -343,7 +343,7 @@ class BasePlugin:
         
             for zone in range(self.TotalZones):
                 Domoticz.Debug(strName+"self.ArmingStatusMode["+str(zone)+"] = "+str(self.ArmingStatusMode[zone]))
-        else
+        else:
             Domoticz.Error("Check Configuration")
          
     def pollZoneDevices(self, TotalRows):
