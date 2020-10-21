@@ -144,7 +144,8 @@ class BasePlugin:
                         Parameters["DomoticzVersion"]))
                 Domoticz.Error("Plugin is therefore disabled")
             else:
-                self.versionCheck = True
+                self.setVersionCheck(True)
+                #self.versionCheck = True
         except Exception as err:
             Domoticz.Error("Domoticz version check returned an error: {}. Plugin is therefore disabled".format(err))
         if not self.versionCheck:
@@ -345,6 +346,15 @@ class BasePlugin:
         else:
             Domoticz.Error("Check Configuration")
          
+    def setVersionCheck(self, value):
+        strName = "setVersionCheck - "
+        if self.versionCheck != value:
+            self.versionCheck = value
+            Domoticz.Log("Changed versionCheck to "+value)
+        else:
+            Domoticz.Log("VersionCheck is "+self.versionCheck)
+        
+        
     def pollZoneDevices(self, TotalRows):
         strName = "pollZoneDevices - "
         switchStatusIdx = ""
@@ -878,7 +888,8 @@ class BasePlugin:
             nodes = []
             Domoticz.Error("Device "+idx+" NOT does exist!")
             statusdoDeviceExist = False
-            self.VersionCheck = False
+            setVersionCheck(False)
+            #self.VersionCheck = False
         return statusdoDeviceExist
         
         
