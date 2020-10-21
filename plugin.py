@@ -956,9 +956,7 @@ class BasePlugin:
             if found_device == False:
                     new_unit = find_available_unit_Arming_Status()
                     Domoticz.Device(Name="Arming Status (Zone "+str(zoneNr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=DescriptionArmingStatus, Image=8).Create()
-                    #new_unit = find_available_unit_Open_Section_Device()
-                    #Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Options=Options, Description=DescriptionOpenSectionsDevice, Image=8).Create()
-        
+                            
         DescriptionOpenSectionsDevice = "List of Open Section Devices."
         found_device = False
         for zoneNr in range(TotalZones):
@@ -971,10 +969,25 @@ class BasePlugin:
                     Domoticz.Log("Found device = "+"Open Sections zone "+str(zoneNr)+")")
                     found_device = True
             if found_device == False:
-                    #new_unit = find_available_unit_Arming_Status()
-                    #Domoticz.Device(Name="Arming Status (Zone "+str(zoneNr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=DescriptionArmingStatus, Image=8).Create()
                     new_unit = find_available_unit_Open_Section_Device()
                     Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Description=DescriptionOpenSectionsDevice, Image=8).Create()
+        
+        DescriptionTrippedDevice = "List of Tripped Devices."
+        found_device = False
+        for zoneNr in range(TotalZones):
+            for item in Devices:
+                if zoneNr < 10:
+                    removeCharacters = -22
+                else:
+                    removeCharacters = -23
+                if Devices[item].Name[removeCharacters:] == "Tripped Devices zone "+str(zoneNr)+")":
+                    Domoticz.Log("Found device = "+"Tripped Devices zone "+str(zoneNr)+")")
+                    found_device = True
+            if found_device == False:
+                    new_unit = find_available_unit_Open_Section_Device()
+                    Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Description=DescriptionTrippedDevice, Image=8).Create()
+        
+        
         
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
