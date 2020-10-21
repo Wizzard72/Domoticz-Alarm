@@ -854,7 +854,6 @@ class BasePlugin:
         APIjson = DomoticzAPI(jsonQuery)
         try:
             nodes = APIjson["result"]
-            Domoticz.Log("Device "+idx+" does exist!")
             statusdoDeviceExist = True
         except:
             nodes = []
