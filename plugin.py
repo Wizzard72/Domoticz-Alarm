@@ -146,7 +146,6 @@ class BasePlugin:
                 self.setVersionCheck(False, "onStart")
             else:
                 self.setVersionCheck(True, "onStart")
-                #self.versionCheck = True
         except Exception as err:
             Domoticz.Error("Domoticz version check returned an error: {}. Plugin is therefore disabled".format(err))
             self.setVersionCheck(False, "onStart")
@@ -167,6 +166,7 @@ class BasePlugin:
         self.MatrixRowTotal = TotalRows
         TotalColoms = 7
         self.createTheMatrix(TotalColoms, TotalRows)
+        
         #Populate the Matrix with Armed Home Devices
         ZoneArmedHome = Parameters["Mode2"].split(";")
         zoneNr = 0
@@ -202,14 +202,8 @@ class BasePlugin:
                         self.addToMatrix(TotalRows, zoneNr, "Armed Home", devices, "Off", "Normal", 0)
             zoneNr = zoneNr + 1
         
-        
         # create devices
         self.createDevices(self.TotalZones)
-        
-        #for zone in range(self.TotalZones):
-        #    self.setZoneStatus(self.TotalZones, zone, "Normal")
-        #    self.OpenSectionTotal[zone] = 0
-            
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+" | "+str(self.Matrix[x][5])+" | ")
@@ -237,10 +231,8 @@ class BasePlugin:
         self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue
         self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue
         
-        
         Domoticz.Heartbeat(5)
         self.secpassword = self.getsecpasspword()
-
 
     def onStop(self):
         strName = "onStop: "
@@ -258,7 +250,6 @@ class BasePlugin:
         strName = "onMessage: "
         Domoticz.Debug(strName+"called")
         
-
     def onCommand(self, Unit, Command, Level, Hue):
         if self.versionCheck is True:
             Domoticz.Log("VersionCheck = TRUE")
@@ -319,7 +310,6 @@ class BasePlugin:
                             self.setSecurityState(2)
         else:
             Domoticz.Error("Check Configuration (triggered by: onCommand)")
-        
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         strName = "onNotification: "
@@ -337,8 +327,6 @@ class BasePlugin:
             self.SensorActiveTime = Devices[self.ALARM_SENSOR_TIME].nValue
             # Main alarm
             self.mainAlarm()
-            # Siren
-            #self.controlSiren(self.TotalZones)
 
             for x in range(self.MatrixRowTotal):
                 Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
@@ -370,10 +358,6 @@ class BasePlugin:
             elif switchStatusIdx == "Off" or switchStatusIdx == "Closed" or switchStatusIdx == "Locked":
                 if self.Matrix[row][4] not in "Off":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
-                    #if self.Matrix[row][2] == "Armed Away":
-                    #   self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off", "Normal")
-                    #else:
-                    #    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "Off")
         
         for x in range(TotalRows):
             Domoticz.Debug(strName+"Matrix: "+str(self.Matrix[x][0])+" | "+str(self.Matrix[x][1])+" | "+str(self.Matrix[x][2])+" | "+str(self.Matrix[x][3])+" | "+str(self.Matrix[x][4])+" | "+str(self.Matrix[x][5])+" | "+str(self.Matrix[x][6])+" | ")
@@ -433,8 +417,6 @@ class BasePlugin:
                 #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if self.Matrix[row][5] == "New":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], self.Matrix[row][4], "Normal", 0)
-                    #self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Normal")
-            #self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Off")
         # Runs only when Armed Home or Armed Away
         elif AlarmMode == "Armed Home":
             trippedSensor = 0
@@ -449,7 +431,6 @@ class BasePlugin:
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
                             if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
                                 self.setAlarmArmingStatus("1trippedSensor", self.Matrix[row][1], "Tripped")
-                        #if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                         self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Tripped")
@@ -458,8 +439,6 @@ class BasePlugin:
                             trippedZone = str(self.Matrix[row][1])
                         else:
                             trippedZone = str(trippedZone)+","+str(self.Matrix[row][1])
-                #else:
-                    #self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Normal")
             for zone in range(TotalZones):
                 trippedZoneCheck = trippedZone.count(str(zone))
                 if trippedZoneCheck != 0:
@@ -476,9 +455,6 @@ class BasePlugin:
                     timeDiffSeconds = timeDiff.seconds
                     if timeDiffSeconds >= (self.OpenSectionArmAnyWay):
                         self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
-                #elif trippedZoneCheck == 0:
-                #    if self.Matrix[row][6] == 0
-                #        self.setAlarmArmingStatus("5trippedSensor", zone, "Normal")
         elif AlarmMode == "Armed Away": 
             trippedSensor = 0
             trippedZone = ""
@@ -492,7 +468,6 @@ class BasePlugin:
                         if self.ArmingStatusMode[self.Matrix[row][1]] != "Tripped":
                             if self.ArmingStatusMode[self.Matrix[row][1]] != "Alert":
                                 self.setAlarmArmingStatus("4trippedSensor", self.Matrix[row][1], "Tripped")
-                        #if self.Matrix[row][5] == "New":
                         sensorTime = self.getSwitchIDXLastUpdate(self.Matrix[row][3])
                         self.setTrippedSensorTimer(self.MatrixRowTotal, self.Matrix[row][3], sensorTime)
                         self.setAlarmArmingStatus("2trippedSensor", self.Matrix[row][1], "Tripped")
@@ -521,7 +496,6 @@ class BasePlugin:
     def setTrippedSensorTimer(self, TotalRows, DeviceIdx, TimeChanged):
         strName = "setTrippedSensorTimer - "
         for row in range(TotalRows):
-            #if self.Matrix[row][3] == DeviceIdx and self.Matrix[row][4] == "On" and self.Matrix[row][5] == "New":
             if self.Matrix[row][3] == DeviceIdx:
                 if self.Matrix[row][5] == "New":
                     self.Matrix[row][5] = "Tripped"
@@ -577,7 +551,6 @@ class BasePlugin:
         for row in range(TotalRows):
             if self.Matrix[row][0] == 0:
                 LastRow = row
-                #break
                 
         # Add to Matrix
         NewRow = LastRow+1
@@ -656,7 +629,6 @@ class BasePlugin:
             if Devices[self.ALARM_MAIN_UNIT].sValue != "Off":
                 UpdateDevice(self.ALARM_MAIN_UNIT, 0, "Off")
                 Domoticz.Log("Turn OFF Siren")
-        
     
     def mainAlarm(self):
         strName = "mainAlarm - "
@@ -820,17 +792,14 @@ class BasePlugin:
                             self.setOpenSectionDevice(zoneNr, self.Matrix[row][3])
                             countArmedHome = countArmedHome + 1
                             self.OpenSectionTotal[zoneNr] = countArmedHome
-                            #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
                 # Armed Away + Armed Home
                 elif zoneModeTxt == "Armed Away":
                     if self.Matrix[row][4] == "On":
                         # found open section (device)
-                        #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT + zoneNr
                         self.setAlarmArmingStatus("checkOpenSections", zoneNr, "Open Sections")
                         self.setOpenSectionDevice(zoneNr, self.Matrix[row][3])
                         countArmedAway = countArmedAway + 1
                         self.OpenSectionTotal[zoneNr] = countArmedAway
-                        #self.OpenSectionTotal[zoneNr] = self.OpenSectionTotal[zoneNr] + 1
         #Moet nog aangepast worden:
         for zone in range(self.TotalZones):
             Domoticz.Log(strName+"Total count in zone "+str(zone)+" of Open Section Devices = "+str(self.OpenSectionTotal[zone]))
@@ -892,7 +861,6 @@ class BasePlugin:
             Domoticz.Error("Device "+idx+" NOT does exist!")
             statusdoDeviceExist = False
             self.setVersionCheck(False, "doDeviceExist")
-            #self.VersionCheck = False
         return statusdoDeviceExist
         
         
@@ -904,7 +872,6 @@ class BasePlugin:
             nodes = APIjson["result"]
         except:
             nodes = []
-        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
         statusIdx = ""
         for node in nodes:
             statusIdx = str(node["Name"])
@@ -918,7 +885,6 @@ class BasePlugin:
             nodes = APIjson["result"]
         except:
             nodes = []
-        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
         statusIdx = ""
         for node in nodes:
             statusIdx = str(node["LastUpdate"])
@@ -932,7 +898,6 @@ class BasePlugin:
             nodes = APIjson["result"]
         except:
             nodes = []
-        #Domoticz.Debug(strName+"APIjson = "+str(nodes))
         statusIdx = ""
         for node in nodes:
             statusIdx = str(node["Status"])
@@ -1006,7 +971,6 @@ class BasePlugin:
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
         DescriptionArmingStatus = "The Arming Status options."
-        #DescriptionOpenSectionsDevice = "List of Open Section Devices."
         found_device = False
         for zoneNr in range(TotalZones):
             for item in Devices:
@@ -1051,23 +1015,18 @@ class BasePlugin:
                     new_unit = find_available_unit_Triggered_Device()
                     Domoticz.Device(Name="Tripped Devices zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Description=DescriptionTrippedDevice, Image=8).Create()
         
-        
-        
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
     resultJson = None
     url = "http://{}:{}/json.htm?{}".format(Parameters["Address"], Parameters["Port"], parse.quote(APICall, safe="&="))
-    #Domoticz.Debug(strName+"Calling domoticz API: {}".format(url))
     try:
         req = request.Request(url)
         if Parameters["Username"] != "":
-            #Domoticz.Debug(strName+"Add authentification for user {}".format(Parameters["Username"]))
             credentials = ('%s:%s' % (Parameters["Username"], Parameters["Password"]))
             encoded_credentials = base64.b64encode(credentials.encode('ascii'))
             req.add_header('Authorization', 'Basic %s' % encoded_credentials.decode("ascii"))
 
         response = request.urlopen(req)
-        #Domoticz.Debug(strName+"Response status = "+str(response.status))
         if response.status == 200:
             resultJson = json.loads(response.read().decode('utf-8'))
             if resultJson["status"] != "OK":
@@ -1176,7 +1135,6 @@ def find_available_unit():
         if num not in Devices:
             return num
     return None
-
 
 def find_available_unit_Arming_Mode():
     for num in range(10,19):
