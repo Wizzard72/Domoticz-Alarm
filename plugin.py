@@ -646,77 +646,78 @@ class BasePlugin:
         # Main Alarm script
         # Poll all sensors
         # Open Section - Exit Delay - Normal - Tripped - Alert
-        self.getSecurityState()
-        self.pollZoneDevices(self.MatrixRowTotal)
-        self.trippedSensorTimer(self.MatrixRowTotal)
-        for zone in range(self.TotalZones):
-            ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
-            AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
-            # OFF
-            if self.ArmingStatusMode[zone] == "Off":
-                self.controlSiren(self.TotalZones)
-                self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed", zone)
-            # OPEN SECTIONS 
-            elif self.ArmingStatusMode[zone] == "Open Sections":
-                try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.OpenSectionArmAnyWay:
-                    self.setAlarmArmingStatus("1-mainAlarm", zone, "Exit Delay")
-                    self.OpenSectionTotal[zone] = 0
-            # EXIT DELAY
-            elif self.ArmingStatusMode[zone] == "Exit Delay":
+        if self.versionCheck == True:
+            self.getSecurityState()
+            self.pollZoneDevices(self.MatrixRowTotal)
+            self.trippedSensorTimer(self.MatrixRowTotal)
+            for zone in range(self.TotalZones):
+                ArmingStatusUnit  = self.ALARM_ARMING_STATUS_UNIT + zone
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
-                # Exit Delay
-                try:
-                    timeDiff = datetime.now() - datetime.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
-                except TypeError:
-                    timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
-                timeDiffSeconds = timeDiff.seconds
-                if timeDiffSeconds >= self.exitDelay:
-                    self.setAlarmArmingStatus("2-mainAlarm", zone, "Normal")
-            # NORMAL
-            elif self.ArmingStatusMode[zone] == "Normal":
-                # reset the open section text device
-                openSectionDevice = self.ALARM_OPEN_SECTION_DEVICE + zone
-                UpdateDevice(openSectionDevice, 1, "None")
-                triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zone
-                UpdateDevice(triggeredDevice, 1, "None")
-                # Actual arm the building
-                if Devices[AlarmModeUnit].nValue == 0: # Disarmed
-                    if self.ArmingStatusMode[zone] == "Normal":
-                        self.setAlarmArmingStatus("3-mainAlarm", zone, "Off")
+                # OFF
+                if self.ArmingStatusMode[zone] == "Off":
                     self.controlSiren(self.TotalZones)
                     self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed", zone)
-                elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
-                    # Do the actual arming
+                # OPEN SECTIONS 
+                elif self.ArmingStatusMode[zone] == "Open Sections":
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= self.OpenSectionArmAnyWay:
+                        self.setAlarmArmingStatus("1-mainAlarm", zone, "Exit Delay")
+                        self.OpenSectionTotal[zone] = 0
+                # EXIT DELAY
+                elif self.ArmingStatusMode[zone] == "Exit Delay":
+                    AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone
+                    # Exit Delay
+                    try:
+                        timeDiff = datetime.now() - datetime.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')
+                    except TypeError:
+                        timeDiff = datetime.now() - datetime(*(time.strptime(Devices[AlarmModeUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
+                    timeDiffSeconds = timeDiff.seconds
+                    if timeDiffSeconds >= self.exitDelay:
+                        self.setAlarmArmingStatus("2-mainAlarm", zone, "Normal")
+                # NORMAL
+                elif self.ArmingStatusMode[zone] == "Normal":
+                    # reset the open section text device
+                    openSectionDevice = self.ALARM_OPEN_SECTION_DEVICE + zone
+                    UpdateDevice(openSectionDevice, 1, "None")
+                    triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zone
+                    UpdateDevice(triggeredDevice, 1, "None")
+                    # Actual arm the building
+                    if Devices[AlarmModeUnit].nValue == 0: # Disarmed
+                        if self.ArmingStatusMode[zone] == "Normal":
+                            self.setAlarmArmingStatus("3-mainAlarm", zone, "Off")
+                        self.controlSiren(self.TotalZones)
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed", zone)
+                    elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
+                        # Do the actual arming
+                        self.controlSiren(self.TotalZones)
+                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home", zone)
+                    elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
+                        self.controlSiren(self.TotalZones)
+                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away", zone)
+                # TRIPPED
+                elif self.ArmingStatusMode[zone] == "Tripped":
+                    if Devices[AlarmModeUnit].nValue == 0: # Disarmed
+                        if self.ArmingStatusMode[zone] == "Normal":
+                            self.setAlarmArmingStatus("4-mainAlarm", zone, "Off")
+                        self.controlSiren(self.TotalZones)
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed", zone)
+                    elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
+                        # Do the actual arming
+                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home", zone)
+                    elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
+                        Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
+                        self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away", zone)
+                # ALERT
+                elif self.ArmingStatusMode[zone] == "Alert":
                     self.controlSiren(self.TotalZones)
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
-                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home", zone)
-                elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
-                    self.controlSiren(self.TotalZones)
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away", zone)
-            # TRIPPED
-            elif self.ArmingStatusMode[zone] == "Tripped":
-                if Devices[AlarmModeUnit].nValue == 0: # Disarmed
-                    if self.ArmingStatusMode[zone] == "Normal":
-                        self.setAlarmArmingStatus("4-mainAlarm", zone, "Off")
-                    self.controlSiren(self.TotalZones)
-                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Disarmed", zone)
-                elif Devices[AlarmModeUnit].nValue == 10: # Armed Home
-                    # Do the actual arming
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Home")
-                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Home", zone)
-                elif Devices[AlarmModeUnit].nValue == 20: # Armed Away
-                    Domoticz.Debug(strName+"Zone "+str(zone)+" is Armed Away")
-                    self.trippedSensor(self.TotalZones, self.MatrixRowTotal, "Armed Away", zone)
-            # ALERT
-            elif self.ArmingStatusMode[zone] == "Alert":
-                self.controlSiren(self.TotalZones)
-            
+               
             
     def alarmModeChange(self, zoneNr, newStatus):
         # Changes in the Alarm Mode will be handled here
