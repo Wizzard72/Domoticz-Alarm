@@ -10,7 +10,7 @@
 #   1.2.0: Open Sections will show which device is cousing it
 #
 """
-<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.2.0" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
+<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.2.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>DEVELOPMENT Alarm plugin</h2><br/>
         Current Version:    1.2.0: Open Sections will show which device is cousing it
@@ -927,7 +927,7 @@ class BasePlugin:
                        "LevelOffHidden": "false",
                        "SelectorStyle": "1"}
         DescriptionArmingStatus = "The Arming Status options."
-        DescriptionOpenSectionsDevice = "List of Open Section Devices."
+        #DescriptionOpenSectionsDevice = "List of Open Section Devices."
         found_device = False
         for zoneNr in range(TotalZones):
             for item in Devices:
@@ -941,8 +941,25 @@ class BasePlugin:
             if found_device == False:
                     new_unit = find_available_unit_Arming_Status()
                     Domoticz.Device(Name="Arming Status (Zone "+str(zoneNr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=DescriptionArmingStatus, Image=8).Create()
+                    #new_unit = find_available_unit_Open_Section_Device()
+                    #Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Options=Options, Description=DescriptionOpenSectionsDevice, Image=8).Create()
+        
+        DescriptionOpenSectionsDevice = "List of Open Section Devices."
+        found_device = False
+        for zoneNr in range(TotalZones):
+            for item in Devices:
+                if zoneNr < 10:
+                    removeCharacters = -22
+                else:
+                    removeCharacters = -23
+                if Devices[item].Name[removeCharacters:] == "Arming Status (Zone "+str(zoneNr)+")":
+                    Domoticz.Log("Found device = "+"Arming Status (Zone "+str(zoneNr)+")")
+                    found_device = True
+            if found_device == False:
+                    #new_unit = find_available_unit_Arming_Status()
+                    #Domoticz.Device(Name="Arming Status (Zone "+str(zoneNr)+")", Unit=new_unit, TypeName="Selector Switch", Switchtype=18, Used=1, Options=Options, Description=DescriptionArmingStatus, Image=8).Create()
                     new_unit = find_available_unit_Open_Section_Device()
-                    Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Options=Options, Description=DescriptionOpenSectionsDevice, Image=8).Create()
+                    Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Description=DescriptionOpenSectionsDevice, Image=8).Create()
         
 def DomoticzAPI(APICall):
     strName = "DomoticzAPI - "
