@@ -12,7 +12,7 @@
 """
 <plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.2.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
-        <h2>DEVELOPMENT Alarm plugin</h2><br/>
+        <h2>Alarm plugin</h2><br/>
         Current Version:    1.2.0: Open Sections will show which device is cousing it
         <br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
