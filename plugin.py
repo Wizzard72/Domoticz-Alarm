@@ -982,8 +982,8 @@ class BasePlugin:
                     removeCharacters = -22
                 else:
                     removeCharacters = -23
-                if Devices[item].Name[removeCharacters:] == "Open Sections zone "+str(zoneNr)+")":
-                    Domoticz.Log("Found device = "+"Open Sections zone "+str(zoneNr)+")")
+                if Devices[item].Name[removeCharacters:] == "Open Sections zone "+str(zoneNr):
+                    Domoticz.Log("Found device = "+"Open Sections zone "+str(zoneNr))
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Open_Section_Device()
@@ -997,12 +997,12 @@ class BasePlugin:
                     removeCharacters = -22
                 else:
                     removeCharacters = -23
-                if Devices[item].Name[removeCharacters:] == "Tripped Devices zone "+str(zoneNr)+")":
-                    Domoticz.Log("Found device = "+"Tripped Devices zone "+str(zoneNr)+")")
+                if Devices[item].Name[removeCharacters:] == "Tripped Devices zone "+str(zoneNr):
+                    Domoticz.Log("Found device = "+"Tripped Devices zone "+str(zoneNr))
                     found_device = True
             if found_device == False:
                     new_unit = find_available_unit_Triggered_Device()
-                    Domoticz.Device(Name="Open Sections zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Description=DescriptionTrippedDevice, Image=8).Create()
+                    Domoticz.Device(Name="Tripped Devices zone "+str(zoneNr), Unit=new_unit, TypeName="Text", Used=1, Description=DescriptionTrippedDevice, Image=8).Create()
         
         
         
