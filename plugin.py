@@ -839,6 +839,8 @@ class BasePlugin:
         triggeredDeviceName = self.getSwitchIDXName(idx)+" ("+idx+")"
         if Devices[triggeredDevice].sValue == "None":
             UpdateDevice(triggeredDevice, 1, triggeredDeviceName)
+            #Here straight to Alert
+            self.setAlarmArmingStatus("setTriggeredDevice", zoneNr, "Alert")
         else:
             triggeredDeviceNameTotal = Devices[triggeredDevice].sValue +","+ triggeredDeviceName
             UpdateDevice(triggeredDevice, 1, triggeredDeviceNameTotal)
