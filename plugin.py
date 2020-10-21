@@ -257,36 +257,36 @@ class BasePlugin:
         
 
     def onCommand(self, Unit, Command, Level, Hue):
-        strName = "onCommand: "
-        Domoticz.Debug(strName+"called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
-        
-        for zone in range(self.TotalZones):
-            ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
-            if ArmingStatusUnit == Unit:
-                self.controlSiren(self.TotalZones)
-        
-        
-        if self.ALARM_SENSOR_TIME == Unit:
-            self.SensorActiveTime = Level + 20
-            Domoticz.Debug(strName+"Sensor Active Time = "+str(self.SensorActiveTime))
-            UpdateDevice(self.ALARM_SENSOR_TIME, Level, str(Level))
-        
-        if self.ALARM_ENTRY_DELAY == Unit:
-            self.entryDelay = Level + 20 #seconds
-            Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
-            UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
-        
-        if self.ALARM_OPEN_SECTION_TIMEOUT == Unit: 
-            self.entryDelay = Level + 20 #seconds
-            Domoticz.Debug(strName+"Open Sections = "+str(self.entryDelay))
-            UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, Level, str(Level))
-                
-        if self.ALARM_EXIT_DELAY == Unit:
-            self.exitDelay = Level + 20 #seconds
-            Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
-            UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
-            
         if self.versionCheck is True:
+            strName = "onCommand: "
+            Domoticz.Debug(strName+"called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
+        
+            for zone in range(self.TotalZones):
+                ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+zone
+                if ArmingStatusUnit == Unit:
+                    self.controlSiren(self.TotalZones)
+        
+        
+            if self.ALARM_SENSOR_TIME == Unit:
+                self.SensorActiveTime = Level + 20
+                Domoticz.Debug(strName+"Sensor Active Time = "+str(self.SensorActiveTime))
+                UpdateDevice(self.ALARM_SENSOR_TIME, Level, str(Level))
+        
+            if self.ALARM_ENTRY_DELAY == Unit:
+                self.entryDelay = Level + 20 #seconds
+                Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
+        
+            if self.ALARM_OPEN_SECTION_TIMEOUT == Unit: 
+                self.entryDelay = Level + 20 #seconds
+                Domoticz.Debug(strName+"Open Sections = "+str(self.entryDelay))
+                UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, Level, str(Level))
+                
+            if self.ALARM_EXIT_DELAY == Unit:
+                self.exitDelay = Level + 20 #seconds
+                Domoticz.Debug(strName+"Exit Delay = "+str(self.exitDelay))
+                UpdateDevice(self.ALARM_EXIT_DELAY, Level, str(Level))
+            
             for zone_nr in range(self.TotalZones):
                 AlarmModeUnit = self.ALARM_ARMING_MODE_UNIT + zone_nr
                 if AlarmModeUnit == Unit:
@@ -315,6 +315,8 @@ class BasePlugin:
                         self.mainAlarm()
                         if self.ALARM_ARMING_MODE_UNIT == Unit:
                             self.setSecurityState(2)
+    else
+        Domoticz.Error("Check Configuration")
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
@@ -341,6 +343,8 @@ class BasePlugin:
         
             for zone in range(self.TotalZones):
                 Domoticz.Debug(strName+"self.ArmingStatusMode["+str(zone)+"] = "+str(self.ArmingStatusMode[zone]))
+        else
+            Domoticz.Error("Check Configuration")
          
     def pollZoneDevices(self, TotalRows):
         strName = "pollZoneDevices - "
@@ -718,6 +722,8 @@ class BasePlugin:
                 # ALERT
                 elif self.ArmingStatusMode[zone] == "Alert":
                     self.controlSiren(self.TotalZones)
+        else
+            Domoticz.Error("Check Configuration")
                
             
     def alarmModeChange(self, zoneNr, newStatus):
