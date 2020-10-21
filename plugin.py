@@ -14,7 +14,7 @@
 <plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.2.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        Current Version:    1.2.1: Open Sections will show which device is cousing it
+        Current Version:    1.3.0: Added fire devices
         <br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
@@ -57,8 +57,8 @@
         </param>
         <param field="Mode2" label="Sensors in Zone Armed Home" width="600px" required="true" default="idx,idx,idx;idx,idx,idx"/>
         <param field="Mode3" label="Sensors in Zone Armed Away" width="600px" required="true" default="idx,idx,idx;idx,idx,idx"/>
-        <param field="Mode4" label="Siren active for (s)" width="150" required="true" default="50"/>
-        <param field="Mode5" label="Poll Interval in seconds" width="200px" required="true" default="15"/>
+        <param field="Mode4" label="Fire devices" width="600px" required="false" default="idx,idx,idx;idx,idx,idx"/>
+        <param field="Mode5" label="Siren active for (s)" width="150" required="true" default="50"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
                 <option label="None" value="0"  default="true" />
@@ -214,7 +214,7 @@ class BasePlugin:
         self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue
         
         
-        Domoticz.Heartbeat(int(Parameters["Mode5"]))
+        Domoticz.Heartbeat(5)
         self.secpassword = self.getsecpasspword()
 
 
@@ -574,7 +574,7 @@ class BasePlugin:
                 except TypeError:
                     timeDiff = datetime.now() - datetime(*(time.strptime(Devices[ArmingStatusUnit].LastUpdate,'%Y-%m-%d %H:%M:%S')[0:6]))
                 timeDiffSeconds = timeDiff.seconds
-                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode4"])
+                endSirenTimeSeconds = Devices[self.ALARM_ENTRY_DELAY].nValue + int(Parameters["Mode5"])
                 if timeDiffSeconds >= Devices[self.ALARM_ENTRY_DELAY].nValue and timeDiffSeconds <= endSirenTimeSeconds: # EntryDelay
                     self.activateSiren(self.TotalZones, zone)
                     countAlarm = countAlarm + 1
