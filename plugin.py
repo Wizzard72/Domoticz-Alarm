@@ -549,7 +549,7 @@ class BasePlugin:
             zoneDevices = amount.split(",")
             for amountDevices in zoneDevices:
                 if str(amountDevices.lower()) not in "none,0":
-                    if self.doDeviceExist(devices) is True:
+                    if self.doDeviceExist(amountDevices) is True:
                         DevicesCount = DevicesCount + 1
         return DevicesCount
         
