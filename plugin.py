@@ -840,8 +840,14 @@ class BasePlugin:
         triggeredDeviceName = self.getSwitchIDXName(idx)+" ("+idx+")"
         if Devices[triggeredDevice].sValue == "None":
             UpdateDevice(triggeredDevice, 1, triggeredDeviceName)
-            #Here straight to Alert
-            self.setAlarmArmingStatus("setTriggeredDevice", zoneNr, "Alert")
+            #Here straight to Alert for Fire devices
+            ZoneFireDevices = Parameters["Mode4"].split(";")
+            for zone in ZoneFireDevices:
+                devicesIdx = zone.split(",")
+                for devices in devicesIdx:
+                    if str(devices.lower()) == idx:
+                        #Found Fire Device turning on the Alert
+                        self.setAlarmArmingStatus("setTriggeredDevice", zoneNr, "Alert")
         else:
             triggeredDeviceNameTotal = Devices[triggeredDevice].sValue +","+ triggeredDeviceName
             UpdateDevice(triggeredDevice, 1, triggeredDeviceNameTotal)
