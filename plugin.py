@@ -722,7 +722,7 @@ class BasePlugin:
                 # ALERT
                 elif self.ArmingStatusMode[zone] == "Alert":
                     self.controlSiren(self.TotalZones)
-        else
+        else:
             Domoticz.Error("Check Configuration")
                
             
