@@ -119,7 +119,7 @@ class BasePlugin:
     OpenSectionArmAnyWay = 0
     OpenSectionTotal = {}
     ArmingStatusMode = {}
-    versionCheck = False
+    versionCheck = None
 
 
     
@@ -143,11 +143,13 @@ class BasePlugin:
                     "Domoticz version required by this plugin is 2020.2 (you are running version {}).".format(
                         Parameters["DomoticzVersion"]))
                 Domoticz.Error("Plugin is therefore disabled")
+                self.setVersionCheck(False, "onStart")
             else:
                 self.setVersionCheck(True, "onStart")
                 #self.versionCheck = True
         except Exception as err:
             Domoticz.Error("Domoticz version check returned an error: {}. Plugin is therefore disabled".format(err))
+            self.setVersionCheck(False, "onStart")
         if not self.versionCheck:
             return
         
@@ -261,7 +263,7 @@ class BasePlugin:
         if self.versionCheck is True:
             Domoticz.Log("VersionCheck = TRUE")
         elif self.versionCheck is False:
-            Domoticz.Log("VersionCheck = TRUE")
+            Domoticz.Log("VersionCheck = FALSE")
         else:
             Domoticz.Error("VersionCheck = ERROR")
         if self.versionCheck is True:
@@ -316,7 +318,7 @@ class BasePlugin:
                         if self.ALARM_ARMING_MODE_UNIT == Unit:
                             self.setSecurityState(2)
         else:
-            Domoticz.Error("Check Configuration")
+            Domoticz.Error("Check Configuration (triggered by: onCommand)")
         
                 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
@@ -344,7 +346,7 @@ class BasePlugin:
             for zone in range(self.TotalZones):
                 Domoticz.Debug(strName+"self.ArmingStatusMode["+str(zone)+"] = "+str(self.ArmingStatusMode[zone]))
         else:
-            Domoticz.Error("Check Configuration")
+            Domoticz.Error("Check Configuration (triggered by: onHeartbeat)")
          
     def setVersionCheck(self, value, note):
         strName = "setVersionCheck - "
@@ -731,7 +733,7 @@ class BasePlugin:
                 elif self.ArmingStatusMode[zone] == "Alert":
                     self.controlSiren(self.TotalZones)
         else:
-            Domoticz.Error("Check Configuration")
+            Domoticz.Error("Check Configuration (Triggered by: mainAlarm")
                
             
     def alarmModeChange(self, zoneNr, newStatus):
