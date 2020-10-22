@@ -17,6 +17,7 @@ such as PIR, Door, other sensors.
         
 Configuration
 	* Add the Domoticz IP Address to the Settings Local Networks
+	![Alt text](/images/LocalNetworks.png?raw=true)
         
 Alarm zones:
     * The first zone triggers the Security Panel
