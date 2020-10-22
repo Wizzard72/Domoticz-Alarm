@@ -5,9 +5,11 @@
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Entry%20Delay.png)
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Exit%20Delay.png)
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Open%20Sections%20Timeout.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Open%20Sections%20Zone%200.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Tripped%20Devices%20Zone%200.png)
 
 
-Versions:
+## Versions:
 
     1.0.0: First release
     1.0.1: Bug fix release
@@ -18,6 +20,7 @@ Versions:
     1.2.1: Bug fix not creating Open Section Text Devices when updating an existing plugin
     1.3.0: Added fire devices, check if configured devices exists, text devices for Open Sections and Tripped devices
 
+## Introduction
 There was no real alarm system for Domoticz. Some scripts and blocky's are available, but they do not meet my expectations. 
 So I created this plugin.
 
@@ -86,7 +89,7 @@ Fill in all fields:
 | Debug: | Debug information. |
 
 
-# Update
+## Update
 Update plugin to latest version:
 
         cd /home/<username>/domoticz/plugin
