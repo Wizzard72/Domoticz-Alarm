@@ -222,7 +222,7 @@ class BasePlugin:
             self.ActivePIRSirenAway = 2
         
         for zone in range(self.TotalZones):
-            self.ArmingStatusMode[zone] = 0
+            self.ArmingStatusMode[zone] = "Off"
             openSectionDevice = self.ALARM_OPEN_SECTION_DEVICE + zone
             triggeredDevice = self.ALARM_TRIGGERED_DEVICE + zone
             UpdateDevice(openSectionDevice, 1, "None")
