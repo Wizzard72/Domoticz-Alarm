@@ -19,7 +19,7 @@ such as PIR, Door, other sensors.
 ## Configuration
 ### Go to Settings and configure the following sections:
 * Enable Website Protection and create an user and set a password
-https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.pnghttps://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
 * Add the Domoticz IP Address to the Settings Local Networks
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Local%20Networks.png)
 
