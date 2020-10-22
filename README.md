@@ -24,7 +24,7 @@ such as PIR, Door, other sensors.
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Local%20Networks.png)
 ### Go to: Setup --> More Options --> Edit Users:
 * Create an Alarm User
-![ble_tag(https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
 * Set Devices allowed for Alarm User
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User%20Set%20Devices.png)
         
