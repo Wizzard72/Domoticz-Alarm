@@ -55,7 +55,7 @@ The plugin is tested to works on a Raspberry Pi 3b.
 
 ## Installation
 
-### Configuration
+### Pre Configuration Domoticz
 #### Go to: Setup --> Settings:
 * Enable Website Protection and create an user and set a password
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
@@ -67,6 +67,7 @@ The plugin is tested to works on a Raspberry Pi 3b.
 * Set Devices allowed for Alarm User
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User%20Set%20Devices.png)
 
+### Install plugin on Domoticz (only Linux is supported)
 To install the plugin login to the Raspberry Pi (SSH / Putty).
   
         cd /home/<username>/domoticz/plugin
