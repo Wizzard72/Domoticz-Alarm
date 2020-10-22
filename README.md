@@ -17,8 +17,13 @@ This plugin creates an Alarm System in Domoticz. It depends on the devices alrea
 such as PIR, Door, other sensors.
         
 ## Configuration
+### Go to Settings and configure the following sections:
+* Enable Website Protection and create an user and set a password
+https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.pnghttps://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
 * Add the Domoticz IP Address to the Settings Local Networks
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Local%20Networks.png)
+
+
 * Create Alarm user
 ![ble_tag](https://github.com/Wizzard72/Domoticz-Alarm/blob/master/images/LocalNetworks.png)
         
