@@ -67,16 +67,15 @@ Fill in all fields:
 | Field | Information|
 | ----- | ---------- |
 | Domoticz IP Address: | The internal IP address of your Domoticz Install. |
-| Domoticz Port Number: | The port number of your Domoticz Install.
-| Username: | The plugin need access to the sensors.It reads them with JSON. You can create a separate  User for the plugin.
-| Password: | The password of the Username.
-| Active devices to trigger Siren:  |ow many devices must be triggerd to set the alarm off. It's configurable for Armed Home and Armed Away and is applyable to all zones.
-| Zone Armed Home:                  Devices (idx numbers) that trigger the Alarm when activated. If the Alarm is in Armed Home state, it only checks the devices for this zone.
-| Zone Armed Away:                  Devices (idx numbers) that trigger the Alarm when activated. If the Alarm is in Armed Away state, it not only checks the devices for this zone, but also for the Armed Home Zone (Armed Away + Armed Home).
-| Siren active for (s):             Configure how long the siren is turned on. When the arming mode status is turned to Off,
-                                        the siren is turned off aswel.
-| Poll Interval in seconds:         This settings controls how often the sensors are checked.
-| Debug:                            Debug information
+| Domoticz Port Number: | The port number of your Domoticz Install. |
+| Username: | The plugin need access to the sensors.It reads them with JSON. You can create a separate  User for the plugin. |
+| Password: | The password of the Username. |
+| Active devices to trigger Siren:  | How many devices must be triggerd to set the alarm off. It's configurable for Armed Home and Armed Away and is applyable to all zones. |
+| Zone Armed Home: | Devices (idx numbers) that trigger the Alarm when activated. If the Alarm is in Armed Home state, it only checks the devices for this zone. |
+| Zone Armed Away: | Devices (idx numbers) that trigger the Alarm when activated. If the Alarm is in Armed Away state, it not only checks the devices for this zone, but also for the Armed Home Zone (Armed Away + Armed Home). |
+| Fire Devices: | Devices (idx number) that trigger the Alarm when activated. If one of the fire devices is turned on the Alarm is turned on also. It's independed of the arming mode. |
+| Siren active for (s): | Configure how long the siren is turned on. When the arming mode status is turned to Off, the siren is turned off aswel. |
+| Debug: | Debug information. |
 
 
 
