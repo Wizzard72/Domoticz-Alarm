@@ -9,7 +9,7 @@
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Tripped%20Devices%20Zone%200.png)
 
 
-## Versions:
+## Versions
 
     1.0.0: First release
     1.0.1: Bug fix release
@@ -27,7 +27,7 @@ So I created this plugin.
 This plugin creates an Alarm System in Domoticz. It depends on the devices already available in your Domoticz setup, 
 such as PIR, Door, other sensors.
     
-## Alarm zones:
+## Introducing Alarm zones, etc.
 - The first zone triggers the Security Panel
 - The can be max 9 Alarm Zones.
 - Alarm zones are separated in Armed Home and Armed Away:
