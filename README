@@ -18,7 +18,7 @@ such as PIR, Door, other sensors.
 Configuration
 	* Add the Domoticz IP Address to the Settings Local Networks
 	<img width=“964” alt=“java 8 and prio java 8  array review example” src="https://github.com/Wizzard72/Domoticz-Alarm/blob/master/images/LocalNetworks.png">
-        
+        ## Heading 2 
 Alarm zones:
     * The first zone triggers the Security Panel
     * The can be max 9 Alarm Zones.
