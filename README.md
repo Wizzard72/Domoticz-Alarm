@@ -29,18 +29,18 @@ such as PIR, Door, other sensors.
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User%20Set%20Devices.png)
         
 ## Alarm zones:
-    * The first zone triggers the Security Panel
-    * The can be max 9 Alarm Zones.
-    * Alarm zones are separated in Armed Home and Armed Away:
-    * Armed Home consists of devices (idx numbers) that triggers the outside perimeter, such as:
-        * frond and/or back door sensor(s),
-        * window sensor(s),
-        * PIR sensor(s) in the garden, 
-        * etc.
-    * Armed Away consists of all devices (idx numbers) that can be triggered when you're not home, such as:
-        * PIR sensors indoors,
-        * door sensor(s) indoor,
-        * etc.
+* The first zone triggers the Security Panel
+* The can be max 9 Alarm Zones.
+ * Alarm zones are separated in Armed Home and Armed Away:
+ * Armed Home consists of devices (idx numbers) that triggers the outside perimeter, such as:
+  * frond and/or back door sensor(s),
+  * window sensor(s),
+  * PIR sensor(s) in the garden, 
+  * etc.
+ * Armed Away consists of all devices (idx numbers) that can be triggered when you're not home, such as:
+  * PIR sensors indoors,
+  * door sensor(s) indoor,
+  * etc.
     * If the Alarm is in Armed Away mode it includes also the Armed Home sensors.
     * The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"
     * Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. 
