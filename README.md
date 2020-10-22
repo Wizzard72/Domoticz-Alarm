@@ -1,5 +1,6 @@
-Alarm System for Domoticz
+# Alarm System for Domoticz
 Versions:
+
     1.0.0: First release
     1.0.1: Bug fix release
     1.1.0: Bug fix release and reorder the Alarm Status Selector Switch levels, New Selector Switch for Open Section Timeout
@@ -15,11 +16,11 @@ So I created this plugin.
 This plugin creates an Alarm System in Domoticz. It depends on the devices already available in your Domoticz setup, 
 such as PIR, Door, other sensors.
         
-Configuration
+## Configuration
 	* Add the Domoticz IP Address to the Settings Local Networks
   ![ble_tag](https://github.com/Wizzard72/Domoticz-Alarm/blob/master/images/LocalNetworks.png)
         
-Alarm zones:
+## Alarm zones:
     * The first zone triggers the Security Panel
     * The can be max 9 Alarm Zones.
     * Alarm zones are separated in Armed Home and Armed Away:
