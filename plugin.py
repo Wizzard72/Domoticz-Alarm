@@ -59,7 +59,7 @@
         </param>
         <param field="Mode2" label="Sensors in Zone Armed Home" width="600px" required="true" default="idx,idx,idx;none"/>
         <param field="Mode3" label="Sensors in Zone Armed Away" width="600px" required="true" default="idx,idx,idx;idx,idx,idx"/>
-        <param field="Mode4" label="Fire devices" width="600px" required="false" default="none;idx,idx,idx"/>
+        <param field="Mode4" label="Fire alarm devices" width="600px" required="false" default="none;idx,idx,idx"/>
         <param field="Mode5" label="Siren active for (s)" width="150" required="true" default="50"/>
         <param field="Mode6" label="Debug" width="75px">
             <options>
