@@ -18,7 +18,7 @@ such as PIR, Door, other sensors.
         
 ## Configuration
 * Add the Domoticz IP Address to the Settings Local Networks
-![ble_tag](https://github.com/Wizzard72/Domoticz-Alarm/blob/master/images/Local@20Networks.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Local%20Networks.png)
 * Create Alarm user
 ![ble_tag](https://github.com/Wizzard72/Domoticz-Alarm/blob/master/images/LocalNetworks.png)
         
