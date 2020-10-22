@@ -89,6 +89,21 @@ Fill in all fields:
 | Siren active for (s): | Configure how long the siren is turned on. When the arming mode status is turned to Off, the siren is turned off aswel. |
 | Debug: | Debug information. |
 
+### Entry Delay
+When system is armed (Armed Home or Armed Away) Entry Delay is used to set the time period necessary for you to approach the keypad and disarm the system once after you have been detected by the zone which you set as "entry zone". During this time the plugin will not trigger the alarm.
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Entry%20Delay.png)
+
+### Exit Delay
+The Exit Delay setting gives you a short period of time to leave your home once you’ve armed the Alarm.
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Exit%20Delay.png)
+
+### Open Sections Timeout
+The Open Sections Timeout is the amount of time the Alarm Arming Status keeps this status and after this period it's going to the next status. The Open Sections devices are not used until these open sections are closed. Then the device statussen are part of the alarm. 
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Open%20Sections%20Timeout.png)
+
+### Sensor Active Time
+The statussen of the devices are kept in memory. So for example a door is opened and closed that takes only 1 or 2 seconds. The Sensor Active Time enlarge this time. If a person opens a door and closed it but is not yet in reach of the motion sensor, then normally the plugin would not combine the 2 activities and thus would not sound the alarm. By extending the tripped sensor time it's more likely to detect this.
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Sensor%20Active%20Time.png)
 
 ## Update
 Update plugin to latest version:
