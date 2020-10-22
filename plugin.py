@@ -252,12 +252,6 @@ class BasePlugin:
         
     def onCommand(self, Unit, Command, Level, Hue):
         if self.versionCheck is True:
-            Domoticz.Log("VersionCheck = TRUE")
-        elif self.versionCheck is False:
-            Domoticz.Log("VersionCheck = FALSE")
-        else:
-            Domoticz.Error("VersionCheck = ERROR")
-        if self.versionCheck is True:
             strName = "onCommand: "
             Domoticz.Debug(strName+"called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
             for zone in range(self.TotalZones):
@@ -414,9 +408,21 @@ class BasePlugin:
         # Check Sensor with state New
         if AlarmMode == "Disarmed":
             for row in range(TotalRows):
-                #ArmingStatusUnit = self.ALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
+                #ArmingStatusUnit = self.DALARM_ARMING_STATUS_UNIT+self.Matrix[row][1]
                 if self.Matrix[row][5] == "New":
-                    self.changeRowinMatrix(TotalRows, self.Matrix[row][3], self.Matrix[row][4], "Normal", 0)
+                    zoneNr = 0
+                    ZoneFireDevices = Parameters["Mode4"].split(";")
+                    for zone in ZoneFireDevices:
+                        devicesIdx = zone.split(",")
+                        for devices in devicesIdx:
+                            if str(devices.lower()) == self.Matrix[row][3]:
+                                #Found Fire Device turning on the Alert
+                                self.setAlarmArmingStatus("0trippedSensor", self.Matrix[row][1], "Tripped")
+                                self.setTriggeredDevice(self.Matrix[row][1], self.Matrix[row][3])
+                                self.setAlarmArmingStatus("0trippedSensor", zoneNr, "Alert")
+                            else:
+                                self.changeRowinMatrix(TotalRows, self.Matrix[row][3], self.Matrix[row][4], "Normal", 0)
+                        zoneNr = zoneNr + 1
         # Runs only when Armed Home or Armed Away
         elif AlarmMode == "Armed Home":
             trippedSensor = 0
