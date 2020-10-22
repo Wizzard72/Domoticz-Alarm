@@ -1,4 +1,12 @@
 # Alarm System for Domoticz
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Siren.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Arming%20Mode%20Zone%200.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Arming%20Status%20Zone%200.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Entry%20Delay.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Exit%20Delay.png)
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Open%20Sections%20Timeout.png)
+
+
 Versions:
 
     1.0.0: First release
@@ -78,7 +86,7 @@ Fill in all fields:
 | Debug: | Debug information. |
 
 
-
+# Update
 Update plugin to latest version:
 
         cd /home/<username>/domoticz/plugin
@@ -89,5 +97,3 @@ Update plugin to latest version:
         
         In Domoticz Hardware page: Enable the Alarm System for Domoticz plugin
 
-
-![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User.png)
