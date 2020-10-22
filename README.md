@@ -41,13 +41,10 @@ such as PIR, Door, other sensors.
   * PIR sensors indoors,
   * door sensor(s) indoor,
   * etc.
-    * If the Alarm is in Armed Away mode it includes also the Armed Home sensors.
-    * The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"
-    * Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. 
-      When a zone has no devices put in a "0" or the text "none".
-    * The active sensors device setting must be higer (in seconds) than the setting "Interval in seconds".
-      So , if the active sensor device setting is for example 20s, it keeps the setting in memory active dor 20 seconds. If
-      the Interval in seconds is for example 40s, then the triggerd sensors are never detected.
+* If the Alarm is in Armed Away mode it includes also the Armed Home sensors.
+* The deviceID (idx) that belongs to a zone are separated with a "," and a zone is separated with a ";"
+* Both parameters must have the same amount of zones, but a zone can have different amount of devices in it. When a zone has no devices put in a "0" or the text "none".
+* The active sensors device setting must be higer (in seconds) than the setting "Interval in seconds". So , if the active sensor device setting is for example 20s, it keeps the setting in memory active dor 20 seconds. If the Interval in seconds is for example 40s, then the triggerd sensors are never detected.
         
 Open Sections are detected and reported per zone in the Arming Status Selector Switch. Depending of the configured value of 
 Selector Switch 'Open Sections Timeout' the alarm is armed anyway. Until the open sections are resolved, these sensors are not 
