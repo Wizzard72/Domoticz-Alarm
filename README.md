@@ -26,19 +26,7 @@ So I created this plugin.
 
 This plugin creates an Alarm System in Domoticz. It depends on the devices already available in your Domoticz setup, 
 such as PIR, Door, other sensors.
-        
-## Configuration
-### Go to: Setup --> Settings:
-* Enable Website Protection and create an user and set a password
-![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
-* Add the Domoticz IP Address to the Settings Local Networks
-![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Local%20Networks.png)
-### Go to: Setup --> More Options --> Edit Users:
-* Create an Alarm User        
-![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User.png)
-* Set Devices allowed for Alarm User
-![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User%20Set%20Devices.png)
-        
+    
 ## Alarm zones:
 - The first zone triggers the Security Panel
 - The can be max 9 Alarm Zones.
@@ -64,6 +52,20 @@ actively involved in the alarm detection process.
 Exit and Entry Delay can be set through the Selector Switches. They apply to each configured zone.
 
 The plugin is tested to works on a Raspberry Pi 3b.
+
+## Installation
+
+### Configuration
+#### Go to: Setup --> Settings:
+* Enable Website Protection and create an user and set a password
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Website%20Protection.png)
+* Add the Domoticz IP Address to the Settings Local Networks
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Local%20Networks.png)
+#### Go to: Setup --> More Options --> Edit Users:
+* Create an Alarm User        
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User.png)
+* Set Devices allowed for Alarm User
+![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Alarm%20User%20Set%20Devices.png)
 
 To install the plugin login to the Raspberry Pi (SSH / Putty).
   
