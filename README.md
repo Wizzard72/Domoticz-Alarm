@@ -85,7 +85,7 @@ Fill in all fields:
 | Active devices to trigger Siren:  | How many devices must be triggerd to set the alarm off. It's configurable for Armed Home and Armed Away and is applyable to all zones. |
 | Zone Armed Home: | Devices (idx numbers) that trigger the Alarm when activated. If the Alarm is in Armed Home state, it only checks the devices for this zone. |
 | Zone Armed Away: | Devices (idx numbers) that trigger the Alarm when activated. If the Alarm is in Armed Away state, it not only checks the devices for this zone, but also for the Armed Home Zone (Armed Away + Armed Home). |
-| Fire Devices: | Devices (idx number) that trigger the Alarm when activated. If one of the fire devices is turned on the Alarm is turned on also. It's independed of the arming mode. |
+| Fire alarm devices: | Devices (idx number) that trigger the Alarm when activated. If one of the fire devices is turned on the Alarm is turned on also. It's independed of the arming mode. |
 | Siren active for (s): | Configure how long the siren is turned on. When the arming mode status is turned to Off, the siren is turned off aswel. |
 | Debug: | Debug information. |
 
