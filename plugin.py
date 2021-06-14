@@ -11,13 +11,13 @@
 #   1.2.1: Bux fix for creating Open Section devices when plugin was already installed
 #   1.3.0: Added fire devices, check if configured devices exists, text devices for Open Sections and Tripped devices
 #   1.3.1: Fire devices now active the alarm when alarm is disabled
-#   1.3.2: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
+#   1.3.2: Thanks to Beastie971: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
 #
 """
 <plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.3.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        Current Version:    1.3.2: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
+        Current Version:    1.3.2: Thanks to Beastie971: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
         <br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
