@@ -11,12 +11,13 @@
 #   1.2.1: Bux fix for creating Open Section devices when plugin was already installed
 #   1.3.0: Added fire devices, check if configured devices exists, text devices for Open Sections and Tripped devices
 #   1.3.1: Fire devices now active the alarm when alarm is disabled
+#   1.3.2: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
 #
 """
 <plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.3.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        Current Version:    1.3.0: Added fire devices, check if configured devices exists, text devices for Open Sections and Tripped devices
+        Current Version:    1.3.2: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
         <br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
@@ -104,6 +105,7 @@ class BasePlugin:
     ALARM_OPEN_SECTION_DEVICE = 40
     ALARM_TRIGGERED_DEVICE = 50
     SecurityPanel = ""
+    SecStatus = ""
     anybodyHome = ""
     entryDelay = 0
     exitDelay = 0
@@ -121,6 +123,8 @@ class BasePlugin:
     OpenSectionTotal = {}
     ArmingStatusMode = {}
     versionCheck = None
+    SecStatus = 0
+    oldSecStatus = 0
 
 
     
@@ -131,6 +135,7 @@ class BasePlugin:
     def onStart(self):
         strName = "onStart: "
         Domoticz.Debug(strName+"called")
+        Domoticz.Heartbeat(1)
         if (Parameters["Mode6"] != "0"):
             Domoticz.Debugging(int(Parameters["Mode6"]))
         else:
@@ -232,7 +237,6 @@ class BasePlugin:
         self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue
         self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue
         
-        Domoticz.Heartbeat(5)
         self.secpassword = self.getsecpasspword()
 
     def onStop(self):
@@ -347,7 +351,8 @@ class BasePlugin:
         for row in range(TotalRows):
             deviceIDX = self.Matrix[row][3]
             switchStatusIdx = self.getSwitchIDXStatus(deviceIDX)
-            if switchStatusIdx == "On"  or switchStatusIdx == "Open" or switchStatusIdx == "Unlocked":
+            #Domoticz.Debug("DEBUG deviceIDX="+deviceIDX+" switchStatusIdx="+switchStatusIdx)
+            if switchStatusIdx == "On"  or switchStatusIdx == "Open" or switchStatusIdx == "Unlocked" or switchStatusIdx == "Alarm" or switchStatusIdx == "Tamper" or switchStatusIdx == "Tamper+Alarm":
                 if self.Matrix[row][4] not in "On,Normal":
                     self.changeRowinMatrix(TotalRows, self.Matrix[row][3], "On", "New")
             elif switchStatusIdx == "Off" or switchStatusIdx == "Closed" or switchStatusIdx == "Locked":
@@ -367,18 +372,31 @@ class BasePlugin:
         except:
             nodes = []
         Domoticz.Debug(strName+"APIjson = "+str(nodes))
-        if nodes["secstatus"] == 0:
+        self.oldSecStatus=self.SecStatus
+        self.SecStatus = nodes["secstatus"]
+        if self.SecStatus == 0:
             Domoticz.Debug("Security State = Disarmed")
-            self.SecurityPanel = "Disarmed"
-        elif nodes["secstatus"] == 1:
+        elif self.SecStatus == 1:
             Domoticz.Debug("Security State = Arm Home")
-            self.SecurityPanel = "Arm Home"
-        elif nodes["secstatus"] == 2:
+        elif self.SecStatus == 2:
             Domoticz.Debug("Security State = Arm Away")
-            self.SecurityPanel = "Arm Away"
-        elif nodes["secstatus"] == 3:
+        elif self.SecStatus == 3:
             Domoticz.Debug("Security State = Unknown")
             self.SecurityPanel = "Unknown"
+
+        if self.SecStatus != self.oldSecStatus:
+            Domoticz.Debug("secstatus changed to: "+str(self.SecStatus))
+            if self.SecStatus == 0:
+                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 0,0)
+                self.SecurityPanel = "Disarmed"
+            elif self.SecStatus == 1:
+                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 10, 10)
+                self.SecurityPanel = "Arm Home"
+            elif self.SecStatus == 2:
+                UpdateDevice(self.ALARM_ARMING_MODE_UNIT, 20, 20)
+                self.SecurityPanel = "Arm Away"
+
+
         
     def getsecpasspword(self):
         strName = "getsecpasspword - "
@@ -907,6 +925,21 @@ class BasePlugin:
         statusIdx = ""
         for node in nodes:
             statusIdx = str(node["Status"])
+            SubType = str(node["SubType"])
+            Level = int(node["Level"])
+            #LevelNames = str(node["LevelNames"])
+            #if(SubType == "Selector Switch"):
+
+        if (SubType == "Selector Switch"):
+            if (Level == 0):
+                statusIdx = "Off"
+            if (Level == 10):
+                statusIdx = "Tamper"
+            if (Level == 20):
+                statusIdx = "Alarm"
+            if (Level == 30):
+                statusIdx = "Tamper+Alarm"
+       # Domoticz.Debug("DEBUG Level="+str(Level))
         return statusIdx
     
     def createDevices(self, TotalZones):
