@@ -20,6 +20,8 @@
     1.2.0: Added Open Section Text Device
     1.2.1: Bug fix not creating Open Section Text Devices when updating an existing plugin
     1.3.0: Added fire devices, check if configured devices exists, text devices for Open Sections and Tripped devices
+    1.3.1: Fire devices now active the alarm when alarm is disabled
+    1.3.2: Thanks to Beastie971: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
 
 ## Introduction
 There was no real alarm system for Domoticz. Some scripts and blocky's are available, but they do not meet my expectations. 
