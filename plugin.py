@@ -232,13 +232,13 @@ class BasePlugin:
 
         if Devices[self.ALARM_ENTRY_DELAY].nValue != 0:
             self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue + 20
-            Domoticz.Log(strName + "Entry Delay set to: " + str(self.entryDelay) + " seconds")
+            Domoticz.Log(strName + "Entry Delay set to:          " + str(self.entryDelay) + " seconds")
         if Devices[self.ALARM_EXIT_DELAY].nValue != 0:
             self.exitDelay = Devices[self.ALARM_EXIT_DELAY].nValue + 20
-            Domoticz.Log(strName + "Exit Delay set to: " + str(self.exitDelay) + " seconds")
+            Domoticz.Log(strName + "Exit Delay set to:           " + str(self.exitDelay) + " seconds")
         if Devices[self.ALARM_SENSOR_TIME].nValue != 0:
             self.SensorActiveTime = Devices[self.ALARM_SENSOR_TIME].nValue + 30
-            Domoticz.Log(strName + "Sensor Active Time set to: " + str(self.SensorActiveTime) + " seconds")
+            Domoticz.Log(strName + "Sensor Active Time set to:   " + str(self.SensorActiveTime) + " seconds")
         if Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue != 0:
             self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue + 20
             Domoticz.Log(strName + "Open Section Timeout set to: " + str(self.OpenSectionArmAnyWay) + " seconds")
