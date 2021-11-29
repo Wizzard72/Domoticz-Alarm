@@ -897,6 +897,7 @@ class BasePlugin:
             Domoticz.Error("Device "+idx+" NOT does exist!")
             statusdoDeviceExist = False
             self.setVersionCheck(False, "doDeviceExist")
+        statusdoDeviceExist = True
         return statusdoDeviceExist
         
         
