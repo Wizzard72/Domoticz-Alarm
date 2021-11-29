@@ -889,14 +889,14 @@ class BasePlugin:
         jsonQuery = "type=devices&rid="+idx
         #/json.htm?type=devices&rid=16
         APIjson = DomoticzAPI(jsonQuery)
-        try:
-            nodes = APIjson["result"]
-            statusdoDeviceExist = True
-        except:
-            nodes = []
-            Domoticz.Error("Device "+idx+" NOT does exist!")
-            statusdoDeviceExist = False
-            self.setVersionCheck(False, "doDeviceExist")
+        #try:
+        #    nodes = APIjson["result"]
+        #    statusdoDeviceExist = True
+        #except:
+        #    nodes = []
+        #    Domoticz.Error("Device "+idx+" NOT does exist!")
+        #    statusdoDeviceExist = False
+        #    self.setVersionCheck(False, "doDeviceExist")
         statusdoDeviceExist = True
         return statusdoDeviceExist
         
