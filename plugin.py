@@ -12,12 +12,13 @@
 #   1.3.0: Added fire devices, check if configured devices exists, text devices for Open Sections and Tripped devices
 #   1.3.1: Fire devices now active the alarm when alarm is disabled
 #   1.3.2: Thanks to Beastie971: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
+#   1.3.3: The selector switches for controling the plugin didn't load correctly. Also removed some minor bugs.
 #
 """
-<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.3.1" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
+<plugin key="Alarm" name="Alarm System for Domoticz" author="Wizzard72" version="1.3.3" wikilink="https://github.com/Wizzard72/Domoticz-Alarm">
     <description>
         <h2>Alarm plugin</h2><br/>
-        Current Version:    1.3.2: Thanks to Beastie971: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
+        Current Version:    1.3.3: Thanks to Beastie971: Add support for PIR's with different options. Add support for disabling Alarm System with Security Panel
         <br/>
         This plugin creates an Alarm System in Domoticz. It depends on the devices already available in Domoticz, such as PIR, Door, etc. sensors.<br/>
         <br/>
@@ -234,7 +235,18 @@ class BasePlugin:
             UpdateDevice(openSectionDevice, 1, "None")
             UpdateDevice(triggeredDevice, 1, "None")
 
-        self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue
+        if Devices[self.ALARM_ENTRY_DELAY].nValue != 0:
+            self.entryDelay = Devices[self.ALARM_ENTRY_DELAY].nValue + 20
+            Domoticz.Log(strName + "Entry Delay set to: " + str(self.entryDelay) + "seconds")
+        if Devices[self.ALARM_EXIT_DELAY].nValue != 0:
+            self.exitDelay = Devices[self.ALARM_EXIT_DELAY].nValue + 20
+            Domoticz.Log(strName + "Exit Delay set to: " + str(self.exitDelay) + "seconds")
+        if Devices[self.ALARM_SENSOR_TIME].nValue != 0:
+            self.SensorActiveTime = Devices[self.ALARM_SENSOR_TIME].nValue + 30
+            Domoticz.Log(strName + "Sensor Active Time set to: " + str(self.SensorActiveTime) + "seconds")
+        if Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue != 0:
+            self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue + 20
+            Domoticz.Log(strName + "Open Section Timeout set to: " + str(self.OpenSectionArmAnyWay) + "seconds")
         self.OpenSectionArmAnyWay = Devices[self.ALARM_OPEN_SECTION_TIMEOUT].nValue
         
         self.secpassword = self.getsecpasspword()
@@ -264,7 +276,7 @@ class BasePlugin:
                 if ArmingStatusUnit == Unit:
                     self.controlSiren(self.TotalZones)
             if self.ALARM_SENSOR_TIME == Unit:
-                self.SensorActiveTime = Level + 20
+                self.SensorActiveTime = Level + 30
                 Domoticz.Debug(strName+"Sensor Active Time = "+str(self.SensorActiveTime))
                 UpdateDevice(self.ALARM_SENSOR_TIME, Level, str(Level))
             if self.ALARM_ENTRY_DELAY == Unit:
@@ -272,7 +284,7 @@ class BasePlugin:
                 Domoticz.Debug(strName+"Entry Delay = "+str(self.entryDelay))
                 UpdateDevice(self.ALARM_ENTRY_DELAY, Level, str(Level))
             if self.ALARM_OPEN_SECTION_TIMEOUT == Unit: 
-                self.entryDelay = Level + 20 #seconds
+                self.OpenSectionArmAnyWay = Level + 20 #seconds
                 Domoticz.Debug(strName+"Open Sections = "+str(self.entryDelay))
                 UpdateDevice(self.ALARM_OPEN_SECTION_TIMEOUT, Level, str(Level))
             if self.ALARM_EXIT_DELAY == Unit:
