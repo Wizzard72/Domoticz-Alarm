@@ -1,3 +1,5 @@
+!!!! Final version - I'm not maintaining this plugin anymore. Recently migrated to Home Assistant.
+
 # Alarm System for Domoticz
 
 ![ble_tag](https://raw.githubusercontent.com/Wizzard72/Domoticz-Alarm/master/images/Siren.png)
