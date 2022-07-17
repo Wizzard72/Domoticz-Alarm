@@ -1,4 +1,4 @@
-!!!! Final version - I'm not maintaining this plugin anymore. Recently migrated to Home Assistant.
+#!!!! Final version - I'm not maintaining this plugin anymore. Recently migrated to Home Assistant.
 
 # Alarm System for Domoticz
 
